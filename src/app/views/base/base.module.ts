@@ -47,6 +47,15 @@ import { NavbarsComponent } from './navbars/navbars.component';
 
 // Components Routing
 import { BaseRoutingModule } from './base-routing.module';
+import { ProductComponent } from './product/product.component';
+import { AddUpdateProductComponent } from './product/add-update-product/add-update-product.component';
+import { BrandComponent } from './brand/brand.component';
+import { AddUpdateBrandComponent } from './brand/add-update-brand/add-update-brand.component';
+import { CustomerComponent } from './customer/customer.component';
+import { CategoryComponent } from './category/category.component';
+import { AddUpdateCategoryComponent } from './category/add-update-category/add-update-category.component';
+import { StaffComponent } from './staff/staff.component';
+import { AddUpdateStaffComponent } from './staff/add-update-staff/add-update-staff.component';
 
 @NgModule({
   imports: [
@@ -60,7 +69,7 @@ import { BaseRoutingModule } from './base-routing.module';
     PaginationModule.forRoot(),
     PopoverModule.forRoot(),
     ProgressbarModule.forRoot(),
-    TooltipModule.forRoot()
+    TooltipModule.forRoot(),
   ],
   declarations: [
     CardsComponent,
@@ -74,7 +83,16 @@ import { BaseRoutingModule } from './base-routing.module';
     PopoversComponent,
     ProgressComponent,
     TooltipsComponent,
-    NavbarsComponent
-  ]
+    NavbarsComponent,
+    ProductComponent,
+    AddUpdateProductComponent,
+    BrandComponent,
+    AddUpdateBrandComponent,
+    CustomerComponent,
+    CategoryComponent,
+    AddUpdateCategoryComponent,
+    StaffComponent,
+    AddUpdateStaffComponent,
+  ],
 })
-export class BaseModule { }
+export class BaseModule {}

@@ -1,0 +1,105 @@
+<div class="col-lg-12">
+  <div class="activities flex justify-between margin-bottom-20">
+    <div class="addProduct">
+      <a class="btn btn-success" [routerLink]="['/base/product/id']"
+        >Thêm mới sản phẩm</a
+      >
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header">
+      <i class="fa fa-align-justify"></i>Quản Lý Sản Phẩm
+    </div>
+    <!-- <div class="col-md-6">
+      <div id="dataTableeee_filter" class="dataTables_filter">
+        <label
+          >Search:<input
+            type="search"
+            class="form-control form-control-sm"
+            placeholder=""
+            aria-controls="dataTableeee"
+          />
+        </label>
+      </div>
+    </div> -->
+    <div class="card-body">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Mã Sản Phẩm</th>
+            <th>Tên Sản Phẩm</th>
+            <th>Nhãn Hiệu</th>
+            <th>Hình Ảnh</th>
+            <!-- <th>Danh Mục</th> -->
+
+            <th>Giá</th>
+            <th>Thao Tác</th>
+            <th>Hệ thống</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of datas">
+            <td class="text-center" style="vertical-align: center !important">
+              {{ item.Id }}
+            </td>
+            <td>{{ item.Name }}</td>
+            <td>{{ item.BrandName }}</td>
+            <td style="width: 100px; height: 100px">
+              <img src="{{ item.Thumbnail }}" class="w-100" alt="" />
+            </td>
+            <td>{{ item.FromPrice }}</td>
+            <td>
+              <div class="flex justify-content-center align-items-center">
+                <a
+                  [routerLink]="['/base/product', item.Id]"
+                  class="btn btn-success rounded-circle m-0 ml-1"
+                >
+                  <i class="fa fa-eye"></i>
+                </a>
+
+                <button class="btn btn-warning rounded-circle m-0 ml-1">
+                  <i class="fa fa-edit text-white"></i>
+                </button>
+
+                <!-- <button class="btn btn-Warning rounded-circle m-0">
+                  <i class="fa fa-edit"></i>
+                </button> -->
+
+                <button class="btn btn-danger rounded-circle m-0 ml-1">
+                  <i class="fa fa-trash"></i>
+                </button>
+              </div>
+            </td>
+            <td>
+              <span>Tạo bởi: {{ item.CreatedByName }}</span>
+              <br />
+              <span
+                >Lúc:
+                <span id="date">{{
+                  item.CreatedByTime | date: "dd/MM/yyyy"
+                }}</span>
+              </span>
+              <br />
+              <span *ngIf="item.UpdatedByName != null">
+                Cập nhật bởi: {{ item.UpdatedByName }} </span
+              ><br />
+              <span *ngIf="item.UpdatedByTime != null">
+                Lúc: {{ item.UpdatedByTime | date: "dd/MM/yyyy" }}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <ul class="pagination">
+        <li class="page-item"><a class="page-link" href="#">Prev</a></li>
+        <li class="page-item active">
+          <a class="page-link" href="#">1</a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item"><a class="page-link" href="#">4</a></li>
+        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
