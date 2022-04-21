@@ -2,12 +2,7 @@
   <div class="card">
     <div class="card-header"><strong>Thêm Sản Phẩm</strong></div>
     <div class="card-body">
-      <form
-        action=""
-        method="post"
-        enctype="multipart/form-data"
-        class="form-horizontal"
-      >
+      <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
         <!-- <div class="form-group row">
                 <label class="col-md-3 col-form-label">Static</label>
                 <div class="col-md-9">
@@ -16,34 +11,18 @@
               </div> -->
         <div class="row">
           <div class="col-6">
-            <div class="form-group row" *ngIf="id != 'id'">
-              <label class="col-md-3 col-form-label" for="text-input"
-                >Mã Sản Phẩm <span>*</span></label
-              >
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="text-input">Mã Sản Phẩm <span>*</span></label>
               <div class="col-md-9">
-                <input
-                  type="text"
-                  id="text-input"
-                  name="text-input"
-                  class="form-control"
-                  placeholder="Text"
-                  disabled
-                />
+                <input type="text" id="text-input" name="text-input" class="form-control" placeholder="Text"
+                  [value]="detail.Data.Id" disabled />
                 <!-- <span class="help-block">This is a help text</span> -->
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="select2"
-                >Nhãn Hiệu Sản Phẩm <span>*</span></label
-              >
+              <label class="col-md-3 col-form-label" for="select2">Nhãn Hiệu Sản Phẩm <span>*</span></label>
               <div class="col-md-9">
-                <select
-                  disabled
-                  id="select2"
-                  name="select2"
-                  class="form-control form-control-lg"
-                  [value]="detail != null ? detail.Data.id : null"
-                >
+                <select disabled id="select2" name="select2" class="form-control form-control-lg">
                   <option value="0">Please select</option>
                   <option value="1">Option #1</option>
                   <option value="2">Option #2</option>
@@ -53,31 +32,38 @@
             </div>
 
             <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="text-input"
-                >Tên Sản Phẩm <span>*</span></label
-              >
+              <label class="col-md-3 col-form-label" for="text-input">Tên Sản Phẩm <span>*</span></label>
               <div class="col-md-9">
-                <input
-                  type="text"
-                  id="text-input"
-                  name="text-input"
-                  class="form-control"
-                  placeholder="Text"
-                  disabled
-                />
+                <input type="text" id="text-input" name="Name" [value]="detail.Data.Name" class="form-control"
+                  placeholder="Text" [disabled]="detail? true:false" />
                 <!-- <span class="help-block">This is a help text</span> -->
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="select2"
-                >Mặt Kính<span>*</span></label
-              >
+              <label class="col-md-3 col-form-label" for="select2">Mặt Kính<span>*</span></label>
               <div class="col-md-9">
-                <select
-                  id="select2"
-                  name="select2"
-                  class="form-control form-control-lg"
-                >
+                <select id="select2" name="Crytal" [value]="detail.Data.Crytal" class="form-control form-control-lg">
+                  <option value="0">Please select</option>
+                  <option value="Kính khoáng (Mineral)">Kính Khoáng</option>
+                  <option value="2">Option #2</option>
+                  <option value="3">Option #3</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="select2">Dây Đeo <span>*</span></label>
+              <div class="col-md-9">
+                <select id="select2" name="" class="form-control form-control-lg">
+                  <option value="0">Please select</option>
+                  <option value="2">Option #2</option>
+                  <option value="3">Option #3</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="select2">Độ Chống Nước <span>*</span></label>
+              <div class="col-md-9">
+                <select id="select2" name="select2" class="form-control form-control-lg">
                   <option value="0">Please select</option>
                   <option value="1">Option #1</option>
                   <option value="2">Option #2</option>
@@ -86,64 +72,16 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="select2"
-                >Dây Đeo <span>*</span></label
-              >
+              <label class="col-md-3 col-form-label" for="date-input">Bảo Hành</label>
               <div class="col-md-9">
-                <select
-                  id="select2"
-                  name="select2"
-                  class="form-control form-control-lg"
-                >
-                  <option value="0">Please select</option>
-                  <option value="1">Option #1</option>
-                  <option value="2">Option #2</option>
-                  <option value="3">Option #3</option>
-                </select>
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="select2"
-                >Độ Chống Nước <span>*</span></label
-              >
-              <div class="col-md-9">
-                <select
-                  id="select2"
-                  name="select2"
-                  class="form-control form-control-lg"
-                >
-                  <option value="0">Please select</option>
-                  <option value="1">Option #1</option>
-                  <option value="2">Option #2</option>
-                  <option value="3">Option #3</option>
-                </select>
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="date-input"
-                >Bảo Hành</label
-              >
-              <div class="col-md-9">
-                <input
-                  class="form-control"
-                  id="date-input"
-                  type="date"
-                  name="date-input"
-                  placeholder="date"
-                />
+                <input class="form-control" id="date-input" type="date" name="date-input" placeholder="date" />
                 <!-- <span class="help-block">Please enter a valid date</span> -->
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="select2"
-                >Xuất Xứ <span>*</span></label
-              >
+              <label class="col-md-3 col-form-label" for="select2">Xuất Xứ <span>*</span></label>
               <div class="col-md-9">
-                <select
-                  id="select2"
-                  name="select2"
-                  class="form-control form-control-lg"
-                >
+                <select id="select2" name="select2" class="form-control form-control-lg">
                   <option value="0">Please select</option>
                   <option value="1">Option #1</option>
                   <option value="2">Option #2</option>
@@ -152,17 +90,10 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="textarea-input"
-                >Mô Tả Sản Phẩm</label
-              >
+              <label class="col-md-3 col-form-label" for="textarea-input">Mô Tả Sản Phẩm</label>
               <div class="col-md-9">
-                <textarea
-                  id="textarea-input"
-                  name="textarea-input"
-                  rows="9"
-                  class="form-control"
-                  placeholder="Content.."
-                ></textarea>
+                <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control"
+                  placeholder="Content.."></textarea>
               </div>
             </div>
           </div>
@@ -182,18 +113,10 @@
                 </p> -->
                 <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
                 <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
-                  <button
-                    type="button"
-                    class="btn btn-block btn-outline-success active"
-                    aria-pressed="true"
-                  >
+                  <button type="button" class="btn btn-block btn-outline-success active" aria-pressed="true">
                     Success
                   </button>
-                  <button
-                    type="button"
-                    class="btn btn-block btn-outline-danger active"
-                    aria-pressed="true"
-                  >
+                  <button type="button" class="btn btn-block btn-outline-danger active" aria-pressed="true">
                     Danger
                   </button>
                 </div>
@@ -232,11 +155,7 @@
           <div class="card-header-actions" style="height: 21px">
             <label class="switch switch-sm switch-label switch-info">
               <input type="checkbox" class="switch-input" checked />
-              <span
-                class="switch-slider"
-                data-checked="On"
-                data-unchecked="Off"
-              ></span>
+              <span class="switch-slider" data-checked="On" data-unchecked="Off"></span>
             </label>
           </div>
         </div>
@@ -252,12 +171,7 @@
                   <strong>Thêm Loại Sản Phẩm</strong>
                 </div>
                 <div class="card-body">
-                  <form
-                    action=""
-                    method="post"
-                    enctype="multipart/form-data"
-                    class="form-horizontal"
-                  >
+                  <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
                     <!-- <div class="form-group row">
             <label class="col-md-3 col-form-label">Static</label>
             <div class="col-md-9">
@@ -267,95 +181,47 @@
                     <div class="row">
                       <div class="col-6">
                         <div class="form-group row">
-                          <label
-                            class="col-md-3 col-form-label"
-                            for="text-input"
-                            >Tên Sản Phẩm <span>*</span></label
-                          >
+                          <label class="col-md-3 col-form-label" for="text-input">Tên Sản Phẩm <span>*</span></label>
                           <div class="col-md-9">
-                            <input
-                              type="text"
-                              id="text-input"
-                              name="text-input"
-                              class="form-control"
-                              placeholder="Text"
-                            />
+                            <input type="text" id="text-input" name="text-input" class="form-control"
+                              placeholder="Text" />
                             <!-- <span class="help-block">This is a help text</span> -->
                           </div>
                         </div>
                         <div class="form-group row">
-                          <label
-                            class="col-md-3 col-form-label"
-                            for="text-input"
-                            >Giá <span>*</span></label
-                          >
+                          <label class="col-md-3 col-form-label" for="text-input">Giá <span>*</span></label>
                           <div class="col-md-9">
-                            <input
-                              type="text"
-                              id="text-input"
-                              name="text-input"
-                              class="form-control"
-                              placeholder="Text"
-                            />
+                            <input type="text" id="text-input" name="text-input" class="form-control"
+                              placeholder="Text" />
                             <!-- <span class="help-block">This is a help text</span> -->
                           </div>
                         </div>
                         <div class="form-group row">
-                          <label
-                            class="col-md-3 col-form-label"
-                            for="text-input"
-                            >Giá Khuyến Mãi <span>*</span></label
-                          >
+                          <label class="col-md-3 col-form-label" for="text-input">Giá Khuyến Mãi <span>*</span></label>
                           <div class="col-md-9">
-                            <input
-                              type="text"
-                              id="text-input"
-                              name="text-input"
-                              class="form-control"
-                              placeholder="Text"
-                            />
+                            <input type="text" id="text-input" name="text-input" class="form-control"
+                              placeholder="Text" />
                             <!-- <span class="help-block">This is a help text</span> -->
                           </div>
                         </div>
                         <div class="form-group row">
-                          <label
-                            class="col-md-3 col-form-label"
-                            for="text-input"
-                            >Số Lượng Tồn<span>*</span></label
-                          >
+                          <label class="col-md-3 col-form-label" for="text-input">Số Lượng Tồn<span>*</span></label>
                           <div class="col-md-9">
-                            <input
-                              type="text"
-                              id="text-input"
-                              name="text-input"
-                              class="form-control"
-                              placeholder="Text"
-                            />
+                            <input type="text" id="text-input" name="text-input" class="form-control"
+                              placeholder="Text" />
                             <!-- <span class="help-block">This is a help text</span> -->
                           </div>
                         </div>
                       </div>
                       <div class="col-6">
                         <div class="form-group row">
-                          <label
-                            class="col-md-3 col-form-label"
-                            for="file-multiple-input"
-                            >Thêm Ảnh Sản Phẩm</label
-                          >
+                          <label class="col-md-3 col-form-label" for="file-multiple-input">Thêm Ảnh Sản Phẩm</label>
                           <div class="col-md-9">
-                            <input
-                              type="file"
-                              id="file-multiple-input"
-                              name="file-multiple-input"
-                              multiple
-                            />
+                            <input type="file" id="file-multiple-input" name="file-multiple-input" multiple />
                           </div>
                         </div>
                         <div class="col-md-9">
-                          <button
-                            type="reset"
-                            class="btn btn-sm btn-danger form-control-lg"
-                          >
+                          <button type="reset" class="btn btn-sm btn-danger form-control-lg">
                             <i class="fa fa-ban"></i> xóa Sản Phẩm
                           </button>
                           <button type="submit" class="btn btn-sm btn-primary">
@@ -378,19 +244,9 @@
                     </button>
                   </div> -->
                         <div class="card-header-actions" style="height: 21px">
-                          <label
-                            class="switch switch-sm switch-label switch-info"
-                          >
-                            <input
-                              type="checkbox"
-                              class="switch-input"
-                              checked
-                            />
-                            <span
-                              class="switch-slider"
-                              data-checked="On"
-                              data-unchecked="Off"
-                            ></span>
+                          <label class="switch switch-sm switch-label switch-info">
+                            <input type="checkbox" class="switch-input" checked />
+                            <span class="switch-slider" data-checked="On" data-unchecked="Off"></span>
                           </label>
                         </div>
                       </div>
@@ -404,11 +260,7 @@
               <button type="button" class="btn btn-primary">
                 Save changes
               </button>
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-dismiss="modal"
-              >
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">
                 Close
               </button>
             </div>

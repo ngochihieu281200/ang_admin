@@ -12,4 +12,8 @@ export class DefaultLayoutComponent {
   toggleMinimize(e) {
     this.sidebarMinimized = e;
   }
+  logout(){
+    localStorage.removeItem('token');
+    location.reload()
+  }
 }

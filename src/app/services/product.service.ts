@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { async, Observable, observable, of } from 'rxjs';
 import { apiEndpoint } from '../config/api';
-import { ResultProduct, ResultProductDetail } from '../model/result.model';
+import { result, ResultProduct, ResultProductDetail } from '../model/result.model';
 import { ProductDetail } from 'src/app/model/product.model';
+import {accessToken,data} from '../model/user.model'
 
 const httpOptions = {
   herders: new HttpHeaders({ 'Content-Type': 'Application/json' }),
@@ -12,7 +13,8 @@ const httpOptions = {
   providedIn: 'root',
 })
 export class ProductService {
-  constructor(private httpClient: HttpClient) {}
+  data : ResultProductDetail ;
+   constructor(private httpClient: HttpClient) {}
   RetrieveAll(): Observable<ResultProduct> {
     return this.httpClient.get<ResultProduct>(
       `${apiEndpoint}product/mobile/all`
@@ -23,23 +25,41 @@ export class ProductService {
   //     `${apiEndpoint}product/details/{Id}`
   //   );
   // }
-  callApiWithToken(url, id) {
-    const headers = { 'content-type': 'application/json' };
-    let newToken;
-    const refreshToken =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjYyM2FhMWE5ZGE3NjI4OWU2ZWQ3OGI4NiIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJBZG1pbkAxMjMiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiIsImV4cCI6MTY0OTkxOTUyOCwiaXNzIjoiaHR0cHM6Ly93ZWJhcGkudGVkdS5jb20udm4iLCJhdWQiOiJodHRwczovL3dlYmFwaS50ZWR1LmNvbS52biJ9.g-aARgFHWScGx0MwWoOaqTO6dYq2ul0xVergyB3HT0I';
+  async callApiWithToken(url, id) {
+    const tokenStorage = JSON.parse(localStorage.getItem("token"))
+
     // const body=JSON.stringify(person);
-    let token = JSON.parse(localStorage.getItem('token'));
-    let accessToken =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjYyM2FhMWE5ZGE3NjI4OWU2ZWQ3OGI4NiIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJBZG1pbkAxMjMiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiIsImV4cCI6MTY0OTMxOTk2OCwiaXNzIjoiaHR0cHM6Ly93ZWJhcGkudGVkdS5jb20udm4iLCJhdWQiOiJodHRwczovL3dlYmFwaS50ZWR1LmNvbS52biJ9._oDjSfVuWqvCbQe3u3t6KSC0v1-VdrZO6Syu9Z7UDKU';
+    // let token = JSON.parse(localStorage.getItem('token'));
+    // console.log('this.accessToken', this.accessToken)
     return this.httpClient.get(`${apiEndpoint}product/details/${id}`, {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${accessToken}`,
+        "Authorization": `Bearer ${tokenStorage.AccessToken}`,
       },
-    });
+    })
+
+
+
+
+
+
   }
+
 }
+
+// this.httpClient.post(`${apiEndpoint}/authenticate/refresh-token`,{
+//   headers : {
+//     'Content-Type':'application/json'
+//   },
+//   body:JSON.stringify({'RefreshToken':refreshToken})
+// }).subscribe(res => (
+//   console.log('res', res),
+//   this.accessToken = res['Data'].AccessToken),
+//   this.callApiWithToken('',id))
+
+
+
+
 // if (err.status === 401) {
 //   newToken = this.httpClient.post(
 //     `${apiEndpoint}authenticate/refresh-token`,

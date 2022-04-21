@@ -18,13 +18,9 @@ export class AppComponent implements OnInit {
     // iconSet singleton
     iconSet.icons = { cilUser };
   }
+  auth:any;
 
-  ngOnInit() {
-    this.router.events.subscribe((evt) => {
-      if (!(evt instanceof NavigationEnd)) {
-        return;
-      }
-      window.scrollTo(0, 0);
-    });
+
+  ngOnInit():void {
   }
 }
