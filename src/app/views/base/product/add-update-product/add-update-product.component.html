@@ -1,6 +1,12 @@
 <div class="col-lg-12">
   <div class="card">
-    <div class="card-header"><strong>Thêm Sản Phẩm</strong></div>
+    <div class="card-header">
+      <strong>Thêm Sản Phẩm</strong>
+      <a class="ml-1 btn btn-primary" [routerLink]="['/base/product']"
+        ><strong>Quay lại</strong></a
+      >
+    </div>
+
     <div class="card-body">
       <form
         action=""
@@ -26,7 +32,7 @@
                   id="text-input"
                   name="text-input"
                   class="form-control"
-                  placeholder="Text"
+                  placeholder=""
                   disabled
                 />
                 <!-- <span class="help-block">This is a help text</span> -->
@@ -62,7 +68,7 @@
                   id="text-input"
                   name="text-input"
                   class="form-control"
-                  placeholder="Text"
+                  placeholder="Tên sản phẩm..."
                   disabled
                 />
                 <!-- <span class="help-block">This is a help text</span> -->
@@ -78,7 +84,7 @@
                   name="select2"
                   class="form-control form-control-lg"
                 >
-                  <option value="0">Please select</option>
+                  <option value="0">Mặt kính</option>
                   <option value="1">Option #1</option>
                   <option value="2">Option #2</option>
                   <option value="3">Option #3</option>
@@ -95,7 +101,7 @@
                   name="select2"
                   class="form-control form-control-lg"
                 >
-                  <option value="0">Please select</option>
+                  <option value="0">Dây Đeo</option>
                   <option value="1">Option #1</option>
                   <option value="2">Option #2</option>
                   <option value="3">Option #3</option>
@@ -112,7 +118,7 @@
                   name="select2"
                   class="form-control form-control-lg"
                 >
-                  <option value="0">Please select</option>
+                  <option value="0">Độ Chống Nước</option>
                   <option value="1">Option #1</option>
                   <option value="2">Option #2</option>
                   <option value="3">Option #3</option>
@@ -144,7 +150,7 @@
                   name="select2"
                   class="form-control form-control-lg"
                 >
-                  <option value="0">Please select</option>
+                  <option value="0">Xuất Xứ</option>
                   <option value="1">Option #1</option>
                   <option value="2">Option #2</option>
                   <option value="3">Option #3</option>
@@ -181,23 +187,26 @@
                   the bulk of the card's content.
                 </p> -->
                 <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
-                <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
-                  <button
-                    type="button"
-                    class="btn btn-block btn-outline-success active"
-                    aria-pressed="true"
-                  >
-                    Success
-                  </button>
-                  <button
-                    type="button"
-                    class="btn btn-block btn-outline-danger active"
-                    aria-pressed="true"
-                  >
-                    Danger
-                  </button>
+                <div class="col-lg-12 row">
+                  <div class="col-sm-6 col-sm-6 mb-xl-0">
+                    <button
+                      type="button"
+                      class="btn btn-block btn-outline-success active"
+                      aria-pressed="true"
+                    >
+                      Thêm
+                    </button>
+                  </div>
+                  <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
+                    <button
+                      type="button"
+                      class="btn btn-block btn-outline-danger active"
+                      aria-pressed="true"
+                    >
+                      Xóa
+                    </button>
+                  </div>
                 </div>
-                <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0"></div>
               </div>
               <!-- <div class="col-md-9">
                 <input
@@ -207,20 +216,35 @@
                   multiple
                 /> -->
             </div>
-            <button type="reset" class="btn btn-sm btn-danger">
-              <i class="fa fa-ban"></i> xóa Sản Phẩm
+            <button
+              class="btn btn-lg btn-outline-primary"
+              (click)="largeModal.show()"
+            >
+              Thêm Loại Sản Phẩm
             </button>
-            <button type="submit" class="btn btn-sm btn-primary">
-              <i class="fa fa-dot-circle-o"></i> Thêm Sản Phẩm
+            <button
+              type="button"
+              class="btn btn-outline-success active ml-1"
+              aria-pressed="true"
+            >
+              Thêm Sản Phẩm
             </button>
           </div>
 
-          <button type="reset" class="btn btn-sm btn-primary">
-            <i class="fa fa-ban"></i> Thêm Loại Sản Phẩm
+          <!-- <button
+            type="button"
+            class="btn btn-outline-success active"
+            aria-pressed="true"
+          >
+            Thêm Sản Loại Phẩm
           </button>
-          <button type="submit" class="btn btn-sm btn-primary">
-            <i class="fa fa-dot-circle-o"></i> Thêm Sản Phẩm
-          </button>
+          <button
+            type="button"
+            class="btn btn-outline-success active ml-1"
+            aria-pressed="true"
+          >
+            Thêm Sản Phẩm
+          </button> -->
           <!-- <div class="card-footer">
                             <button type="reset" class="btn btn-sm btn-danger">
                               <i class="fa fa-ban"></i> Thêm Loại Sản Phẩm
@@ -229,201 +253,174 @@
                               <i class="fa fa-dot-circle-o"></i> Thêm Sản Phẩm
                             </button>
                           </div> -->
-          <div class="card-header-actions" style="height: 21px">
-            <label class="switch switch-sm switch-label switch-info">
-              <input type="checkbox" class="switch-input" checked />
-              <span
-                class="switch-slider"
-                data-checked="On"
-                data-unchecked="Off"
-              ></span>
-            </label>
-          </div>
         </div>
       </form>
 
       <!-- thêm loại sản phẩm pop up -->
-      <div class="modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="col-lg-12">
-              <div class="card">
-                <div class="card-header">
-                  <strong>Thêm Loại Sản Phẩm</strong>
-                </div>
-                <div class="card-body">
-                  <form
-                    action=""
-                    method="post"
-                    enctype="multipart/form-data"
-                    class="form-horizontal"
-                  >
-                    <!-- <div class="form-group row">
-            <label class="col-md-3 col-form-label">Static</label>
-            <div class="col-md-9">
-              <p class="form-control-static">Username</p>
-            </div>
-          </div> -->
-                    <div class="row">
-                      <div class="col-6">
-                        <div class="form-group row">
-                          <label
-                            class="col-md-3 col-form-label"
-                            for="text-input"
-                            >Tên Sản Phẩm <span>*</span></label
-                          >
-                          <div class="col-md-9">
-                            <input
-                              type="text"
-                              id="text-input"
-                              name="text-input"
-                              class="form-control"
-                              placeholder="Text"
-                            />
-                            <!-- <span class="help-block">This is a help text</span> -->
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <label
-                            class="col-md-3 col-form-label"
-                            for="text-input"
-                            >Giá <span>*</span></label
-                          >
-                          <div class="col-md-9">
-                            <input
-                              type="text"
-                              id="text-input"
-                              name="text-input"
-                              class="form-control"
-                              placeholder="Text"
-                            />
-                            <!-- <span class="help-block">This is a help text</span> -->
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <label
-                            class="col-md-3 col-form-label"
-                            for="text-input"
-                            >Giá Khuyến Mãi <span>*</span></label
-                          >
-                          <div class="col-md-9">
-                            <input
-                              type="text"
-                              id="text-input"
-                              name="text-input"
-                              class="form-control"
-                              placeholder="Text"
-                            />
-                            <!-- <span class="help-block">This is a help text</span> -->
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <label
-                            class="col-md-3 col-form-label"
-                            for="text-input"
-                            >Số Lượng Tồn<span>*</span></label
-                          >
-                          <div class="col-md-9">
-                            <input
-                              type="text"
-                              id="text-input"
-                              name="text-input"
-                              class="form-control"
-                              placeholder="Text"
-                            />
-                            <!-- <span class="help-block">This is a help text</span> -->
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-6">
-                        <div class="form-group row">
-                          <label
-                            class="col-md-3 col-form-label"
-                            for="file-multiple-input"
-                            >Thêm Ảnh Sản Phẩm</label
-                          >
-                          <div class="col-md-9">
-                            <input
-                              type="file"
-                              id="file-multiple-input"
-                              name="file-multiple-input"
-                              multiple
-                            />
-                          </div>
-                        </div>
-                        <div class="col-md-9">
-                          <button
-                            type="reset"
-                            class="btn btn-sm btn-danger form-control-lg"
-                          >
-                            <i class="fa fa-ban"></i> xóa Sản Phẩm
-                          </button>
-                          <button type="submit" class="btn btn-sm btn-primary">
-                            <i class="fa fa-dot-circle-o"></i> Thêm Sản Phẩm
-                          </button>
-                        </div>
 
-                        <button type="reset" class="btn btn-sm btn-primary">
-                          <i class="fa fa-ban"></i> Thêm Loại Sản Phẩm
-                        </button>
-                        <button type="submit" class="btn btn-sm btn-primary">
-                          <i class="fa fa-dot-circle-o"></i> Thêm Sản Phẩm
-                        </button>
-                        <!-- <div class="card-footer">
-                    <button type="reset" class="btn btn-sm btn-danger">
-                      <i class="fa fa-ban"></i> Thêm Loại Sản Phẩm
-                    </button>
-                    <button type="submit" class="btn btn-sm btn-primary">
-                      <i class="fa fa-dot-circle-o"></i> Thêm Sản Phẩm
-                    </button>
-                  </div> -->
-                        <div class="card-header-actions" style="height: 21px">
-                          <label
-                            class="switch switch-sm switch-label switch-info"
-                          >
-                            <input
-                              type="checkbox"
-                              class="switch-input"
-                              checked
-                            />
-                            <span
-                              class="switch-slider"
-                              data-checked="On"
-                              data-unchecked="Off"
-                            ></span>
-                          </label>
-                        </div>
-                      </div>
-                    </div>
-                  </form>
+      <!-- /.modal -->
+    </div>
+  </div>
+</div>
+<div
+  bsModal
+  #largeModal="bs-modal"
+  class="modal fade"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg" role="document">
+    <form
+      [formGroup]="typeForm"
+      (ngSubmit)="addTypeProduct(typeForm)"
+      class="modal-content"
+    >
+      <div class="modal-header">
+        <h4 class="modal-title">Thêm Loại Sản Phẩm</h4>
+        <button
+          type="button"
+          class="close"
+          (click)="largeModal.hide()"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div>
+          <div class="row">
+            <div class="col-7">
+              <div class="row">
+                <div class="form-group col-lg-12">
+                  <label for=""
+                    >Tên Sản Phẩm <span class="text-danger">*</span></label
+                  >
+                  <input
+                    type="text"
+                    id="nf-email"
+                    name="Name"
+                    formControlName="Name"
+                    class="form-control"
+                    placeholder="Tên Sản Phẩm"
+                    autocomplete="email"
+                  />
+                  <!-- <span class="help-block">Please enter your email</span> -->
+                </div>
+                <div class="form-group col-lg-12">
+                  <label for=""
+                    >Giá Bán <span class="text-danger">*</span></label
+                  >
+                  <input
+                    type="number"
+                    id="nf-password"
+                    name="OriginalPrice"
+                    formControlName="OriginalPrice"
+                    class="form-control"
+                    placeholder="Giá Bán"
+                    autocomplete="current-password"
+                  />
+                  <!-- <span class="help-block">Please enter your password</span> -->
+                </div>
+                <div class="form-group col-lg-12">
+                  <label for="">Giá Khuyến Mãi </label>
+                  <input
+                    type="number"
+                    id="nf-password"
+                    name="PromotionPrice"
+                    formControlName="PromotionPrice"
+                    class="form-control"
+                    placeholder="Giá Khuyến Mãi"
+                    autocomplete="current-password"
+                  />
+                  <!-- <span class="help-block">Please enter your password</span> -->
+                </div>
+                <div class="form-group col-lg-12">
+                  <label for=""
+                    >Số Lượng Tồn<span class="text-danger">*</span></label
+                  >
+                  <input
+                    type="number"
+                    id="nf-password"
+                    name="Stock"
+                    formControlName="Stock"
+                    class="form-control"
+                    placeholder="Số Lượng Tồn"
+                    autocomplete="current-password"
+                  />
+                  <!-- <span class="help-block">Please enter your password</span> -->
+                </div>
+                <div class="form-group col-lg-12">
+                  <label class="switch switch-label switch-pill switch-success">
+                    <input type="checkbox" class="switch-input" checked />
+                    <span
+                      name="IsShow"
+                      class="switch-slider"
+                      data-checked="On"
+                      data-unchecked="Off"
+                    ></span>
+                  </label>
                 </div>
               </div>
             </div>
-
-            <div class="modal-footer">
-              <button type="button" class="btn btn-primary">
-                Save changes
-              </button>
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-dismiss="modal"
-              >
-                Close
-              </button>
+            <div class="col-5">
+              <div class="card" style="width: 18rem">
+                <img class="card-img-top" src="..." alt="Card image cap" />
+                <div class="card-body">
+                  <h5 class="card-title">Thêm Ảnh Sản Phẩm</h5>
+                  <!-- <p class="card-text">
+                    Some quick example text to build on the card title and make up
+                    the bulk of the card's content.
+                  </p> -->
+                  <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                  <div class="col-lg-12 row">
+                    <div class="col-sm-6 col-sm-6 mb-xl-0">
+                      <button
+                        type="button"
+                        class="btn btn-block btn-outline-success active"
+                        aria-pressed="true"
+                      >
+                        Thêm
+                      </button>
+                    </div>
+                    <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
+                      <button
+                        type="button"
+                        class="btn btn-block btn-outline-danger active"
+                        aria-pressed="true"
+                      >
+                        Xóa
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <!-- <div class="col-md-9">
+                  <input
+                    type="file"
+                    id="file-multiple-input"
+                    name="file-multiple-input"
+                    multiple
+                  /> -->
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <!-- </div>
-          <div class="card-footer">
-            <button type="reset" class="btn btn-sm btn-danger">
-              <i class="fa fa-ban"></i> Thêm Loại Sản Phẩm
-            </button>
-            <button type="submit" class="btn btn-sm btn-primary">
-              <i class="fa fa-dot-circle-o"></i> Thêm Sản Phẩm
-            </button>
-          </div> -->
-    </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="largeModal.hide()"
+        >
+          Close
+        </button>
+        <button type="submit" class="btn btn-primary">
+          Thêm Loại Sản Phẩm
+        </button>
+      </div>
+    </form>
+    <!-- /.modal-content -->
   </div>
+  <!-- /.modal-dialog -->
 </div>

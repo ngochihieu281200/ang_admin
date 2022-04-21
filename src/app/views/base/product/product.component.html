@@ -22,6 +22,14 @@
         </label>
       </div>
     </div> -->
+
+    <!-- Search form -->
+    <!-- <form class="form-inline waves-light" mdbWavesEffect>
+      <div class="md-form mt-0">
+        <input class="form-control mr-sm-2" type="text" placeholder="Search" />
+      </div>
+    </form> -->
+
     <div class="card-body">
       <table class="table table-striped">
         <thead>
@@ -57,9 +65,12 @@
                   <i class="fa fa-eye"></i>
                 </a>
 
-                <button class="btn btn-warning rounded-circle m-0 ml-1">
+                <a
+                  [routerLink]="['/base/product', item.Id]"
+                  class="btn btn-warning rounded-circle m-0 ml-1"
+                >
                   <i class="fa fa-edit text-white"></i>
-                </button>
+                </a>
 
                 <!-- <button class="btn btn-Warning rounded-circle m-0">
                   <i class="fa fa-edit"></i>
@@ -90,16 +101,32 @@
           </tr>
         </tbody>
       </table>
-      <ul class="pagination">
-        <li class="page-item"><a class="page-link" href="#">Prev</a></li>
-        <li class="page-item active">
-          <a class="page-link" href="#">1</a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item"><a class="page-link" href="#">4</a></li>
-        <li class="page-item"><a class="page-link" href="#">Next</a></li>
-      </ul>
+
+      <div class="row">
+        <div class="col-6">
+          <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="#">Prev</a></li>
+            <li class="page-item active">
+              <a class="page-link" href="#">1</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">4</a></li>
+            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+          </ul>
+        </div>
+        <div class="col-6">
+          <form class="form-inline waves-light float-right" mdbWavesEffect>
+            <div class="md-form mt-0">
+              <input
+                class="form-control mr-sm-2"
+                type="text"
+                placeholder="Search"
+              />
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
 </div>

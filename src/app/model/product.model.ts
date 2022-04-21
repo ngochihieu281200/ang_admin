@@ -35,12 +35,12 @@ export interface ProductDetail {
   Descriotione: string;
   Machine: string;
   IsShow: boolean;
-  CreatedByName: string;
-  CreatedByTime: Date;
-  CreatedByID: string;
-  UpdatedByName: string;
-  UpdatedByTime: Date;
-  UpdatedByID: string;
+  // CreatedByName: string;
+  // CreatedByTime: Date;
+  // CreatedByID: string;
+  // UpdatedByName: string;
+  // UpdatedByTime: Date;
+  // UpdatedByID: string;
   Guarantee: Date;
   WaterProofId: string;
   WaterProofName: string;

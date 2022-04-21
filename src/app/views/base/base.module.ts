@@ -1,6 +1,6 @@
 // Angular
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 
 import { CardsComponent } from './cards.component';
@@ -56,6 +56,7 @@ import { CategoryComponent } from './category/category.component';
 import { AddUpdateCategoryComponent } from './category/add-update-category/add-update-category.component';
 import { StaffComponent } from './staff/staff.component';
 import { AddUpdateStaffComponent } from './staff/add-update-staff/add-update-staff.component';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 @NgModule({
   imports: [
@@ -70,6 +71,9 @@ import { AddUpdateStaffComponent } from './staff/add-update-staff/add-update-sta
     PopoverModule.forRoot(),
     ProgressbarModule.forRoot(),
     TooltipModule.forRoot(),
+    ModalModule.forRoot(),
+    FormsModule,
+    ReactiveFormsModule,
   ],
   declarations: [
     CardsComponent,
