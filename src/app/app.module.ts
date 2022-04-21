@@ -8,7 +8,10 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+<<<<<<< HEAD
 
+=======
+>>>>>>> d7bfcf42a2adc8a1f9f12113f595ca4e79df9e8f
 import {
   IconModule,
   IconSetModule,
@@ -66,9 +69,14 @@ import { ChartsModule } from 'ng2-charts';
     IconModule,
     IconSetModule.forRoot(),
     HttpClientModule,
+<<<<<<< HEAD
     ModalModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
+=======
+    FormsModule,
+    ReactiveFormsModule
+>>>>>>> d7bfcf42a2adc8a1f9f12113f595ca4e79df9e8f
   ],
   declarations: [
     AppComponent,
