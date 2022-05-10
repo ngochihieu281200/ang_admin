@@ -48,6 +48,7 @@ import { NavbarsComponent } from './navbars/navbars.component';
 // Components Routing
 import { BaseRoutingModule } from './base-routing.module';
 import { ProductComponent } from './product/product.component';
+
 import { AddUpdateProductComponent } from './product/add-update-product/add-update-product.component';
 import { BrandComponent } from './brand/brand.component';
 import { AddUpdateBrandComponent } from './brand/add-update-brand/add-update-brand.component';
@@ -57,6 +58,11 @@ import { AddUpdateCategoryComponent } from './category/add-update-category/add-u
 import { StaffComponent } from './staff/staff.component';
 import { AddUpdateStaffComponent } from './staff/add-update-staff/add-update-staff.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { Ng2CompleterModule } from 'ng2-completer';
+
+import { ProductDetailComponent } from './product/product-detail/product-detail.component';
+import { PopUpDetailComponent } from './product/pop-up-detail/pop-up-detail.component';
 
 @NgModule({
   imports: [
@@ -72,8 +78,10 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     ProgressbarModule.forRoot(),
     TooltipModule.forRoot(),
     ModalModule.forRoot(),
-    FormsModule,
+    // FormsModule,
     ReactiveFormsModule,
+    Ng2SmartTableModule,
+    // Ng2CompleterModule,
   ],
   declarations: [
     CardsComponent,
@@ -97,6 +105,9 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     AddUpdateCategoryComponent,
     StaffComponent,
     AddUpdateStaffComponent,
+    ProductDetailComponent,
+    ProductDetailComponent,
+    PopUpDetailComponent,
   ],
 })
 export class BaseModule {}

@@ -21,7 +21,6 @@ export interface ProductInfo {
 }
 
 export interface ProductDetail {
-<<<<<<< HEAD
   Id: string;
   CategoryID: string;
   CategoryName: string;
@@ -36,6 +35,12 @@ export interface ProductDetail {
   Descriotione: string;
   Machine: string;
   IsShow: boolean;
+  MadeIn: string;
+  PromotionPrice: number;
+  OriginalPrice: number;
+  Stock: number;
+  Image: string;
+
   // CreatedByName: string;
   // CreatedByTime: Date;
   // CreatedByID: string;
@@ -45,31 +50,4 @@ export interface ProductDetail {
   Guarantee: Date;
   WaterProofId: string;
   WaterProofName: string;
-=======
-  Ablert: String,
-  BrandID: String,
-  BrandName: String
-  CategoryID: String,
-  CategoryName: String,
-  ClassifyProducts: [],
-  CreatedByID: String,
-  CreatedByName: String,
-  CreatedByTime: String,
-  Crytal: String,
-  Description: String,
-  Feature: [],
-  FromPrice: Number,
-  Guarantee: Date,
-  Id: String,
-  IsShow: Boolean,
-  Machine: String,
-  Name: String,
-  Thumbnail: String,
-  ToPrice: Number,
-  UpdatedByID: String,
-  UpdatedByName: String,
-  UpdatedByTime: String,
-  WaterProofId: String,
-  WaterProofName: String,
->>>>>>> d7bfcf42a2adc8a1f9f12113f595ca4e79df9e8f
 }

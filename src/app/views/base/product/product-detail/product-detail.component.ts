@@ -1,27 +1,17 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { apiEndpoint } from 'src/app/config/api';
 import { ProductService } from './../../../../services/product.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { apiEndpoint } from './../../../../config/api';
-import { ModalDirective } from 'ngx-bootstrap/modal';
-import { ClassifyProduct } from './../../../../model/classifyProduct.model';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ResultProductDetail } from 'src/app/model/result.model';
+import { ActivatedRoute } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
-const httpOptions = {
-  herders: new HttpHeaders({ 'Content-Type': 'Application/json' }),
-};
 @Component({
-  selector: 'app-add-update-product',
-  templateUrl: './add-update-product.component.html',
-  styleUrls: ['./add-update-product.component.scss'],
+  selector: 'app-product-detail',
+  templateUrl: './product-detail.component.html',
+  styleUrls: ['./product-detail.component.scss'],
 })
-export class AddUpdateProductComponent implements OnInit {
-  @ViewChild('largeModal') public largeModal: ModalDirective;
-  typeForm: FormGroup;
+export class ProductDetailComponent implements OnInit {
   detail;
   id;
-  closeResult = '';
 
   constructor(
     private productService: ProductService,
@@ -31,7 +21,7 @@ export class AddUpdateProductComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     const tokenStorage = JSON.parse(localStorage.getItem('token'));
-    console.log(tokenStorage);
+    // console.log(tokenStorage);
 
     this.id = this.route.snapshot.params.id;
     (await this.productService.callApiWithToken('', this.id)).subscribe(
@@ -56,9 +46,5 @@ export class AddUpdateProductComponent implements OnInit {
       }
     );
     console.log('this.detail', this.detail);
-  }
-
-  addTypeProduct(typeForm) {
-    console.log(typeForm);
   }
 }

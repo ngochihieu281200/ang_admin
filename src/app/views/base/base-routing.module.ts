@@ -14,7 +14,7 @@ import { ProgressComponent } from './progress.component';
 import { TooltipsComponent } from './tooltips.component';
 import { NavbarsComponent } from './navbars/navbars.component';
 import { ProductComponent } from './product/product.component';
-import { AddUpdateProductComponent } from './product/add-update-product/add-update-product.component';
+
 import { BrandComponent } from './brand/brand.component';
 import { AddUpdateBrandComponent } from './brand/add-update-brand/add-update-brand.component';
 import { CustomerComponent } from './customer/customer.component';
@@ -22,6 +22,9 @@ import { CategoryComponent } from './category/category.component';
 import { AddUpdateCategoryComponent } from './category/add-update-category/add-update-category.component';
 import { StaffComponent } from './staff/staff.component';
 import { AddUpdateStaffComponent } from './staff/add-update-staff/add-update-staff.component';
+
+import { ProductDetailComponent } from './product/product-detail/product-detail.component';
+import { AddUpdateProductComponent } from './product/add-update-product/add-update-product.component';
 
 const routes: Routes = [
   {
@@ -132,6 +135,14 @@ const routes: Routes = [
           title: 'id',
         },
       },
+      {
+        path: 'product-detail/:id',
+        component: ProductDetailComponent,
+        data: {
+          title: 'product-detail',
+        },
+      },
+
       {
         path: 'brand',
         component: BrandComponent,

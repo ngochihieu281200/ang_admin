@@ -13,31 +13,31 @@ export interface ResultProduct {
 export interface ResultProductDetail {
   IsSuccess: boolean;
   Data: {
-    Ablert: String,
-    BrandID: String,
-    BrandName: String
-    CategoryID: String,
-    CategoryName: String,
-    ClassifyProducts: [],
-    CreatedByID: String,
-    CreatedByName: String,
-    CreatedByTime: String,
-    Crytal: String,
-    Description: String,
-    Feature: [],
-    FromPrice: Number,
-    Guarantee: Date,
-    Id: String,
-    IsShow: Boolean,
-    Machine: String,
-    Name: String,
-    Thumbnail: String,
-    ToPrice: Number,
-    UpdatedByID: String,
-    UpdatedByName: String,
-    UpdatedByTime: String,
-    WaterProofId: String,
-    WaterProofName: String,
+    Ablert: String;
+    BrandID: String;
+    BrandName: String;
+    CategoryID: String;
+    CategoryName: String;
+    ClassifyProducts: [];
+    CreatedByID: String;
+    CreatedByName: String;
+    CreatedByTime: String;
+    Crytal: String;
+    Description: String;
+    Feature: [];
+    FromPrice: Number;
+    Guarantee: Date;
+    Id: String;
+    IsShow: Boolean;
+    Machine: String;
+    Name: String;
+    Thumbnail: String;
+    ToPrice: Number;
+    UpdatedByID: String;
+    UpdatedByName: String;
+    UpdatedByTime: String;
+    WaterProofId: String;
+    WaterProofName: String;
   };
   Message: string;
 }
