@@ -1,6 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { LocationStrategy, HashLocationStrategy, DatePipe } from '@angular/common';
+import {
+  LocationStrategy,
+  HashLocationStrategy,
+  DatePipe,
+} from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import '@popperjs/core';
 
@@ -90,8 +94,8 @@ import { ChartsModule } from 'ng2-charts';
     },
     IconSetService,
     BsModalService,
-    DatePipe
+    DatePipe,
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

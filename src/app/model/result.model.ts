@@ -9,6 +9,11 @@ export interface ResultProduct {
   };
   Message: string;
 }
+export interface Result {
+  IsSuccess: boolean;
+  Data: string;
+  Message: string;
+}
 
 export interface ResultProductDetail {
   IsSuccess: boolean;

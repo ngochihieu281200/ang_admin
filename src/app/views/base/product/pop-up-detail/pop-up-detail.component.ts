@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
+import { result } from './../../../../model/result.model';
 
 @Component({
   selector: 'app-pop-up-detail',
@@ -9,6 +10,7 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 export class PopUpDetailComponent implements OnInit {
   detail;
   @ViewChild(ModalDirective) public lgModal: ModalDirective;
+  result: any;
   constructor() {}
 
   ngOnInit(): void {}

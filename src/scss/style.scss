@@ -8,28 +8,30 @@
 @import "custom";
 
 ng2-st-tbody-custom a {
-    margin: 4px;
-    font-size: 18px;
+  margin: 4px;
+  font-size: 18px;
 }
 
-
 ng2-st-tbody-custom a i.icon-delete {
-    color: #e55353;
-
+  color: #e55353;
 }
 
 .ng2-smart-actions {
-    width: 125px;
+  width: 125px;
 }
 
 ng2-st-tbody-custom a i.icon-edit {
-    color: #f9b115;
+  color: #f9b115;
 }
 
 ng2-st-tbody-custom a i.icon-add {
-    color: #2eb85c;
+  color: #2eb85c;
 }
 
 ng2-st-tbody-custom a i.icon-detail {
-    color: #3399ff;
+  color: #3399ff;
+}
+
+.modal-backdrop {
+  z-index: 0 !important;
 }

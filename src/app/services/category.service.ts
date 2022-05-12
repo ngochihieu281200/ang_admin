@@ -3,13 +3,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { apiEndpoint } from '../config/api';
 import { BrandInfo, CategoryInfo } from '../model/category.model';
 import { Observable } from 'rxjs';
+import { Result } from '../model/result.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CategoryService {
-
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {}
 
   getAll(): Observable<CategoryInfo> {
     const tokenStorage = JSON.parse(localStorage.getItem('token'));
