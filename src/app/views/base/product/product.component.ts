@@ -12,6 +12,7 @@ import { FormGroup, FormBuilder, Validators, NgForm } from '@angular/forms';
 import { Router, RouterModule, Routes } from '@angular/router';
 import { data } from './../../../model/user.model';
 import { ModalsComponent } from './../../notifications/modals.component';
+import { DatePipe } from '@angular/common';
 // import { PopUpDetailComponent } from './pop-up-detail/pop-up-detail.component';
 
 // const routes: Routes = [
@@ -26,9 +27,7 @@ import { ModalsComponent } from './../../notifications/modals.component';
     [settings]="settings"
     [source]="source"
     (create)="addProduct()"
-    (edit)="editProduct($event)"
-    (delete)="deleteProduct($event)"
-    (userRowSelect)="selectProduct($event)"
+    (custom)="onCuston($event)"
   ></ng2-smart-table>`,
   styleUrls: ['./product.component.scss'],
 })
@@ -48,29 +47,37 @@ export class ProductComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private httpClient: HttpClient,
-    private router: Router
-  ) {}
+    private router: Router,
+    public datepipe: DatePipe
+  ) { }
+
+
+  onCuston(event) {
+    switch (event.action) {
+      case 'editProduct':
+        this.editProduct(event.data);
+        break;
+      case 'deleteProduct':
+        this.deleteProduct(event.data);
+        break;
+      case 'detailProduct':
+        this.selectProduct(event.data);
+        break;
+    }
+  }
 
   selectProduct(data) {
-    // console.log(this.infoModal.showInfoModal());
-
-    (<any>this.router).navigate([`/base/product-detail/${data.data.Id}`]);
+    (<any>this.router).navigate([`/base/product-detail/${data.Id}`]);
   }
-
   addProduct() {
-    console.log('add product', this.addProduct);
-
-    // routes.navigate(['/role']);
     (<any>this.router).navigate([`/base/product/id`]);
   }
-
   editProduct(data) {
-    console.log('edit', data.data.Id);
-    (<any>this.router).navigate([`/base/product/${data.data.Id}`]);
-  }
 
+    (<any>this.router).navigate([`/base/product/${data.Id}`]);
+  }
   deleteProduct(data) {
-    console.log('delete', data.data.Id);
+    console.log('delete', data.Id);
     this.largeModal.show();
     // const demo = document.querySelector('#demoModal');
     // console.log('demo', demo);
@@ -82,6 +89,25 @@ export class ProductComponent implements OnInit {
 
   settings = {
     mode: 'external',
+    actions: {
+      custom: [
+        {
+          name: 'editProduct',
+          title: '<i class="fa fa-edit icon-edit" title="Edit"></i>',
+        },
+        {
+          name: 'deleteProduct',
+          title: '<i class="fa fa-trash icon-delete" title="Delete"></i>'
+        },
+        {
+          name: 'detailProduct',
+          title: '<i class="fa fa-eye icon-detail" title="Detail"></i>'
+        }
+      ],
+      edit: false,
+      delete: false,
+      position: "right"
+    },
     columns: {
       Id: {
         title: 'Mã Sản phẩm',
@@ -106,19 +132,12 @@ export class ProductComponent implements OnInit {
           return `<img src =  "${value}" width="100px">`;
         },
       },
-      FromPrice: {
-        title: 'Giá Sản phẩm',
-        type: 'string',
-      },
-      // thaotac: {
-      //   title: 'Thao Tác',
-      //   type: 'string',
-      // },
       hethong: {
         title: 'Hệ Thống',
         type: 'html',
         valuePrepareFunction: (value, cell, row) => {
-          return `<p>${cell.CreatedByName}<br>${cell.CreatedByTime}<br>${cell.UpdatedByName}<br>${cell.UpdatedByTime}</p>`;
+          return `<p>Tạo bởi : ${cell.CreatedByName}<br>Lúc: ${this.datepipe.transform(cell.CreatedByTime, 'dd/mm/yyyy')}<br>
+          Cập nhật bởi: ${cell.UpdatedByName}<br>Lúc:  ${this.datepipe.transform(cell.UpdatedByTime, 'dd/mm/yyyy')}</p>`;
         },
       },
     },
@@ -128,20 +147,10 @@ export class ProductComponent implements OnInit {
 
   ngOnInit() {
     const tokenStorage = JSON.parse(localStorage.getItem('token'));
-    // this.productService.RetrieveAll().subscribe((res: any) => {
-    //   this.source.load(res.Data.ListProduct);
-    // });
-    // this.productService.RetrieveAll().subscribe((res: any) => {
-    //   this.source.load(res?.Data.ListProduct);
-    //   this.datas = res?.Data.ListProduct;
-    // });
+
     this.productService.RetrieveAll().subscribe(
       (res: any) => {
-        // this.source.load(res['Data'].ListProduct),
-        // (this.datas = res['Data'].ListProduct),
-        // console.log('data', this.datas)
         this.source.load(res?.Data.ListProduct);
-        console.log(res?.Data.ListProduct);
       },
       async (err) => {
         if (err.status === 401) {
@@ -153,11 +162,9 @@ export class ProductComponent implements OnInit {
               RefreshToken: tokenStorage.RefreshToken,
             })
             .subscribe((res) => {
-              // console.log('res', res)
               tokenStorage.AccessToken = res['Data'].AccessToken;
               localStorage.setItem('token', JSON.stringify(tokenStorage));
-              // console.log('this.accessToken', this.accessToken)
-              this.productService.RetrieveAll();
+              window.location.reload();
             });
         }
       }

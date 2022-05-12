@@ -7,7 +7,7 @@ import {
   ResultProduct,
   ResultProductDetail,
 } from '../model/result.model';
-import { ProductDetail } from 'src/app/model/product.model';
+import { ProductCreate, ProductDetail, ProductInfo } from 'src/app/model/product.model';
 import { accessToken, data } from '../model/user.model';
 
 import { map } from 'rxjs/operators';
@@ -21,7 +21,7 @@ const httpOptions = {
 export class ProductService {
   data: ResultProductDetail;
   apiEndpoint: string;
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
   RetrieveAll(): Observable<ResultProduct> {
     const tokenStorage = JSON.parse(localStorage.getItem('token'));
     return this.httpClient.get<ResultProduct>(`${apiEndpoint}product/all`, {
@@ -39,7 +39,7 @@ export class ProductService {
   //     `${apiEndpoint}product/details/{Id}`
   //   );
   // }
-  async callApiWithToken(url, id) {
+  async getDetailProductById(url, id) {
     const tokenStorage = JSON.parse(localStorage.getItem('token'));
 
     // const body=JSON.stringify(person);
@@ -52,6 +52,28 @@ export class ProductService {
       },
     });
   }
+
+  create(product): Observable<ProductCreate> {
+    const tokenStorage = JSON.parse(localStorage.getItem('token'));
+    return this.httpClient.post<ProductCreate>(`${apiEndpoint}product/create`, JSON.stringify(product), {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${tokenStorage.AccessToken}`,
+      },
+    });
+  }
+
+
+  async update(product): Promise<Observable<ProductInfo>> {
+    const tokenStorage = JSON.parse(localStorage.getItem('token'));
+    return this.httpClient.post<ProductInfo>(`${apiEndpoint}product/create`, JSON.stringify(product), {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${tokenStorage.AccessToken}`,
+      },
+    });
+  }
+
   async delete(id) {
     const tokenStorage = JSON.parse(localStorage.getItem('token'));
 

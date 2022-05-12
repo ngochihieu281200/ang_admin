@@ -9,15 +9,32 @@ export interface ProductInfo {
   FromPrice: number;
   ToPrice: number;
   Feature: [];
-  Descriotione: string;
+  Description: string;
   Machine: string;
-  IsShow: boolean;
+  IsShow: Number;
   CreatedByName: string;
   CreatedByTime: Date;
   CreatedByID: string;
   UpdatedByName: string;
   UpdatedByTime: Date;
   UpdatedByID: string;
+}
+
+export interface ProductCreate {
+  CategoryId: string;
+  BrandId: string;
+  Crytal: string;
+  Name: string;
+  Feature: string[];
+  Ablert: string;
+  ClassifyProducts: ClassifyProduct[];
+  Description: string;
+  Machine: string;
+  MadeIn: string;
+  Thumbnail: string;
+  Guarantee: Number;
+  WaterProof: string;
+  IsShow: Number;
 }
 
 export interface ProductDetail {
@@ -39,7 +56,7 @@ export interface ProductDetail {
   PromotionPrice: number;
   OriginalPrice: number;
   Stock: number;
-  Image: string;
+  Thumbnail: string;
 
   // CreatedByName: string;
   // CreatedByTime: Date;
@@ -47,7 +64,7 @@ export interface ProductDetail {
   // UpdatedByName: string;
   // UpdatedByTime: Date;
   // UpdatedByID: string;
-  Guarantee: Date;
+  Guarantee: Number;
   WaterProofId: string;
   WaterProofName: string;
 }

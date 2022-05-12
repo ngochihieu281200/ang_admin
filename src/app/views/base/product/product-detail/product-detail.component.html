@@ -1,723 +1,138 @@
 <div class="col-lg-12">
   <div class="card">
     <div class="card-header">
-      <a class="ml-1 btn btn-primary" [routerLink]="['/base/product']"
-        ><strong>Quay lại</strong></a
-      >
+      <a class="ml-1 btn btn-primary" [routerLink]="['/base/product']"><strong>Quay lại</strong></a>
       <strong class="float-right">Chi Tiết Sản Phẩm</strong>
     </div>
     <div class="card-body">
-      <form
-        action=""
-        method="post"
-        enctype="multipart/form-data"
-        class="form-horizontal"
-      >
-        <!-- <div class="form-group row">
-                <label class="col-md-3 col-form-label">Static</label>
-                <div class="col-md-9">
-                  <p class="form-control-static">Username</p>
-                </div>
-              </div> -->
+      <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+
         <div class="row">
           <div class="col-6">
             <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="text-input"
-                >Mã Sản Phẩm
+              <label class="col-md-3 col-form-label" for="text-input">Mã Sản Phẩm
               </label>
               <div class="col-md-9">
-                <input
-                  type="text"
-                  id="text-input"
-                  name="text-input"
-                  class="form-control"
-                  placeholder="Text"
-                  [value]="detail.Data.Id"
-                  disabled
-                />
-                <!-- <span class="help-block">This is a help text</span> -->
+                <input type="text" id="text-input" name="text-input" readonly class="form-control-plaintext"
+                  placeholder="Text" [value]="detail?.Id" disabled />
               </div>
             </div>
             <div class="form-group row">
-              <label for="text-input" class="col-md-3 col-form-label"
-                >Nhãn Hiệu Sản Phẩm
+              <label for="text-input" class="col-md-3 col-form-label">Danh Mục Sản Phẩm
               </label>
               <div class="col-md-9">
-                <input
-                  type="text"
-                  id="text-input"
-                  name="BrandName"
-                  class="form-control"
-                  placeholder="text"
-                  [value]="detail?.Data.BrandName"
-                  disabled
-                />
+                <input type="text" id="text-input" name="CategoryName" readonly class="form-control-plaintext"
+                  placeholder="text" [value]="detail?.CategoryName" disabled />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="text-input" class="col-md-3 col-form-label">Nhãn Hiệu Sản Phẩm
+              </label>
+              <div class="col-md-9">
+                <input type="text" id="text-input" name="BrandName" readonly class="form-control-plaintext"
+                  placeholder="text" [value]="detail?.BrandName" disabled />
               </div>
             </div>
 
             <div class="form-group row">
-              <label for="text-input" class="col-md-3 col-form-label"
-                >Tên Sản Phẩm
+              <label for="text-input" class="col-md-3 col-form-label">Tên Sản Phẩm
               </label>
               <div class="col-md-9">
-                <input
-                  type="text"
-                  id="text-input"
-                  name="Name"
-                  class="form-control"
-                  placeholder="text"
-                  [value]="detail?.Data.Name"
-                  disabled
-                />
+                <input type="text" id="text-input" name="Name" readonly class="form-control-plaintext"
+                  placeholder="text" [value]="detail?.Name" disabled />
               </div>
             </div>
             <div class="form-group row">
-              <label for="text-input" class="col-md-3 col-form-label"
-                >Mặt Kính
+              <label for="text-input" class="col-md-3 col-form-label">Mặt Kính
               </label>
               <div class="col-md-9">
-                <input
-                  type="text"
-                  id="text-input"
-                  name="Crytal"
-                  class="form-control"
-                  placeholder="text"
-                  [value]="detail?.Data.Crytal"
-                  disabled
-                />
+                <input type="text" id="text-input" name="Crytal" readonly class="form-control-plaintext"
+                  placeholder="text" [value]="detail?.Crytal" disabled />
               </div>
             </div>
             <div class="form-group row">
-              <label for="text-input" class="col-md-3 col-form-label"
-                >Dây Đeo</label
-              >
+              <label for="text-input" class="col-md-3 col-form-label">Dây Đeo</label>
               <div class="col-md-9">
-                <input
-                  type="text"
-                  id="text-input"
-                  name="Ablert"
-                  class="form-control"
-                  placeholder="text"
-                  [value]="detail?.Data.Ablert"
-                  disabled
-                />
+                <input type="text" id="text-input" name="Ablert" readonly class="form-control-plaintext"
+                  placeholder="text" [value]="detail?.Ablert" disabled />
               </div>
             </div>
             <div class="form-group row">
-              <label for="text-input" class="col-md-3 col-form-label"
-                >Độ Chống Nước
+              <label for="text-input" class="col-md-3 col-form-label">Độ Chống Nước
               </label>
               <div class="col-md-9">
-                <input
-                  type="text"
-                  id="text-input"
-                  name="WaterProofName"
-                  class="form-control"
-                  placeholder="text"
-                  [value]="detail?.Data.WaterProofName"
-                  disabled
-                />
+                <input type="text" id="text-input" name="WaterProofName" readonly class="form-control-plaintext"
+                  placeholder="text" [value]="detail?.WaterProofName" disabled />
               </div>
             </div>
 
             <div class="form-group row">
-              <label for="text-input" class="col-md-3 col-form-label"
-                >Bảo Hành</label
-              >
+              <label for="text-input" class="col-md-3 col-form-label">Bảo Hành</label>
               <div class="col-md-9">
-                <input
-                  type="text"
-                  id="text-input"
-                  name="Guarantee"
-                  class="form-control"
-                  placeholder="text"
-                  [value]="detail?.Data.Guarantee"
-                  disabled
-                />
+                <input type="text" id="text-input" name="Guarantee" readonly class="form-control-plaintext"
+                  placeholder="text" [value]="detail?.Guarantee" disabled />
               </div>
             </div>
             <div class="form-group row">
-              <label for="text-input" class="col-md-3 col-form-label"
-                >Xuất Xứ</label
-              >
+              <label for="text-input" class="col-md-3 col-form-label">Xuất Xứ</label>
               <div class="col-md-9">
-                <input
-                  type="text"
-                  id="text-input"
-                  name="MadeIn"
-                  class="form-control"
-                  placeholder="text"
-                  [value]="detail?.Data.MadeIn"
-                  disabled
-                />
+                <input type="text" id="text-input" name="MadeIn" readonly class="form-control-plaintext"
+                  placeholder="text" [value]="detail?.MadeIn" disabled />
               </div>
             </div>
 
             <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="textarea-input"
-                >Mô Tả Sản Phẩm</label
-              >
+              <label class="col-md-3 col-form-label" for="textarea-input">Mô Tả Sản Phẩm</label>
               <div class="col-md-9">
-                <textarea
-                  id="textarea-input"
-                  name="Description"
-                  rows="9"
-                  [value]="detail.Data.Description"
-                  class="form-control"
-                  placeholder="Content.."
-                  disabled
-                ></textarea>
+                <textarea id="textarea-input" name="Description" rows="15" [value]="detail?.Description" readonly
+                  class="form-control-plaintext" placeholder="Content.." disabled></textarea>
               </div>
             </div>
           </div>
           <div class="col-6">
-            <!-- <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="file-multiple-input"
-                >Thêm Ảnh Sản Phẩm</label
-              >
-            </div> -->
             <div class="form-group row">
-              <label for="text-input" class="col-md-3 col-form-label"
-                >Giá Bán</label
-              >
+              <label for="text-input" class="col-md-3 col-form-label">Giá từ</label>
               <div class="col-md-9">
-                <input
-                  type="text"
-                  id="text-input"
-                  name="ToPrice"
-                  class="form-control"
-                  placeholder="text"
-                  [value]="detail?.Data.ToPrice"
-                  disabled
-                />
+                <input type="text" id="text-input" name="FromPrice" readonly class="form-control-plaintext"
+                  placeholder="text" [value]="detail?.FromPrice" disabled />
               </div>
             </div>
             <div class="form-group row">
-              <label for="text-input" class="col-md-3 col-form-label"
-                >Giá Khuyến Mãi</label
-              >
+              <label for="text-input" class="col-md-3 col-form-label">Đến</label>
               <div class="col-md-9">
-                <input
-                  type="text"
-                  id="text-input"
-                  name="ToPrice"
-                  class="form-control"
-                  placeholder="text"
-                  [value]="detail?.Data.ToPrice"
-                  disabled
-                />
+                <input type="text" id="text-input" name="ToPrice" readonly class="form-control-plaintext"
+                  placeholder="text" [value]="detail?.ToPrice" disabled />
               </div>
             </div>
             <div class="form-group row">
-              <label for="text-input" class="col-md-3 col-form-label"
-                >Lượng Tồn</label
-              >
-              <div class="col-md-9">
-                <input
-                  type="text"
-                  id="text-input"
-                  name="Stock"
-                  class="form-control"
-                  placeholder="text"
-                  [value]="detail?.Data.Stock"
-                  disabled
-                />
+              <label for="text-input" class="col-md-4 col-form-label">Ảnh đại diện sản phẩm</label>
+              <div class="card" style="width: 18rem">
+                <img class="card-img-top" src="{{detail?.Thumbnail}}" alt="Card image cap" />
               </div>
             </div>
-            <div class="product flex pad-10 d-flex p-2 border border-secondary">
+            <label for="text-input" class="col-md-4 col-form-label">Thông tin chi tiết loại sản phẩm</label>
+            <div *ngFor="let ClassifyProduct of ClassifyProducts"
+              class="product flex pad-10 d-flex p-2 border border-secondary">
               <div>
-                <img
-                  src="{{ detail.Data.Thumbnail }}"
-                  alt=""
-                  class="d-block w-100"
-                />
+                <img src="{{ ClassifyProduct.Image }}" alt="" class="d-block" width="100px" />
               </div>
 
               <div class="product_info flex-grow-3">
-                <div class="brand_name font-weight-bold pad-0-10">
-                  <p>Nhãn Hiệu : {{ detail.Data.BrandName }}</p>
-                </div>
                 <div class="detail">
                   <p class="name">
-                    <strong>Tên Sản Phẩm:</strong> {{ detail.Data.Name }}
+                    <strong>Tên Loại Sản Phẩm:</strong> {{ ClassifyProduct.Name }}
                   </p>
                   <p class="money">
-                    <strong>Giá: </strong>{{ detail.Data.ToPrice }} VND
+                    <strong>Giá Gốc: </strong>{{ ClassifyProduct.OriginalPrice }} VND
                   </p>
                   <p class="money">
-                    <strong>Giá Khuyến Mãi: </strong
-                    >{{ detail.Data.ToPrice }} VND
+                    <strong>Giá Khuyến Mãi: </strong>{{ ClassifyProduct.PromotionPrice }} VND
                   </p>
                   <p class="Stock">
-                    <strong>Số Lượng Tồn: </strong>{{ detail.Data.Stock }}
+                    <strong>Số Lượng Tồn: </strong>{{ ClassifyProduct.Stock }}
                   </p>
                 </div>
               </div>
             </div>
-            <!-- <div class="product flex pad-10">
-              <div class="product_img">
-                <img
-                  src="http://res.cloudinary.com/htc-watch/image/upload/v1648108896/fahgyvabkefekhuczuvu.jpg"
-                  class="h-100 w-100"
-                  alt=""
-                />
-              </div>
-            </div> -->
-            <!-- <div class="card" style="width: 18rem">
-              <img
-                class="h-50"
-                src="http://res.cloudinary.com/htc-watch/image/upload/v1648108896/fahgyvabkefekhuczuvu.jpg"
-                alt="Card image cap"
-              />
-
-             
-            </div> -->
-
-            <!-- <button
-              class="btn btn-lg btn-outline-primary"
-              (click)="largeModal.show()"
-            >
-              Thêm Loại Sản Phẩm
-            </button>
-            <button
-              type="button"
-              class="btn btn-outline-success active ml-1"
-              aria-pressed="true"
-            >
-              Thêm Sản Phẩm
-            </button> -->
           </div>
-
-          <!-- <button
-            type="button"
-            class="btn btn-outline-success active"
-            aria-pressed="true"
-          >
-            Thêm Sản Loại Phẩm
-          </button>
-          <button
-            type="button"
-            class="btn btn-outline-success active ml-1"
-            aria-pressed="true"
-          >
-            Thêm Sản Phẩm
-          </button> -->
-          <!-- <div class="card-footer">
-                            <button type="reset" class="btn btn-sm btn-danger">
-                              <i class="fa fa-ban"></i> Thêm Loại Sản Phẩm
-                            </button>
-                            <button type="submit" class="btn btn-sm btn-primary">
-                              <i class="fa fa-dot-circle-o"></i> Thêm Sản Phẩm
-                            </button>
-                          </div> -->
-          <!-- <div class="card-header-actions" style="height: 21px">
-            <label class="switch switch-sm switch-label switch-info">
-              <input type="checkbox" class="switch-input" checked />
-              <span
-                class="switch-slider"
-                data-checked="On"
-                data-unchecked="Off"
-              ></span>
-            </label>
-          </div> -->
         </div>
-      </form>
-
-      <!-- thêm loại sản phẩm pop up -->
-
-      <!-- /.modal -->
-    </div>
-
-    <!-- <div class="modal-body">
-      <div class="form-group row">
-        <label for="text-input" class="col-md-3 col-form-label"
-          >Mã Sản Phẩm
-        </label>
-        <div class="col-md-9">
-          <input
-            type="text"
-            id="text-input"
-            name="Id"
-            class="form-control"
-            [value]="detail.Data.Id"
-            disabled
-          />
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="text-input" class="col-md-3 col-form-label"
-          >Hình Ảnh
-        </label>
-        <div class="col-md-9" style="width: 100px; height: 100px">
-          [value]="detail?.Data.Image : ''"
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="text-input" class="col-md-3 col-form-label"
-          >Danh Mục
-        </label>
-        <div class="col-md-9">
-          <input
-            type="text"
-            id="text-input"
-            name="CategoryName"
-            class="form-control"
-            placeholder="text"
-            [value]="detail?.Data.CategoryName"
-            disabled
-          />
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="text-input" class="col-md-3 col-form-label"
-          >Nhãn Hiệu Sản Phẩm
-        </label>
-        <div class="col-md-9">
-          <input
-            type="text"
-            id="text-input"
-            name="BrandName"
-            class="form-control"
-            placeholder="text"
-            [value]="detail?.Data.BrandName"
-            disabled
-          />
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="text-input" class="col-md-3 col-form-label"
-          >Tên Sản Phẩm
-        </label>
-        <div class="col-md-9">
-          <input
-            type="text"
-            id="text-input"
-            name="Name"
-            class="form-control"
-            placeholder="text"
-            [value]="detail?.Data.Name"
-            disabled
-          />
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="text-input" class="col-md-3 col-form-label"
-          >Mặt Kính
-        </label>
-        <div class="col-md-9">
-          <input
-            type="text"
-            id="text-input"
-            name="Crytal"
-            class="form-control"
-            placeholder="text"
-            [value]="detail?.Data.Crytal"
-            disabled
-          />
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="text-input" class="col-md-3 col-form-label">Dây Đeo</label>
-        <div class="col-md-9">
-          <input
-            type="text"
-            id="text-input"
-            name="Ablert"
-            class="form-control"
-            placeholder="text"
-            [value]="detail?.Data.Ablert"
-            disabled
-          />
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="text-input" class="col-md-3 col-form-label"
-          >Độ Chống Nước
-        </label>
-        <div class="col-md-9">
-          <input
-            type="text"
-            id="text-input"
-            name="WaterProofName"
-            class="form-control"
-            placeholder="text"
-            [value]="detail?.Data.WaterProofName"
-            disabled
-          />
-        </div>
-      </div>
-      <div class="form-group row">
-        <label class="col-md-3 col-form-label" for="date-input">Bảo Hành</label>
-        <div class="col-md-9">
-          <input
-            class="form-control"
-            id="date-input"
-            type="date"
-            name="Guarantee"
-            placeholder="date"
-            [value]="detail?.Data.Guarantee"
-            disabled
-          />
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="text-input" class="col-md-3 col-form-label">Xuất Xứ</label>
-        <div class="col-md-9">
-          <input
-            type="text"
-            id="text-input"
-            name="MadeIn"
-            class="form-control"
-            placeholder="text"
-            [value]="detail?.Data.MadeIn"
-            disabled
-          />
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="text-input" class="col-md-3 col-form-label">Giá Gốc</label>
-        <div class="col-md-9">
-          <input
-            type="text"
-            id="text-input"
-            name="OriginalPrice"
-            class="form-control"
-            placeholder="text"
-            [value]="detail?.Data.OriginalPrice"
-            disabled
-          />
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="text-input" class="col-md-3 col-form-label"
-          >Giá Khuyến Mãi</label
-        >
-        <div class="col-md-9">
-          <input
-            type="text"
-            id="text-input"
-            name="PromotionPrice"
-            class="form-control"
-            placeholder="text"
-            [value]="detail?.Data.ClassifyProducts.PromotionPrice"
-            disabled
-          />
-        </div>
-      </div>
-      <div class="form-group row">
-        <label class="col-md-3 col-form-label" for="textarea-input"
-          >Mô Tả Sản Phẩm</label
-        >
-        <div class="col-md-9">
-          <textarea
-            id="textarea-input"
-            name="Description"
-            rows="9"
-            class="form-control"
-            placeholder="Content.."
-            [value]="detail?.Data.Description"
-            disabled
-          ></textarea>
-        </div>
-      </div>
-    </div>
-  </div>
-</div> -->
-
-    <!-- <div class="form-group row">
-        <label for="text-input" class="col-md-3 col-form-label"
-          >Mã Sản Phẩm
-        </label>
-        <div class="col-md-9">
-          <input
-            type="text"
-            id="text-input"
-            name="Id"
-            class="form-control"
-            [value]="detail?.Data.Id"
-            disabled
-          />
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="text-input" class="col-md-3 col-form-label"
-          >Hình Ảnh
-        </label>
-        <div class="col-md-9" style="width: 100px; height: 100px">
-          [value]="hide ? datas?.Data.Image : ''"
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="text-input" class="col-md-3 col-form-label"
-          >Danh Mục
-        </label>
-        <div class="col-md-9">
-          <input
-            type="text"
-            id="text-input"
-            name="CategoryName"
-            class="form-control"
-            placeholder="text"
-            [value]="detail?.Data.CategoryName"
-            disabled
-          />
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="text-input" class="col-md-3 col-form-label"
-          >Nhãn Hiệu Sản Phẩm
-        </label>
-        <div class="col-md-9">
-          <input
-            type="text"
-            id="text-input"
-            name="BrandName"
-            class="form-control"
-            placeholder="text"
-            [value]="detail?.Data.BrandName"
-            disabled
-          />
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="text-input" class="col-md-3 col-form-label"
-          >Tên Sản Phẩm
-        </label>
-        <div class="col-md-9">
-          <input
-            type="text"
-            id="text-input"
-            name="Name"
-            class="form-control"
-            placeholder="text"
-            [value]="detail?.Data.Name"
-            disabled
-          />
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="text-input" class="col-md-3 col-form-label"
-          >Mặt Kính
-        </label>
-        <div class="col-md-9">
-          <input
-            type="text"
-            id="text-input"
-            name="Crytal"
-            class="form-control"
-            placeholder="text"
-            [value]="detail?.Data.Crytal"
-            disabled
-          />
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="text-input" class="col-md-3 col-form-label">Dây Đeo</label>
-        <div class="col-md-9">
-          <input
-            type="text"
-            id="text-input"
-            name="Ablert"
-            class="form-control"
-            placeholder="text"
-            [value]="detail?.Data.Ablert"
-            disabled
-          />
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="text-input" class="col-md-3 col-form-label"
-          >Độ Chống Nước
-        </label>
-        <div class="col-md-9">
-          <input
-            type="text"
-            id="text-input"
-            name="WaterProofName"
-            class="form-control"
-            placeholder="text"
-            [value]="detail?.Data.WaterProofName"
-            disabled
-          />
-        </div>
-      </div>
-      <div class="form-group row">
-        <label class="col-md-3 col-form-label" for="date-input">Bảo Hành</label>
-        <div class="col-md-9">
-          <input
-            class="form-control"
-            id="date-input"
-            type="date"
-            name="Guarantee"
-            placeholder="date"
-            [value]="detail?.Data.Guarantee"
-            disabled
-          />
-          <span class="help-block">Please enter a valid date</span>
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="text-input" class="col-md-3 col-form-label">Xuất Xứ</label>
-        <div class="col-md-9">
-          <input
-            type="text"
-            id="text-input"
-            name="MadeIn"
-            class="form-control"
-            placeholder="text"
-            [value]="detail?.Data.MadeIn"
-            disabled
-          />
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="text-input" class="col-md-3 col-form-label">Giá Gốc</label>
-        <div
-          class="col-md-9"
-          *ngfor="let clProduct of detail.Data.ClassifyProducts"
-        >
-          <input
-            type="text"
-            id="text-input"
-            name="OriginalPrice"
-            class="form-control"
-            placeholder="text"
-            [value]="clProduct.OriginalPrice"
-            disabled
-          />
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="text-input" class="col-md-3 col-form-label"
-          >Giá Khuyến Mãi</label
-        >
-        <div class="col-md-9">
-          <input
-            type="text"
-            id="text-input"
-            name="PromotionPrice"
-            class="form-control"
-            placeholder="text"
-            [value]="detail?.Data.ClassifyProducts.PromotionPrice"
-            disabled
-          />
-        </div>
-      </div>
-      <div class="form-group row">
-        <label class="col-md-3 col-form-label" for="textarea-input"
-          >Mô Tả Sản Phẩm</label
-        >
-        <div class="col-md-9">
-          <textarea
-            id="textarea-input"
-            name="Description"
-            rows="9"
-            class="form-control"
-            placeholder="Content.."
-            [value]="detail?.Data.Description"
-            disabled
-          ></textarea>
-        </div>
-      </div> -->
-  </div>
-</div>

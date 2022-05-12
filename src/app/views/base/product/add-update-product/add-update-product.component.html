@@ -2,125 +2,80 @@
   <div class="card">
     <div class="card-header">
       <strong>Thêm Sản Phẩm</strong>
-      <a class="ml-1 btn btn-primary" [routerLink]="['/base/product']"
-        ><strong>Quay lại</strong></a
-      >
+      <a class="ml-1 btn btn-primary" [routerLink]="['/base/product']"><strong>Quay lại</strong></a>
     </div>
 
     <div class="card-body">
-      <form
-        action=""
-        method="post"
-        enctype="multipart/form-data"
-        class="form-horizontal"
-      >
-        <!-- <div class="form-group row">
-                <label class="col-md-3 col-form-label">Static</label>
-                <div class="col-md-9">
-                  <p class="form-control-static">Username</p>
-                </div>
-              </div> -->
+      <form [formGroup]="formProduct" (ngSubmit)="addProduct()" class="form-horizontal">
         <div class="row">
           <div class="col-6">
             <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="text-input"
-                >Mã Sản Phẩm <span class="text-danger">*</span></label
-              >
+              <label class="col-md-3 col-form-label" for="select2">Mã sản phẩm <span
+                  class="text-danger">*</span></label>
               <div class="col-md-9">
-                <input
-                  type="text"
-                  id="text-input"
-                  name="text-input"
-                  class="form-control"
-                  placeholder="Text"
-                  [value]="detail.Data.Id"
-                />
-                <!-- <span class="help-block">This is a help text</span> -->
+                <input type="text" id="text-input" name="Id" formControlName="Id"
+                  [value]="updateProduct ? detail?.Id : ''" class="form-control" disabled />
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="select2"
-                >Nhãn Hiệu Sản Phẩm <span class="text-danger">*</span></label
-              >
+              <label class="col-md-3 col-form-label" for="select2">Danh Mục Sản Phẩm <span
+                  class="text-danger">*</span></label>
               <div class="col-md-9">
-                <select
-                  id="select2"
-                  name="BrandName"
-                  [value]="detail.Data.BrandName"
-                  class="form-control form-control-lg"
-                >
-                  <option value="0">Please select</option>
-                  <option value="Rolex">Rolex</option>
-                  <option value="Rolex">Rolex</option>
-                  <option value="3">Option #3</option>
+                <select id="select2" name="Category" formControlName="CategoryId" (change)="categoryChange($event)"
+                  class="form-control form-select">
+                  <option value="" disabled selected>--- Chọn Danh Mục ---</option>
+                  <option value="{{cate.Id}}" *ngFor="let cate of CategoryList">{{cate.Name}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="select2">Nhãn Hiệu Sản Phẩm <span
+                  class="text-danger">*</span></label>
+              <div class="col-md-9">
+                <select id="select2" name="BrandName" [attr.disabled]="brandProduct ? '' : null"
+                  formControlName="BrandId" class="form-control form-select">
+                  <option value="" disabled selected>--- Chọn Nhãn Hiệu ---</option>
+                  <option value="{{brand.Id}}" *ngFor="let brand of BrandList">{{brand.Name}}</option>
                 </select>
               </div>
             </div>
 
             <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="text-input"
-                >Tên Sản Phẩm <span class="text-danger">*</span></label
-              >
+              <label class="col-md-3 col-form-label" for="text-input">Tên Sản Phẩm <span
+                  class="text-danger">*</span></label>
               <div class="col-md-9">
-                <input
-                  type="text"
-                  id="text-input"
-                  name="Name"
-                  [value]="detail.Data.Name"
-                  class="form-control"
-                  placeholder="Text"
-                  [disabled]="detail ? true : false"
-                />
-                <!-- <span class="help-block">This is a help text</span> -->
+                <input type="text" id="text-input" name="Name" [value]="updateProduct ? detail?.Name : ''"
+                  formControlName="Name" class="form-control" placeholder="Tên sản phẩm" />
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="select2"
-                >Mặt Kính<span class="text-danger">*</span></label
-              >
+              <label class="col-md-3 col-form-label" for="select2">Mặt Kính<span class="text-danger">*</span></label>
               <div class="col-md-9">
-                <select
-                  id="select2"
-                  name="Crytal"
-                  [value]="detail.Data.Crytal"
-                  class="form-control form-control-lg"
-                >
-                  <option value="0">Please select</option>
+                <select id="select2" name="Crytal" formControlName="Crytal" class="form-control form-select"
+                  placeholder="Chọn Mặt Kính">
+                  <option value="" disabled selected>--- Chọn Mặt Kính ---</option>
                   <option value="Kính khoáng (Mineral)">Kính Khoáng</option>
-                  <option value="2">Option #2</option>
-                  <option value="3">Option #3</option>
+                  <option value="PMMA">PMMA</option>
                 </select>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="select2"
-                >Dây Đeo <span class="text-danger">*</span></label
-              >
+              <label class="col-md-3 col-form-label" for="select2">Dây Đeo <span class="text-danger">*</span></label>
               <div class="col-md-9">
-                <select
-                  id="select2"
-                  name="Ablert"
-                  [value]="detail.Data.Ablert"
-                  class="form-control form-control-lg"
-                >
-                  <option value="0">Please select</option>
+                <select id="select2" name="Ablert" formControlName="Ablert" class="form-control form-select">
+                  <option value="" disabled selected>--- Chọn Loại Dây Đeo ---</option>
                   <option value="Thép không gỉ">Thép không gỉ</option>
-                  <option value="Thép không gỉ">Thép không gỉ</option>
+                  <option value="Nhựa">Nhựa</option>
                 </select>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="select2"
-                >Độ Chống Nước <span class="text-danger">*</span></label
-              >
+              <label class="col-md-3 col-form-label" for="select2">Độ Chống Nước <span
+                  class="text-danger">*</span></label>
               <div class="col-md-9">
-                <select
-                  id="select2"
-                  name="WaterProofName"
-                  [value]="detail.Data.WaterProofName"
-                  class="form-control form-control-lg"
-                >
-                  <option value="0">Please select</option>
+                <select id="select2" name="WaterProofName" formControlName="WaterProof"
+                  class="form-control form-select">
+                  <option value="" disabled selected>--- Chọn Độ Chống Nước ---</option>
                   <option value="20 Atm">20 Atm</option>
                   <option value="2">Option #2</option>
                   <option value="3">Option #3</option>
@@ -129,194 +84,147 @@
             </div>
 
             <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="date-input"
-                >Bảo Hành</label
-              >
+              <label class="col-md-3 col-form-label" for="date-input">Thời Gian Bảo Hành</label>
               <div class="col-md-9">
-                <input
-                  class="form-control"
-                  id="date-input"
-                  type="date"
-                  name="Guarantee"
-                  [value]="detail.Data.Guarantee"
-                  placeholder="date"
-                />
-                <!-- <span class="help-block">Please enter a valid date</span> -->
+                <input class="form-control" id="date-input" formControlName="Guarantee" type="number" name="Guarantee"
+                  placeholder="Số Năm Bảo Hành" />
               </div>
             </div>
-            <!-- <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="select2"
-                >Xuất Xứ <span class="text-danger">*</span></label
-              >
-              <div class="col-md-9">
-                <select
-                  id="select2"
-                  name="Machine"
-                  [value]="detail.Data.Machine"
-                  class="form-control form-control-lg"
-                >
-                  <option value="0">Xuất Xứ</option>
-                  <option value="Trung Quốc ">Trung Quốc</option>
-                </select>
-              </div>
-            </div> -->
             <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="select2"
-                >Xuất Sứ <span class="text-danger">*</span></label
-              >
+              <label class="col-md-3 col-form-label" for="select2">Loại Máy <span class="text-danger">*</span></label>
               <div class="col-md-9">
-                <select
-                  id="select2"
-                  name="MadeIn"
-                  [value]="detail.Data.MadeIn"
-                  class="form-control form-control-lg"
-                >
-                  <option value="0">Please select</option>
-                  <option value="trung quốc">Trung Quốc</option>
-                  <option value="2">Option #2</option>
-                  <option value="3">Option #3</option>
+                <select id="select2" name="Machine" formControlName="Machine" class="form-control form-select">
+                  <option value="" disabled selected>--- Chọn Loại Máy ---</option>
+                  <option value="Trung Quốc">Máy Cơ</option>
+                  <option value="Nhật Bản">Điện Tử</option>
                 </select>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="textarea-input"
-                >Mô Tả Sản Phẩm</label
-              >
+              <label class="col-md-3 col-form-label" for="select2">Xuất Sứ <span class="text-danger">*</span></label>
               <div class="col-md-9">
-                <textarea
-                  id="textarea-input"
-                  name="Description"
-                  rows="9"
-                  [value]="detail.Data.Description"
-                  class="form-control"
-                  placeholder="Content.."
-                ></textarea>
+                <select id="select2" name="MadeIn" formControlName="MadeIn" class="form-control form-select">
+                  <option value="" disabled selected>--- Chọn Xuất Xứ ---</option>
+                  <option value="Trung Quốc">Trung Quốc</option>
+                  <option value="Nhật Bản">Nhật Bản</option>
+                  <option value="Việt Nam">Việt Nam</option>
+                </select>
               </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="textarea-input">Mô Tả Sản Phẩm</label>
+              <div class="col-md-9">
+                <textarea id="textarea-input" formControlName="Description" name="Description" rows="9"
+                  class="form-control" placeholder="Mô tả chi tiết sản phẩm"></textarea>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="textarea-input">Thêm tính năng sản phẩm</label>
+              <div class="col-md-9" style="position: relative;">
+                <input id="input" name="placeId" #placeId type="text" class="form-control"
+                  placeholder="Nhập tính năng sản phẩm">
+                <button type="button" class="btn btn-primary" style="position: absolute;
+                top: 0;
+                right: 15px;" (click)="addFeature(placeId.value)">Thêm</button>
+              </div>
+
+            </div>
+            <div class="form-group row">
+              <div class="col-md-3 col-form-label">
+                Danh sách tính năng
+              </div>
+              <div class=" col-md-9">
+                <a class='badge badge-primary search-badge' style="margin: 4px; position: relative;"
+                  *ngFor='let feature of Features,let i = index'>
+                  <p style="margin: 16px; color: white;">{{ feature }}</p>
+                  <i class="fa fa-window-close	" style="position: absolute;
+                  top: 0px;
+                  right: 0px;
+                  color: white; font-size: 15px; cursor: pointer;" (click)="removeFeature(i)"></i>
+                </a>
+
+              </div>
+            </div>
+            <div class="form-group" style="float: right;">
+              <label class="switch switch-label switch-pill switch-success">
+                <input type="checkbox" class="switch-input" formControlName="IsShow" checked />
+                <span name="IsShow" class="switch-slider" data-checked="On" data-unchecked="Off"></span>
+              </label>
             </div>
           </div>
-          <div class="col-6">
-            <!-- <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="file-multiple-input"
-                >Thêm Ảnh Sản Phẩm</label
-              >
-            </div> -->
-            <div class="card" style="width: 18rem">
-              <img class="card-img-top" src="..." alt="Card image cap" />
-              <div class="card-body">
-                <h5 class="card-title">Thêm Ảnh Sản Phẩm</h5>
-                <!-- <p class="card-text">
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </p> -->
-                <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
-                <div class="col-lg-12 row">
-                  <div class="col-sm-6 col-sm-6 mb-xl-0">
-                    <button
-                      type="button"
-                      class="btn btn-block btn-outline-success active"
-                      aria-pressed="true"
-                    >
-                      Thêm
-                    </button>
-                  </div>
-                  <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
-                    <button
-                      type="button"
-                      class="btn btn-block btn-outline-danger active"
-                      aria-pressed="true"
-                    >
-                      Xóa
-                    </button>
+          <div class="col-6 form-group">
+            <div class="col-5">
+              <div class="card" style="width: 18rem">
+                <img class="card-img-top img-thumbnail" src="{{Thumbnail}}" alt="Card image cap" />
+                <div class="card-body">
+                  <h5 class="card-title">Thêm Ảnh Sản Phẩm</h5>
+                  <div class="col-lg-12 row">
+                    <div class="col-sm-12 col-sm-12 mb-xl-0">
+                      <div class="btn btn-mdb-color btn-rounded">
+                        <div class="fileUpload btn btn-primary"
+                          style=" position: relative; overflow: hidden;margin: 10px;">
+                          <span>Upload</span>
+                          <input id="uploadBtn" type="file" class="upload" style="position: absolute;
+                          top: 0;
+                          right: 0;
+                          margin: 0;
+                          padding: 0;
+                          font-size: 20px;
+                          cursor: pointer;
+                          opacity: 0;
+                          filter: alpha(opacity=0);" (change)="handleUploadProduct($event)" />
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-              <!-- <div class="col-md-9">
-                <input
-                  type="file"
-                  id="file-multiple-input"
-                  name="file-multiple-input"
-                  multiple
-                /> -->
             </div>
-            <button
-              class="btn btn-lg btn-outline-primary"
-              (click)="largeModal.show()"
-            >
-              Thêm Loại Sản Phẩm
-            </button>
-            <button
-              type="button"
-              class="btn btn-outline-success active ml-1"
-              aria-pressed="true"
-            >
-              Thêm Sản Phẩm
-            </button>
+            <div class="my-4">
+              <div *ngFor="let ClassifyProduct of ClassifyProducts"
+                class="product flex pad-10 d-flex p-2 border border-secondary my-2 justify-content-between align-items-sm-center">
+                <div class="d-flex" style="width: 400px;">
+                  <img src="{{ ImageClassifyProduct }}" alt="" class="d-block" width="100px" style="flex:1" />
+                  <div class="detail  ml-3" style="flex:1">
+                    <p class="name">
+                      <strong>Tên Loại Sản Phẩm:</strong> {{ ClassifyProduct.Name }}
+                    </p>
+                    <p class="money">
+                      <strong>Giá Gốc: </strong>{{ ClassifyProduct.OriginalPrice }} VND
+                    </p>
+                    <p class="money">
+                      <strong>Giá Khuyến Mãi: </strong>{{ ClassifyProduct.PromotionPrice }} VND
+                    </p>
+                    <p class="Stock">
+                      <strong>Số Lượng Tồn: </strong>{{ ClassifyProduct.Stock }}
+                    </p>
+                  </div>
+                </div>
+                <div style="d: right;">
+                  <button class="btn btn-warning m-2"> Sửa</button>
+                  <button class="btn btn-danger m-2"> Xóa </button>
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-outline-success active ml-1" type="submit">Thêm Sản
+              Phẩm</button>
           </div>
-
-          <!-- <button
-            type="button"
-            class="btn btn-outline-success active"
-            aria-pressed="true"
-          >
-            Thêm Sản Loại Phẩm
-          </button>
-          <button
-            type="button"
-            class="btn btn-outline-success active ml-1"
-            aria-pressed="true"
-          >
-            Thêm Sản Phẩm
-          </button> -->
-          <!-- <div class="card-footer">
-                            <button type="reset" class="btn btn-sm btn-danger">
-                              <i class="fa fa-ban"></i> Thêm Loại Sản Phẩm
-                            </button>
-                            <button type="submit" class="btn btn-sm btn-primary">
-                              <i class="fa fa-dot-circle-o"></i> Thêm Sản Phẩm
-                            </button>
-                          </div> -->
-          <!-- <div class="card-header-actions" style="height: 21px">
-            <label class="switch switch-sm switch-label switch-info">
-              <input type="checkbox" class="switch-input" checked />
-              <span
-                class="switch-slider"
-                data-checked="On"
-                data-unchecked="Off"
-              ></span>
-            </label>
-          </div> -->
         </div>
       </form>
-
-      <!-- thêm loại sản phẩm pop up -->
-
-      <!-- /.modal -->
+      <button class="btn btn-lg btn-outline-primary" (click)="largeModal.show()">
+        Thêm Loại Sản Phẩm
+      </button>
     </div>
   </div>
 </div>
-<div
-  bsModal
-  #largeModal="bs-modal"
-  class="modal fade"
-  tabindex="-1"
-  role="dialog"
-  aria-labelledby="myModalLabel"
-  aria-hidden="true"
->
+
+<div bsModal #largeModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
-    <form
-      [formGroup]="typeForm"
-      (ngSubmit)="addTypeProduct(typeForm)"
-      class="modal-content"
-    >
+    <form class="modal-content" [formGroup]="formClassifyProduct" (ngSubmit)="addClassifyProduct()">
       <div class="modal-header">
         <h4 class="modal-title">Thêm Loại Sản Phẩm</h4>
-        <button
-          type="button"
-          class="close"
-          (click)="largeModal.hide()"
-          aria-label="Close"
-        >
+        <button type="button" class="close" (click)="largeModal.hide()" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -326,133 +234,71 @@
             <div class="col-7">
               <div class="row">
                 <div class="form-group col-lg-12">
-                  <label for=""
-                    >Tên Sản Phẩm <span class="text-danger">*</span></label
-                  >
-                  <input
-                    type="text"
-                    id="nf-email"
-                    name="Name"
-                    formControlName="Name"
-                    class="form-control"
-                    placeholder="Tên Sản Phẩm"
-                    autocomplete="email"
-                  />
-                  <!-- <span class="help-block">Please enter your email</span> -->
+                  <label for="">Tên Sản Phẩm <span class="text-danger">*</span></label>
+                  <input type="text" id="nf-email" name="Name" formControlName="Name" class="form-control"
+                    placeholder="Tên Sản Phẩm" autocomplete="email" />
                 </div>
                 <div class="form-group col-lg-12">
-                  <label for=""
-                    >Giá Bán <span class="text-danger">*</span></label
-                  >
-                  <input
-                    type="number"
-                    id="nf-password"
-                    name="OriginalPrice"
-                    formControlName="OriginalPrice"
-                    class="form-control"
-                    placeholder="Giá Bán"
-                    autocomplete="current-password"
-                  />
-                  <!-- <span class="help-block">Please enter your password</span> -->
+                  <label for="">Giá Bán <span class="text-danger">*</span></label>
+                  <input type="number" id="nf-password" name="OriginalPrice" formControlName="OriginalPrice"
+                    class="form-control" placeholder="Giá Bán" autocomplete="current-password" />
                 </div>
                 <div class="form-group col-lg-12">
                   <label for="">Giá Khuyến Mãi </label>
-                  <input
-                    type="number"
-                    id="nf-password"
-                    name="PromotionPrice"
-                    formControlName="PromotionPrice"
-                    class="form-control"
-                    placeholder="Giá Khuyến Mãi"
-                    autocomplete="current-password"
-                  />
-                  <!-- <span class="help-block">Please enter your password</span> -->
+                  <input type="number" id="nf-password" name="PromotionPrice" formControlName="PromotionPrice"
+                    class="form-control" placeholder="Giá Khuyến Mãi" autocomplete="current-password" />
                 </div>
                 <div class="form-group col-lg-12">
-                  <label for=""
-                    >Số Lượng Tồn<span class="text-danger">*</span></label
-                  >
-                  <input
-                    type="number"
-                    id="nf-password"
-                    name="Stock"
-                    formControlName="Stock"
-                    class="form-control"
-                    placeholder="Số Lượng Tồn"
-                    autocomplete="current-password"
-                  />
-                  <!-- <span class="help-block">Please enter your password</span> -->
+                  <label for="">Số Lượng Tồn<span class="text-danger">*</span></label>
+                  <input type="number" id="nf-password" name="Stock" formControlName="Stock" class="form-control"
+                    placeholder="Số Lượng Tồn" autocomplete="current-password" />
                 </div>
                 <div class="form-group col-lg-12">
                   <label class="switch switch-label switch-pill switch-success">
-                    <input type="checkbox" class="switch-input" checked />
-                    <span
-                      name="IsShow"
-                      class="switch-slider"
-                      data-checked="On"
-                      data-unchecked="Off"
-                    ></span>
+                    <input type="checkbox" class="switch-input" formControlName="IsShow" checked />
+                    <span name="IsShow" class="switch-slider" data-checked="On" data-unchecked="Off"></span>
                   </label>
                 </div>
               </div>
             </div>
             <div class="col-5">
               <div class="card" style="width: 18rem">
-                <img class="card-img-top" src="..." alt="Card image cap" />
+                <img class="card-img-top" src="{{ImageClassifyProduct}}" alt="Card image cap" />
                 <div class="card-body">
                   <h5 class="card-title">Thêm Ảnh Sản Phẩm</h5>
-                  <!-- <p class="card-text">
-                    Some quick example text to build on the card title and make up
-                    the bulk of the card's content.
-                  </p> -->
-                  <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
                   <div class="col-lg-12 row">
-                    <div class="col-sm-6 col-sm-6 mb-xl-0">
-                      <button
-                        type="button"
-                        class="btn btn-block btn-outline-success active"
-                        aria-pressed="true"
-                      >
-                        Thêm
-                      </button>
-                    </div>
-                    <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
-                      <button
-                        type="button"
-                        class="btn btn-block btn-outline-danger active"
-                        aria-pressed="true"
-                      >
-                        Xóa
-                      </button>
+                    <div class="col-sm-12 col-sm-12 mb-xl-0">
+                      <div class="btn btn-mdb-color btn-rounded">
+                        <div class="fileUpload btn btn-primary"
+                          style=" position: relative; overflow: hidden;margin: 10px;">
+                          <span>Upload</span>
+                          <input id="uploadBtn" formControlName="Image" type="file" class="upload" style="position: absolute;
+                          top: 0;
+                          right: 0;
+                          margin: 0;
+                          padding: 0;
+                          font-size: 20px;
+                          cursor: pointer;
+                          opacity: 0;
+                          filter: alpha(opacity=0);" (change)="handleUpload($event)" />
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-                <!-- <div class="col-md-9">
-                  <input
-                    type="file"
-                    id="file-multiple-input"
-                    name="file-multiple-input"
-                    multiple
-                  /> -->
               </div>
             </div>
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-secondary"
-          (click)="largeModal.hide()"
-        >
+        <button type="button" class="btn btn-secondary" (click)="largeModal.hide()">
           Close
         </button>
-        <button type="submit" class="btn btn-primary">
+        <button type="submit" class="btn btn-primary" (click)="largeModal.hide()">
           Thêm Loại Sản Phẩm
         </button>
       </div>
     </form>
-    <!-- /.modal-content -->
   </div>
-  <!-- /.modal-dialog -->
 </div>

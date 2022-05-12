@@ -139,7 +139,7 @@ const routes: Routes = [
         path: 'product-detail/:id',
         component: ProductDetailComponent,
         data: {
-          title: 'product-detail',
+          title: 'Product-Detail',
         },
       },
 
@@ -201,4 +201,4 @@ const routes: Routes = [
 
   exports: [RouterModule],
 })
-export class BaseRoutingModule {}
+export class BaseRoutingModule { }

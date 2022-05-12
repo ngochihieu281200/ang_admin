@@ -6,3 +6,30 @@
 
 // If you want to add something do it here
 @import "custom";
+
+ng2-st-tbody-custom a {
+    margin: 4px;
+    font-size: 18px;
+}
+
+
+ng2-st-tbody-custom a i.icon-delete {
+    color: #e55353;
+
+}
+
+.ng2-smart-actions {
+    width: 125px;
+}
+
+ng2-st-tbody-custom a i.icon-edit {
+    color: #f9b115;
+}
+
+ng2-st-tbody-custom a i.icon-add {
+    color: #2eb85c;
+}
+
+ng2-st-tbody-custom a i.icon-detail {
+    color: #3399ff;
+}
