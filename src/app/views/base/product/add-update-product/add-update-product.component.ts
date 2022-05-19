@@ -54,7 +54,7 @@ export class AddUpdateProductComponent implements OnInit {
     private categoryService: CategoryService,
     private route: ActivatedRoute,
     private httpClient: HttpClient
-  ) { }
+  ) {}
 
   async ngOnInit(): Promise<void> {
     const tokenStorage = JSON.parse(localStorage.getItem('token'));
@@ -65,19 +65,23 @@ export class AddUpdateProductComponent implements OnInit {
       (await this.productService.getDetailProductById('', this.id)).subscribe(
         (res: any) => (
           this.formProduct.patchValue(res.Data),
-          this.ClassifyProducts = res.Data.ClassifyProducts,
+          (this.ClassifyProducts = res.Data.ClassifyProducts),
           this.GetBrands(res.Data.CategoryID),
-          this.Thumbnail = res.Data.Thumbnail,
-          this.Features = res.Data.Feature),
+          (this.Thumbnail = res.Data.Thumbnail),
+          (this.Features = res.Data.Feature)
+        ),
         async (err) => {
           if (err.status === 401) {
             await this.httpClient
-              .post(`${apiEndpoint}authenticate/refresh-token`, JSON.stringify({ RefreshToken: tokenStorage.RefreshToken }), {
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-
-              })
+              .post(
+                `${apiEndpoint}authenticate/refresh-token`,
+                JSON.stringify({ RefreshToken: tokenStorage.RefreshToken }),
+                {
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                }
+              )
               .subscribe((res) => {
                 tokenStorage.AccessToken = res['Data'].AccessToken;
                 localStorage.setItem('token', JSON.stringify(tokenStorage));
@@ -88,17 +92,20 @@ export class AddUpdateProductComponent implements OnInit {
       );
     }
 
-
     (await this.categoryService.getAll()).subscribe(
       (res: any) => (this.CategoryList = res.Data),
       async (err) => {
         if (err.status === 401) {
           await this.httpClient
-            .post(`https://localhost:5001/api/authenticate/refresh-token`, JSON.stringify({ RefreshToken: tokenStorage.RefreshToken }), {
-              headers: {
-                'Content-Type': 'application/json',
-              },
-            })
+            .post(
+              `${apiEndpoint}authenticate/refresh-token`,
+              JSON.stringify({ RefreshToken: tokenStorage.RefreshToken }),
+              {
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+              }
+            )
             .subscribe((res) => {
               tokenStorage.AccessToken = res['Data'].AccessToken;
               localStorage.setItem('token', JSON.stringify(tokenStorage));

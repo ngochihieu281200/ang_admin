@@ -48,7 +48,7 @@ export class ProductService {
 
     // const body=JSON.stringify(person);
     // let token = JSON.parse(localStorage.getItem('token'));
-    // console.log('this.accessToken', this.accessToken)
+    // console.log('this.accessToken', this.accessTokeSn)
     return this.httpClient.get(`${apiEndpoint}product/details/${id}`, {
       headers: {
         'Content-Type': 'application/json',
@@ -74,7 +74,7 @@ export class ProductService {
   async update(product): Promise<Observable<ProductInfo>> {
     const tokenStorage = JSON.parse(localStorage.getItem('token'));
     return this.httpClient.post<ProductInfo>(
-      `${apiEndpoint}product/create`,
+      `${apiEndpoint}product/update`,
       JSON.stringify(product),
       {
         headers: {

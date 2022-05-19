@@ -68,7 +68,7 @@ export class ProductComponent implements OnInit {
   [x: string]: any;
   datas;
   detail;
-  searchText;
+
   keyword;
   hide;
   idProduct;
@@ -100,7 +100,7 @@ export class ProductComponent implements OnInit {
     }
   }
   //   refresh(): void {
-  //     window.location.reload();
+  //     window.location.reload();_
   // }
 
   async onConfirm() {

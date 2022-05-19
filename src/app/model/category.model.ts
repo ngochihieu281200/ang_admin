@@ -10,6 +10,12 @@ export interface CategoryInfo {
   UpdatedByTime: Date;
   UpdatedByID: string;
 }
+export interface CategoryCreate {
+  Id: string;
+  ImageCategory: string;
+  IsShow: Number;
+  Name: string;
+}
 
 export interface BrandInfo {
   Id: string;

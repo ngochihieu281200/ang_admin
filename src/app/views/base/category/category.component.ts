@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
 import { apiEndpoint } from 'src/app/config/api';
 import { Router } from '@angular/router';
@@ -6,6 +6,9 @@ import { DatePipe } from '@angular/common';
 import { ProductService } from '../../../services/product.service';
 import { HttpClient } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { data } from './../../../model/user.model';
+import { CategoryService } from './../../../services/category.service';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-category',
@@ -35,18 +38,17 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
       <div class="modal-footer">
         <button
           type="button"
-          class="btn btn-outline-dark"
+          class="btn btn-outline-success"
+          (click)="onPopUp()"
+        >
+          Xác Nhận
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-danger"
           (click)="modal.close('Không')"
         >
           Không Xác Nhận
-        </button>
-
-        <button
-          type="button"
-          class="btn btn-outline-dark"
-          (click)="onConfirm()"
-        >
-          Xác Nhận
         </button>
       </div>
     </ng-template>`,
@@ -54,13 +56,16 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class CategoryComponent implements OnInit {
   [x: string]: any;
-  idProduct;
+  idCategory;
+  @Input() id: string;
+  @ViewChild('content') public content: ModalDirective;
+
   ngOnInit() {
     const tokenStorage = JSON.parse(localStorage.getItem('token'));
 
-    this.productService.RetrieveAll().subscribe(
+    this.categoryService.getAll().subscribe(
       (res: any) => {
-        this.source.load(res?.Data.ListProduct);
+        this.source.load(res?.Data);
       },
       async (err) => {
         if (err.status === 401) {
@@ -79,6 +84,7 @@ export class CategoryComponent implements OnInit {
         }
       }
     );
+    console.log(this.ngOnInit);
   }
   settings = {
     mode: 'external',
@@ -92,10 +98,6 @@ export class CategoryComponent implements OnInit {
           name: 'deleteCategory',
           title: '<i class="fa fa-trash icon-delete" title="Delete"></i>',
         },
-        // {
-        //   name: 'detailProduct',
-        //   title: '<i class="fa fa-eye icon-detail" title="Detail"></i>',
-        // },
       ],
       edit: false,
       delete: false,
@@ -110,16 +112,8 @@ export class CategoryComponent implements OnInit {
         title: 'Tên Sản Phẩm',
         type: 'string',
       },
-      CategoryName: {
-        title: 'Danh Mục Sản Phẩm',
-        type: 'string',
-      },
-      BrandName: {
-        title: 'Nhãn Hiệu Sản phẩm',
-        type: 'string',
-      },
 
-      Thumbnail: {
+      ImageCategory: {
         title: 'Hình Ảnh',
         type: 'html',
         valuePrepareFunction: (value) => {
@@ -149,7 +143,7 @@ export class CategoryComponent implements OnInit {
   constructor(
     private router: Router,
     private datepipe: DatePipe,
-    private productService: ProductService,
+    private categoryService: CategoryService,
     private httpClient: HttpClient,
     private modalService: NgbModal
   ) {}
@@ -166,13 +160,13 @@ export class CategoryComponent implements OnInit {
       //   break;
     }
   }
-  async onConfirm() {
+  async onPopUp() {
     this.modalReference.close();
     const tokenStorage = JSON.parse(localStorage.getItem('token'));
-    (await this.productService.delete(this.idProduct)).subscribe(
+    (await this.categoryService.delete(this.idCategory)).subscribe(
       (res: any) => {
-        this.productService.RetrieveAll().subscribe((res: any) => {
-          this.source.load(res?.Data.ListProduct);
+        this.categoryService.getAll().subscribe((res: any) => {
+          this.source.load(res?.Data);
         });
       },
       async (err) => {
@@ -199,10 +193,11 @@ export class CategoryComponent implements OnInit {
     // console.log(this.addStaff);
   }
   editCategory(data) {
-    (<any>this.router).navigate([`/base/category/id`]);
+    (<any>this.router).navigate([`/base/category/${data.Id}`]);
+    console.log(this.editCategory);
   }
   deleteCategory(data) {
-    this.idProduct = data.Id;
+    this.idCategory = data.Id;
     this.modalReference = this.modalService.open(this.content);
     this.modalReference.result.then(
       (result) => {
@@ -212,7 +207,6 @@ export class CategoryComponent implements OnInit {
         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       }
     );
-    console.log(this.deleteCategory);
   }
   selectProduct(data) {
     // (<any>this.router).navigate([`/base/product-detail/${data.Id}`]);
