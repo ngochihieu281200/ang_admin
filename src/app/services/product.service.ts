@@ -49,7 +49,7 @@ export class ProductService {
     // const body=JSON.stringify(person);
     // let token = JSON.parse(localStorage.getItem('token'));
     // console.log('this.accessToken', this.accessToken)
-    return this.httpClient.get(`https://localhost:5001/api/product/details/${id}`, {
+    return this.httpClient.get(`${apiEndpoint}product/details/${id}`, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${tokenStorage.AccessToken}`,
