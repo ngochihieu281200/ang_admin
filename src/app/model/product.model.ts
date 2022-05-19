@@ -21,8 +21,8 @@ export interface ProductInfo {
 }
 
 export interface ProductCreate {
-  CategoryId: string;
-  BrandId: string;
+  CategoryID: string;
+  BrandID: string;
   Crytal: string;
   Name: string;
   Feature: string[];
@@ -57,14 +57,13 @@ export interface ProductDetail {
   OriginalPrice: number;
   Stock: number;
   Thumbnail: string;
-
-  // CreatedByName: string;
-  // CreatedByTime: Date;
-  // CreatedByID: string;
-  // UpdatedByName: string;
-  // UpdatedByTime: Date;
-  // UpdatedByID: string;
   Guarantee: Number;
-  WaterProofId: string;
-  WaterProofName: string;
+  WaterProof: string
+  CreatedByName: string;
+  CreatedByTime: Date;
+  CreatedByID: string;
+  UpdatedByName: string;
+  UpdatedByTime: Date;
+  UpdatedByID: string;
+
 }

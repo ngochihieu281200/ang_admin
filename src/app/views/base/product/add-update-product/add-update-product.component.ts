@@ -35,6 +35,7 @@ export class AddUpdateProductComponent implements OnInit {
   product: ProductCreate;
   detail: ProductDetail;
   id;
+  isAddMode: boolean;
   closeResult = '';
   ClassifyProducts: any[] = [];
   ClassifyProduct: ClassifyProduct;
@@ -53,34 +54,36 @@ export class AddUpdateProductComponent implements OnInit {
     private categoryService: CategoryService,
     private route: ActivatedRoute,
     private httpClient: HttpClient
-  ) {}
+  ) { }
 
   async ngOnInit(): Promise<void> {
     const tokenStorage = JSON.parse(localStorage.getItem('token'));
 
     this.id = this.route.snapshot.params.id;
-    (await this.productService.getDetailProductById('', this.id)).subscribe(
-      (res: any) => (
-        ((this.detail = res.Data), (this.updateProduct = true)),
-        console.log('res', res)
-      ),
-      async (err) => {
-        if (err.status === 401) {
-          await this.httpClient
-            .post(`${apiEndpoint}authenticate/refresh-token`, {
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              RefreshToken: tokenStorage.RefreshToken,
-            })
-            .subscribe((res) => {
-              tokenStorage.AccessToken = res['Data'].AccessToken;
-              localStorage.setItem('token', JSON.stringify(tokenStorage));
-              window.location.reload();
-            });
+    this.isAddMode = !this.id;
+    if (!this.isAddMode) {
+      (await this.productService.getDetailProductById('', this.id)).subscribe(
+        (res: any) => (this.formProduct.patchValue(res.Data), this.GetBrands(res.Data.CategoryID),
+          this.Thumbnail = res.Data.Thumbnail, this.Features = res.Data.Feature),
+        async (err) => {
+          if (err.status === 401) {
+            await this.httpClient
+              .post(`${apiEndpoint}authenticate/refresh-token`, {
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                RefreshToken: tokenStorage.RefreshToken,
+              })
+              .subscribe((res) => {
+                tokenStorage.AccessToken = res['Data'].AccessToken;
+                localStorage.setItem('token', JSON.stringify(tokenStorage));
+                window.location.reload();
+              });
+          }
         }
-      }
-    );
+      );
+    }
+
 
     (await this.categoryService.getAll()).subscribe(
       (res: any) => (this.CategoryList = res.Data),
@@ -104,8 +107,8 @@ export class AddUpdateProductComponent implements OnInit {
     // Form Group
     this.formProduct = new FormGroup({
       Id: new FormControl(),
-      CategoryId: new FormControl(''),
-      BrandId: new FormControl(''),
+      CategoryID: new FormControl(''),
+      BrandID: new FormControl(''),
       Name: new FormControl(''),
       Crytal: new FormControl(''),
       Ablert: new FormControl(''),
@@ -115,6 +118,7 @@ export class AddUpdateProductComponent implements OnInit {
       Machine: new FormControl(),
       Description: new FormControl(''),
       IsShow: new FormControl(''),
+      Thumbnail: new FormControl('')
     });
 
     this.formClassifyProduct = new FormGroup({
@@ -169,6 +173,34 @@ export class AddUpdateProductComponent implements OnInit {
   }
   categoryChange(event) {
     var CategoryId = event.target.value;
+    const tokenStorage = JSON.parse(localStorage.getItem('token'));
+
+    this.categoryService.getAllBrandByIdCategory(CategoryId).subscribe({
+      next: (res: any) => {
+        (this.BrandList = res.Data), (this.brandProduct = false);
+      },
+      error: async (err) => {
+        (this.BrandList = null), (this.brandProduct = true);
+        if (err.status === 401) {
+          await this.httpClient
+            .post(`${apiEndpoint}authenticate/refresh-token`, {
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              RefreshToken: tokenStorage.RefreshToken,
+            })
+            .subscribe((res) => {
+              tokenStorage.AccessToken = res['Data'].AccessToken;
+              localStorage.setItem('token', JSON.stringify(tokenStorage));
+              window.location.reload();
+            });
+        }
+      },
+    });
+  }
+
+  GetBrands(CategoryID) {
+    var CategoryId = CategoryID;
     const tokenStorage = JSON.parse(localStorage.getItem('token'));
 
     this.categoryService.getAllBrandByIdCategory(CategoryId).subscribe({
