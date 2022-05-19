@@ -68,7 +68,7 @@ export class AddUpdateProductComponent implements OnInit {
       (await this.productService.getDetailProductById(this.id)).subscribe(
         (res: any) => (
           this.formProduct.patchValue(res.Data),
-          this.ClassifyProducts = res.Data.ClassifyProducts,
+          (this.ClassifyProducts = res.Data.ClassifyProducts),
           this.GetBrands(res.Data.CategoryID),
           this.Thumbnail = res.Data.Thumbnail,
           this.Features = res.Data.Feature,
@@ -93,7 +93,6 @@ export class AddUpdateProductComponent implements OnInit {
         }
       );
     }
-
 
     (await this.categoryService.getAll()).subscribe(
       (res: any) => (this.CategoryList = res.Data),

@@ -1,26 +1,32 @@
 export interface CategoryInfo {
-    Id: string;
-    ImageCategory: string;
-    IsShow: Number;
-    Name: string;
-    CreatedByName: string;
-    CreatedByTime: Date;
-    CreatedByID: string;
-    UpdatedByName: string;
-    UpdatedByTime: Date;
-    UpdatedByID: string;
+  Id: string;
+  ImageCategory: string;
+  IsShow: Number;
+  Name: string;
+  CreatedByName: string;
+  CreatedByTime: Date;
+  CreatedByID: string;
+  UpdatedByName: string;
+  UpdatedByTime: Date;
+  UpdatedByID: string;
+}
+export interface CategoryCreate {
+  Id: string;
+  ImageCategory: string;
+  IsShow: Number;
+  Name: string;
 }
 
 export interface BrandInfo {
-    Id: string;
-    CategoryId: string;
-    ImageBrand: string;
-    IsShow: Number;
-    Name: string;
-    CreatedByName: string;
-    CreatedByTime: Date;
-    CreatedByID: string;
-    UpdatedByName: string;
-    UpdatedByTime: Date;
-    UpdatedByID: string;
+  Id: string;
+  CategoryId: string;
+  ImageBrand: string;
+  IsShow: Number;
+  Name: string;
+  CreatedByName: string;
+  CreatedByTime: Date;
+  CreatedByID: string;
+  UpdatedByName: string;
+  UpdatedByTime: Date;
+  UpdatedByID: string;
 }

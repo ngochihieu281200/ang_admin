@@ -61,7 +61,7 @@ export class ProductComponent implements OnInit {
   [x: string]: any;
   datas;
   detail;
-  searchText;
+
   keyword;
   hide;
   idProduct;
@@ -94,7 +94,7 @@ export class ProductComponent implements OnInit {
     }
   }
   //   refresh(): void {
-  //     window.location.reload();
+  //     window.location.reload();_
   // }
 
   async onConfirm() {
@@ -180,19 +180,19 @@ export class ProductComponent implements OnInit {
     },
     columns: {
       Id: {
-        title: 'Mã Sản phẩm',
+        title: 'Mã Sản Phẩm',
         type: 'string',
       },
       Name: {
-        title: 'Tên Sản phẩm',
+        title: 'Tên Sản Phẩm',
         type: 'string',
       },
       CategoryName: {
-        title: 'Danh mục Sản phẩm',
+        title: 'Danh Mục Sản Phẩm',
         type: 'string',
       },
       BrandName: {
-        title: 'Nhãn Hiệu Sản phẩm',
+        title: 'Nhãn Hiệu Sản Phẩm',
         type: 'string',
       },
       Thumbnail: {
@@ -243,54 +243,6 @@ export class ProductComponent implements OnInit {
     );
 
   }
-
-  // Search() {
-  //   // this.productService.Search().subscribe((response:any)=>
-  //   // this.product)
-  // }
-  // async viewDetail(id) {
-  //   console.log(this.viewDetail);
-  //   this.largeModal.show();
-  //   const tokenStorage = JSON.parse(localStorage.getItem('token'));
-  //   (await this.productService.callApiWithToken('', id)).subscribe(
-  //     (res: any) => ((this.detail = res), console.log('res', res)),
-  //     async (err) => {
-  //       if (err.status === 401) {
-  //         await this.httpClient
-  //           .post(`${apiEndpoint}authenticate/refresh-token`, {
-  //             headers: {
-  //               'Content-Type': 'application/json',
-  //             },
-  //             RefreshToken: tokenStorage.RefreshToken,
-  //           })
-  //           .subscribe((res) => {
-  //             // console.log('res', res)
-  //             tokenStorage.AccessToken = res['Data'].AccessToken;
-  //             localStorage.setItem('token', JSON.stringify(tokenStorage));
-  //             // console.log('this.accessToken', this.accessToken)
-  //             this.productService.callApiWithToken('', id);
-  //           });
-  //       }
-  //     }
-  //   );
-  // }
-
-  // onDelete(Id: number) {
-  //   alert(Id);
-  // }
-
-  // onsubmit() {
-  //   return this.playerName;
-  //   console.log(this.onsubmit);
-  // }
-  // onSubmit(event: any) {
-  //   return event.target.player.value;
-  // }
-  // onSubmit(playerName: string) {
-  //   console.log(
-
-  //   );
-  // }
 }
 function NgbdModalContent(NgbdModalContent: any) {
   throw new Error('Function not implemented.');

@@ -1,12 +1,12 @@
 <div class="col-lg-12">
   <div class="card">
     <div class="card-header">
-      <strong>Thêm Sản Phẩm</strong>
       <a class="ml-1 btn btn-primary" [routerLink]="['/base/product']"><strong>Quay lại</strong></a>
+      <strong class="float-right">Thêm Sản Phẩm</strong>
     </div>
 
-    <div class="card-body">
-      <form [formGroup]="formProduct" (ngSubmit)="addProduct()" class="form-horizontal">
+    <form class="row card-body" [formGroup]="formProduct" (ngSubmit)="addProduct()">
+      <div class="col-12 form-horizontal">
         <div class="row">
           <div class="col-6">
             <div class="form-group row">
@@ -22,8 +22,12 @@
               <div class="col-md-9">
                 <select id="select1" name="CategoryID" formControlName="CategoryID" (change)="categoryChange($event)"
                   class="form-control form-select">
-                  <option value="" disabled selected> ---Chọn Danh Mục--- </option>
-                  <option value="{{cate.Id}}" *ngFor="let cate of CategoryList">{{cate.Name}}</option>
+                  <option value="" disabled selected>
+                    ---Chọn Danh Mục---
+                  </option>
+                  <option value="{{ cate.Id }}" *ngFor="let cate of CategoryList">
+                    {{ cate.Name }}
+                  </option>
                 </select>
               </div>
             </div>
@@ -33,8 +37,12 @@
               <div class="col-md-9">
                 <select id="select2" name="BrandID" [attr.disabled]="brandProduct ? '' : null" formControlName="BrandID"
                   class="form-control form-select">
-                  <option value="" disabled selected>--- Chọn Nhãn Hiệu ---</option>
-                  <option value="{{brand.Id}}" *ngFor="let brand of BrandList">{{brand.Name}}</option>
+                  <option value="" disabled selected>
+                    --- Chọn Nhãn Hiệu ---
+                  </option>
+                  <option value="{{ brand.Id }}" *ngFor="let brand of BrandList">
+                    {{ brand.Name }}
+                  </option>
                 </select>
               </div>
             </div>
@@ -52,7 +60,9 @@
               <div class="col-md-9">
                 <select id="select2" name="Crytal" formControlName="Crytal" class="form-control form-select"
                   placeholder="Chọn Mặt Kính">
-                  <option value="" disabled selected>--- Chọn Mặt Kính ---</option>
+                  <option value="" disabled selected>
+                    --- Chọn Mặt Kính ---
+                  </option>
                   <option value="Kính khoáng (Mineral)">Kính Khoáng</option>
                   <option value="PMMA">PMMA</option>
                 </select>
@@ -62,7 +72,9 @@
               <label class="col-md-3 col-form-label" for="select2">Dây Đeo <span class="text-danger">*</span></label>
               <div class="col-md-9">
                 <select id="select2" name="Ablert" formControlName="Ablert" class="form-control form-select">
-                  <option value="" disabled selected>--- Chọn Loại Dây Đeo ---</option>
+                  <option value="" disabled selected>
+                    --- Chọn Loại Dây Đeo ---
+                  </option>
                   <option value="Thép không gỉ">Thép không gỉ</option>
                   <option value="Nhựa">Nhựa</option>
                 </select>
@@ -73,7 +85,9 @@
                   class="text-danger">*</span></label>
               <div class="col-md-9">
                 <select id="select2" name="WaterProof" formControlName="WaterProof" class="form-control form-select">
-                  <option value="" disabled selected>--- Chọn Độ Chống Nước ---</option>
+                  <option value="" disabled selected>
+                    --- Chọn Độ Chống Nước ---
+                  </option>
                   <option value="20 Atm">20 Atm</option>
                   <option value="2">Option #2</option>
                   <option value="3">Option #3</option>
@@ -92,7 +106,9 @@
               <label class="col-md-3 col-form-label" for="select2">Loại Máy <span class="text-danger">*</span></label>
               <div class="col-md-9">
                 <select id="select2" name="Machine" formControlName="Machine" class="form-control form-select">
-                  <option value="" disabled selected>--- Chọn Loại Máy ---</option>
+                  <option value="" disabled selected>
+                    --- Chọn Loại Máy ---
+                  </option>
                   <option value="Máy Cơ">Máy Cơ</option>
                   <option value="Điện Tử">Điện Tử</option>
                   <option value="Pin">Pin</option>
@@ -104,7 +120,9 @@
               <label class="col-md-3 col-form-label" for="select2">Xuất Sứ <span class="text-danger">*</span></label>
               <div class="col-md-9">
                 <select id="select2" name="MadeIn" formControlName="MadeIn" class="form-control form-select">
-                  <option value="" disabled selected>--- Chọn Xuất Xứ ---</option>
+                  <option value="" disabled selected>
+                    --- Chọn Xuất Xứ ---
+                  </option>
                   <option value="Trung Quốc">Trung Quốc</option>
                   <option value="Nhật Bản">Nhật Bản</option>
                   <option value="Việt Nam">Việt Nam</option>
@@ -120,32 +138,33 @@
             </div>
             <div class="form-group row">
               <label class="col-md-3 col-form-label" for="textarea-input">Thêm tính năng sản phẩm</label>
-              <div class="col-md-9" style="position: relative;">
+              <div class="col-md-9" style="position: relative">
                 <input id="input" name="placeId" #placeId type="text" class="form-control"
-                  placeholder="Nhập tính năng sản phẩm">
-                <button type="button" class="btn btn-primary" style="position: absolute;
-                top: 0;
-                right: 15px;" (click)="addFeature(placeId.value)">Thêm</button>
+                  placeholder="Nhập tính năng sản phẩm" />
+                <button type="button" class="btn btn-primary" style="position: absolute; top: 0; right: 15px"
+                  (click)="addFeature(placeId.value)">
+                  Thêm
+                </button>
               </div>
-
             </div>
             <div class="form-group row">
-              <div class="col-md-3 col-form-label">
-                Danh sách tính năng
-              </div>
-              <div class=" col-md-9">
-                <a class='badge badge-primary search-badge' style="margin: 4px; position: relative;"
-                  *ngFor='let feature of Features,let i = index'>
-                  <p style="margin: 16px; color: white;">{{ feature }}</p>
-                  <i class="fa fa-window-close	" style="position: absolute;
-                  top: 0px;
-                  right: 0px;
-                  color: white; font-size: 15px; cursor: pointer;" (click)="removeFeature(i)"></i>
+              <div class="col-md-3 col-form-label">Danh sách tính năng</div>
+              <div class="col-md-9">
+                <a class="badge badge-primary search-badge" style="margin: 4px; position: relative"
+                  *ngFor="let feature of Features; let i = index">
+                  <p style="margin: 16px; color: white">{{ feature }}</p>
+                  <i class="fa fa-window-close" style="
+                      position: absolute;
+                      top: 0px;
+                      right: 0px;
+                      color: white;
+                      font-size: 15px;
+                      cursor: pointer;
+                    " (click)="removeFeature(i)"></i>
                 </a>
-
               </div>
             </div>
-            <div class="form-group" style="float: right;">
+            <div class="form-group" style="float: right">
               <label class="switch switch-label switch-pill switch-success">
                 <input type="checkbox" class="switch-input" formControlName="IsShow" checked />
                 <span name="IsShow" class="switch-slider" data-checked="On" data-unchecked="Off"></span>
@@ -161,34 +180,48 @@
                   <div class="col-lg-12 row">
                     <div class="col-sm-12 col-sm-12 mb-xl-0">
                       <div class="btn btn-mdb-color btn-rounded">
-                        <div class="fileUpload btn btn-primary"
-                          style=" position: relative; overflow: hidden;margin: 10px;">
+                        <div class="fileUpload btn btn-primary" style="
+                            position: relative;
+                            overflow: hidden;
+                            margin: 10px;
+                          ">
                           <span>Upload</span>
-                          <input id="uploadBtn" type="file" class="upload" style="position: absolute;
-                          top: 0;
-                          right: 0;
-                          margin: 0;
-                          padding: 0;
-                          font-size: 20px;
-                          cursor: pointer;
-                          opacity: 0;
-                          filter: alpha(opacity=0);" (change)="handleUploadProduct($event)" />
+                          <input id="uploadBtn" type="file" class="upload" style="
+                              position: absolute;
+                              top: 0;
+                              right: 0;
+                              margin: 0;
+                              padding: 0;
+                              font-size: 20px;
+                              cursor: pointer;
+                              opacity: 0;
+                              filter: alpha(opacity=0);
+                            " (change)="handleUploadProduct($event)" />
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
+              <div>
+                <button class="btn btn-lg btn-outline-primary" (click)="largeModal.show()">
+                  Thêm Loại Sản Phẩm
+                </button>
+              </div>
             </div>
             <div class="my-4">
               <div *ngFor="let ClassifyProduct of ClassifyProducts"
                 class="product flex pad-10 d-flex p-2 border border-secondary my-2 justify-content-between align-items-sm-center">
-                <div class="d-flex" style="width: 400px;">
-                  <img [src]="ClassifyProduct ?  ClassifyProduct.Image : ImageClassifyProduct" alt="" class="d-block"
-                    width="100px" style="flex:1" />
-                  <div class="detail  ml-3" style="flex:1">
+                <div class="d-flex" style="width: 400px">
+                  <img [src]="
+                      ClassifyProduct
+                        ? ClassifyProduct.Image
+                        : ImageClassifyProduct
+                    " alt="" class="d-block" width="100px" style="flex: 1" />
+                  <div class="detail ml-3" style="flex: 1">
                     <p class="name">
-                      <strong>Tên Loại Sản Phẩm:</strong> {{ ClassifyProduct.Name }}
+                      <strong>Tên Loại Sản Phẩm:</strong>
+                      {{ ClassifyProduct.Name }}
                     </p>
                     <p class="money">
                       <strong>Giá Gốc: </strong>{{ ClassifyProduct.OriginalPrice }} VND
@@ -202,8 +235,10 @@
                   </div>
                 </div>
                 <div>
-                  <button class="btn btn-warning m-2"> Sửa</button>
-                  <button class="btn btn-danger m-2"> Xóa </button>
+                  <button class="btn btn-warning m-2">Sửa</button>
+                  <button class="btn btn-danger m-2" (click)="removeTypeProduct()">
+                    Xóa
+                  </button>
                 </div>
               </div>
             </div>
@@ -213,11 +248,13 @@
               Phẩm</button>
           </div>
         </div>
-      </form>
-      <button class="btn btn-lg btn-outline-primary" (click)="largeModal.show()">
-        Thêm Loại Sản Phẩm
-      </button>
-    </div>
+      </div>
+      <div class="col-12">
+        <button class="btn btn-outline-success active ml-1 float-right" type="submit">
+          Thêm Sản Phẩm
+        </button>
+      </div>
+    </form>
   </div>
 </div>
 
@@ -266,24 +303,29 @@
             </div>
             <div class="col-5">
               <div class="card" style="width: 18rem">
-                <img class="card-img-top" src="{{ImageClassifyProduct}}" alt="Card image cap" />
+                <img class="card-img-top" src="{{ ImageClassifyProduct }}" alt="Card image cap" />
                 <div class="card-body">
                   <h5 class="card-title">Thêm Ảnh Sản Phẩm</h5>
                   <div class="col-lg-12 row">
                     <div class="col-sm-12 col-sm-12 mb-xl-0">
                       <div class="btn btn-mdb-color btn-rounded">
-                        <div class="fileUpload btn btn-primary"
-                          style=" position: relative; overflow: hidden;margin: 10px;">
+                        <div class="fileUpload btn btn-primary" style="
+                            position: relative;
+                            overflow: hidden;
+                            margin: 10px;
+                          ">
                           <span>Upload</span>
-                          <input id="uploadBtn" formControlName="Image" type="file" class="upload" style="position: absolute;
-                          top: 0;
-                          right: 0;
-                          margin: 0;
-                          padding: 0;
-                          font-size: 20px;
-                          cursor: pointer;
-                          opacity: 0;
-                          filter: alpha(opacity=0);" (change)="handleUpload($event)" />
+                          <input id="uploadBtn" formControlName="Image" type="file" class="upload" style="
+                              position: absolute;
+                              top: 0;
+                              right: 0;
+                              margin: 0;
+                              padding: 0;
+                              font-size: 20px;
+                              cursor: pointer;
+                              opacity: 0;
+                              filter: alpha(opacity=0);
+                            " (change)="handleUpload($event)" />
                         </div>
                       </div>
                     </div>
