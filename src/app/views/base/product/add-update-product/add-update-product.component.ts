@@ -63,16 +63,20 @@ export class AddUpdateProductComponent implements OnInit {
     this.isAddMode = !this.id;
     if (!this.isAddMode) {
       (await this.productService.getDetailProductById('', this.id)).subscribe(
-        (res: any) => (this.formProduct.patchValue(res.Data), this.GetBrands(res.Data.CategoryID),
-          this.Thumbnail = res.Data.Thumbnail, this.Features = res.Data.Feature),
+        (res: any) => (
+          this.formProduct.patchValue(res.Data),
+          this.ClassifyProducts = res.Data.ClassifyProducts,
+          this.GetBrands(res.Data.CategoryID),
+          this.Thumbnail = res.Data.Thumbnail,
+          this.Features = res.Data.Feature),
         async (err) => {
           if (err.status === 401) {
             await this.httpClient
-              .post(`${apiEndpoint}authenticate/refresh-token`, {
+              .post(`${apiEndpoint}authenticate/refresh-token`, JSON.stringify({ RefreshToken: tokenStorage.RefreshToken }), {
                 headers: {
                   'Content-Type': 'application/json',
                 },
-                RefreshToken: tokenStorage.RefreshToken,
+
               })
               .subscribe((res) => {
                 tokenStorage.AccessToken = res['Data'].AccessToken;
@@ -90,11 +94,10 @@ export class AddUpdateProductComponent implements OnInit {
       async (err) => {
         if (err.status === 401) {
           await this.httpClient
-            .post(`${apiEndpoint}authenticate/refresh-token`, {
+            .post(`https://localhost:5001/api/authenticate/refresh-token`, JSON.stringify({ RefreshToken: tokenStorage.RefreshToken }), {
               headers: {
                 'Content-Type': 'application/json',
               },
-              RefreshToken: tokenStorage.RefreshToken,
             })
             .subscribe((res) => {
               tokenStorage.AccessToken = res['Data'].AccessToken;
@@ -118,7 +121,6 @@ export class AddUpdateProductComponent implements OnInit {
       Machine: new FormControl(),
       Description: new FormControl(''),
       IsShow: new FormControl(''),
-      Thumbnail: new FormControl('')
     });
 
     this.formClassifyProduct = new FormGroup({

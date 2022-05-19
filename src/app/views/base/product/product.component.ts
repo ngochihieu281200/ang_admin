@@ -84,7 +84,7 @@ export class ProductComponent implements OnInit {
     private router: Router,
     public datepipe: DatePipe,
     private modalService: NgbModal
-  ) {}
+  ) { }
 
   onCuston(event) {
     switch (event.action) {
@@ -114,12 +114,12 @@ export class ProductComponent implements OnInit {
       },
       async (err) => {
         if (err.status === 401) {
+          console.log("resfresh");
           await this.httpClient
-            .post(`${apiEndpoint}authenticate/refresh-token`, {
+            .post(`${apiEndpoint}authenticate/refresh-token`, JSON.stringify({ RefreshToken: tokenStorage.RefreshToken }), {
               headers: {
                 'Content-Type': 'application/json',
               },
-              RefreshToken: tokenStorage.RefreshToken,
             })
             .subscribe((res) => {
               tokenStorage.AccessToken = res['Data'].AccessToken;
@@ -209,18 +209,16 @@ export class ProductComponent implements OnInit {
         title: 'Hệ Thống',
         type: 'html',
         valuePrepareFunction: (value, cell, row) => {
-          return `<p>Tạo bởi : ${
-            cell.CreatedByName
-          }<br>Lúc: ${this.datepipe.transform(
-            cell.CreatedByTime,
-            'dd/mm/yyyy'
-          )}<br>
-          Cập nhật bởi: ${
-            cell.UpdatedByName
-          }<br>Lúc:  ${this.datepipe.transform(
-            cell.UpdatedByTime,
-            'dd/mm/yyyy'
-          )}</p>`;
+          return `<p>Tạo bởi : ${cell.CreatedByName
+            }<br>Lúc: ${this.datepipe.transform(
+              cell.CreatedByTime,
+              'dd/mm/yyyy'
+            )}<br>
+          Cập nhật bởi: ${cell.UpdatedByName
+            }<br>Lúc:  ${this.datepipe.transform(
+              cell.UpdatedByTime,
+              'dd/mm/yyyy'
+            )}</p>`;
         },
       },
     },
@@ -238,11 +236,11 @@ export class ProductComponent implements OnInit {
       async (err) => {
         if (err.status === 401) {
           await this.httpClient
-            .post(`${apiEndpoint}authenticate/refresh-token`, {
+            .post(`${apiEndpoint}authenticate/refresh-token`, JSON.stringify({ RefreshToken: tokenStorage.RefreshToken }), {
               headers: {
                 'Content-Type': 'application/json',
               },
-              RefreshToken: tokenStorage.RefreshToken,
+
             })
             .subscribe((res) => {
               tokenStorage.AccessToken = res['Data'].AccessToken;
