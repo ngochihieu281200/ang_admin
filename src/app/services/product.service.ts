@@ -12,9 +12,6 @@ import {
   ProductDetail,
   ProductInfo,
 } from 'src/app/model/product.model';
-import { accessToken, data } from '../model/user.model';
-
-import { map } from 'rxjs/operators';
 
 const httpOptions = {
   herders: new HttpHeaders({ 'Content-Type': 'Application/json' }),
@@ -43,13 +40,9 @@ export class ProductService {
   //     `${apiEndpoint}product/details/{Id}`
   //   );
   // }
-  async getDetailProductById(url, id) {
+  getDetailProductById(id): Observable<ProductDetail> {
     const tokenStorage = JSON.parse(localStorage.getItem('token'));
-
-    // const body=JSON.stringify(person);
-    // let token = JSON.parse(localStorage.getItem('token'));
-    // console.log('this.accessToken', this.accessToken)
-    return this.httpClient.get(`${apiEndpoint}product/details/${id}`, {
+    return this.httpClient.get<ProductDetail>(`${apiEndpoint}product/details/${id}`, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${tokenStorage.AccessToken}`,
@@ -71,7 +64,7 @@ export class ProductService {
     );
   }
 
-  async update(product): Promise<Observable<ProductInfo>> {
+  update(product): Observable<ProductInfo> {
     const tokenStorage = JSON.parse(localStorage.getItem('token'));
     return this.httpClient.post<ProductInfo>(
       `${apiEndpoint}product/create`,

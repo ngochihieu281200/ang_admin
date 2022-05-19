@@ -1,11 +1,11 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ProductService } from '../../../services/product.service';
-
+import { RefreshTokenService } from '../../../services/refresh-token.service';
 import { apiEndpoint } from 'src/app/config/api';
 import { HttpClient } from '@angular/common/http';
 
 import { LocalDataSource } from 'ng2-smart-table';
-
+import { ToastrService } from 'ngx-toastr';
 import { Router, RouterModule, Routes } from '@angular/router';
 
 import { DatePipe } from '@angular/common';
@@ -27,15 +27,9 @@ import { data } from './../../../model/user.model';
       (create)="addProduct()"
       (custom)="onCuston($event)"
     ></ng2-smart-table>
-    <ng-template #content let-modal>
+    <ng-template #content let-modal style="margin:0 auto; margin-top:30vh;">
       <div class="modal-header">
         <h4 class="modal-title" id="modal-basic-title">Xóa Sản Phẩm</h4>
-        <button
-          type="button"
-          class="btn-close"
-          aria-label="Close"
-          (click)="modal.dismiss('Cross click')"
-        ></button>
       </div>
       <div class="modal-body">
         <form>
@@ -47,18 +41,17 @@ import { data } from './../../../model/user.model';
       <div class="modal-footer">
         <button
           type="button"
-          class="btn btn-outline-dark"
-          (click)="modal.close('Không')"
-        >
-          Không Xác Nhận
-        </button>
-
-        <button
-          type="button"
-          class="btn btn-outline-dark"
+          class="btn btn-outline-success"
           (click)="onConfirm()"
         >
           Xác Nhận
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-danger"
+          (click)="modal.close('Không')"
+        >
+          Không Xác Nhận
         </button>
       </div>
     </ng-template>`,
@@ -80,10 +73,11 @@ export class ProductComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
-    private httpClient: HttpClient,
+    private refreshTokenService: RefreshTokenService,
     private router: Router,
     public datepipe: DatePipe,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private toastr: ToastrService
   ) { }
 
   onCuston(event) {
@@ -111,21 +105,24 @@ export class ProductComponent implements OnInit {
         this.productService.RetrieveAll().subscribe((res: any) => {
           this.source.load(res?.Data.ListProduct);
         });
+        this.toastr.success(res.Message, 'Thông báo');
+
       },
       async (err) => {
         if (err.status === 401) {
-          console.log("resfresh");
-          await this.httpClient
-            .post(`${apiEndpoint}authenticate/refresh-token`, JSON.stringify({ RefreshToken: tokenStorage.RefreshToken }), {
-              headers: {
-                'Content-Type': 'application/json',
-              },
-            })
+          this.refreshTokenService.refreshToken()
             .subscribe((res) => {
               tokenStorage.AccessToken = res['Data'].AccessToken;
               localStorage.setItem('token', JSON.stringify(tokenStorage));
               window.location.reload();
+              this.productService.RetrieveAll().subscribe((res: any) => {
+                this.source.load(res?.Data.ListProduct);
+              });
             });
+
+        }
+        else {
+          this.toastr.error(err.error.Message, "Thông báo lỗi");
         }
       }
     );
@@ -228,49 +225,23 @@ export class ProductComponent implements OnInit {
 
   ngOnInit() {
     const tokenStorage = JSON.parse(localStorage.getItem('token'));
-
     this.productService.RetrieveAll().subscribe(
       (res: any) => {
         this.source.load(res?.Data.ListProduct);
+
       },
       async (err) => {
         if (err.status === 401) {
-          await this.httpClient
-            .post(`${apiEndpoint}authenticate/refresh-token`, JSON.stringify({ RefreshToken: tokenStorage.RefreshToken }), {
-              headers: {
-                'Content-Type': 'application/json',
-              },
-
-            })
+          this.refreshTokenService.refreshToken()
             .subscribe((res) => {
-              tokenStorage.AccessToken = res['Data'].AccessToken;
+              tokenStorage.AccessToken = res.Data.AccessToken;
               localStorage.setItem('token', JSON.stringify(tokenStorage));
-              window.location.reload();
+              this.productService.RetrieveAll().subscribe((res: any) => { this.source.load(res.Data.ListProduct) })
             });
         }
       }
     );
-    this.productService.RetrieveAll().subscribe(
-      (res: any) => {
-        this.source.load(res?.Data.ListProduct);
-      },
-      async (err) => {
-        if (err.status === 401) {
-          await this.httpClient
-            .post(`${apiEndpoint}authenticate/refresh-token`, {
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              RefreshToken: tokenStorage.RefreshToken,
-            })
-            .subscribe((res) => {
-              tokenStorage.AccessToken = res['Data'].AccessToken;
-              localStorage.setItem('token', JSON.stringify(tokenStorage));
-              window.location.reload();
-            });
-        }
-      }
-    );
+
   }
 
   // Search() {

@@ -15,6 +15,15 @@ export interface Result {
   Message: string;
 }
 
+export interface ResultRefreshToken {
+  IsSuccess: boolean;
+  Data: {
+    AccessToken: string,
+    ExpiresAccess: Date
+  };
+  Message: string;
+}
+
 export interface ResultProductDetail {
   IsSuccess: boolean;
   Data: {

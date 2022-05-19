@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { apiEndpoint } from './../../../../config/api';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ClassifyProduct } from './../../../../model/classifyProduct.model';
+import { ToastrService } from 'ngx-toastr';
 import {
   FormBuilder,
   FormControl,
@@ -19,6 +20,7 @@ import {
   ProductDetail,
   ProductInfo,
 } from 'src/app/model/product.model';
+import { RefreshTokenService } from 'src/app/services/refresh-token.service';
 
 const httpOptions = {
   herders: new HttpHeaders({ 'Content-Type': 'Application/json' }),
@@ -51,9 +53,10 @@ export class AddUpdateProductComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
+    private refreshTokenService: RefreshTokenService,
     private categoryService: CategoryService,
     private route: ActivatedRoute,
-    private httpClient: HttpClient
+    private toastr: ToastrService
   ) { }
 
   async ngOnInit(): Promise<void> {
@@ -62,26 +65,29 @@ export class AddUpdateProductComponent implements OnInit {
     this.id = this.route.snapshot.params.id;
     this.isAddMode = !this.id;
     if (!this.isAddMode) {
-      (await this.productService.getDetailProductById('', this.id)).subscribe(
+      (await this.productService.getDetailProductById(this.id)).subscribe(
         (res: any) => (
           this.formProduct.patchValue(res.Data),
           this.ClassifyProducts = res.Data.ClassifyProducts,
           this.GetBrands(res.Data.CategoryID),
           this.Thumbnail = res.Data.Thumbnail,
-          this.Features = res.Data.Feature),
+          this.Features = res.Data.Feature,
+          this.updateProduct = true),
         async (err) => {
           if (err.status === 401) {
-            await this.httpClient
-              .post(`${apiEndpoint}authenticate/refresh-token`, JSON.stringify({ RefreshToken: tokenStorage.RefreshToken }), {
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-
-              })
+            this.refreshTokenService.refreshToken()
               .subscribe((res) => {
                 tokenStorage.AccessToken = res['Data'].AccessToken;
                 localStorage.setItem('token', JSON.stringify(tokenStorage));
-                window.location.reload();
+                this.productService.getDetailProductById(this.id).subscribe(
+                  (res: any) => {
+                    this.formProduct.patchValue(res.Data),
+                      this.ClassifyProducts = res.Data.ClassifyProducts,
+                      this.GetBrands(res.Data.CategoryID),
+                      this.Thumbnail = res.Data.Thumbnail,
+                      this.Features = res.Data.Feature
+                  }
+                )
               });
           }
         }
@@ -93,16 +99,13 @@ export class AddUpdateProductComponent implements OnInit {
       (res: any) => (this.CategoryList = res.Data),
       async (err) => {
         if (err.status === 401) {
-          await this.httpClient
-            .post(`https://localhost:5001/api/authenticate/refresh-token`, JSON.stringify({ RefreshToken: tokenStorage.RefreshToken }), {
-              headers: {
-                'Content-Type': 'application/json',
-              },
-            })
+          this.refreshTokenService.refreshToken()
             .subscribe((res) => {
               tokenStorage.AccessToken = res['Data'].AccessToken;
               localStorage.setItem('token', JSON.stringify(tokenStorage));
-              window.location.reload();
+              this.categoryService.getAll().subscribe((res: any) => {
+                this.CategoryList = res.Data
+              })
             });
         }
       }
@@ -184,17 +187,16 @@ export class AddUpdateProductComponent implements OnInit {
       error: async (err) => {
         (this.BrandList = null), (this.brandProduct = true);
         if (err.status === 401) {
-          await this.httpClient
-            .post(`${apiEndpoint}authenticate/refresh-token`, {
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              RefreshToken: tokenStorage.RefreshToken,
-            })
+          this.refreshTokenService.refreshToken()
             .subscribe((res) => {
               tokenStorage.AccessToken = res['Data'].AccessToken;
               localStorage.setItem('token', JSON.stringify(tokenStorage));
-              window.location.reload();
+              this.categoryService.getAllBrandByIdCategory(CategoryId).subscribe(
+                (res: any) => {
+                  this.BrandList = res.Data
+                  this.brandProduct = false
+                }
+              )
             });
         }
       },
@@ -212,17 +214,16 @@ export class AddUpdateProductComponent implements OnInit {
       error: async (err) => {
         (this.BrandList = null), (this.brandProduct = true);
         if (err.status === 401) {
-          await this.httpClient
-            .post(`${apiEndpoint}authenticate/refresh-token`, {
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              RefreshToken: tokenStorage.RefreshToken,
-            })
+          this.refreshTokenService.refreshToken()
             .subscribe((res) => {
               tokenStorage.AccessToken = res['Data'].AccessToken;
               localStorage.setItem('token', JSON.stringify(tokenStorage));
-              window.location.reload();
+              this.categoryService.getAllBrandByIdCategory(CategoryId).subscribe(
+                (res: any) => {
+                  this.BrandList = res.Data,
+                    this.brandProduct = false
+                }
+              )
             });
         }
       },
@@ -248,24 +249,24 @@ export class AddUpdateProductComponent implements OnInit {
     const tokenStorage = JSON.parse(localStorage.getItem('token'));
     this.productService.create(this.product).subscribe({
       next: (res: any) => {
-        console.log(res);
+        this.toastr.success(res.Message, 'Thông báo');
       },
-      error: async (err) => {
+      error: async (error) => {
         (this.BrandList = null), (this.brandProduct = true);
-        if (err.status === 401) {
-          await this.httpClient
-            .post(`${apiEndpoint}authenticate/refresh-token`, {
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              RefreshToken: tokenStorage.RefreshToken,
-            })
+        if (error.status === 401) {
+          this.refreshTokenService.refreshToken()
             .subscribe((res) => {
               tokenStorage.AccessToken = res['Data'].AccessToken;
               localStorage.setItem('token', JSON.stringify(tokenStorage));
-              window.location.reload();
+              this.productService.create(this.product).subscribe((res: any) => {
+                if (res.IsSuccess) {
+                  this.toastr.success(res.Message, 'Thông báo');
+                }
+                else { this.toastr.success(res.Message, 'Thông báo lỗi'); }
+              })
             });
         }
+        else { this.toastr.error(error.error.Message, 'Thông báo lỗi'); }
       },
     });
   }

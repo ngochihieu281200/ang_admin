@@ -14,7 +14,6 @@ export const routes: Routes = [
     path: '',
     redirectTo: 'dashboard',
     pathMatch: 'full',
-
   },
   {
     path: '404',
@@ -53,7 +52,8 @@ export const routes: Routes = [
     children: [
       {
         path: 'base',
-        loadChildren: () => import('./views/base/base.module').then(m => m.BaseModule)
+        loadChildren: () => import('./views/base/base.module').then(m => m.BaseModule),
+        canActivate: [AuthGuard]
       },
       {
         path: 'buttons',
@@ -90,7 +90,7 @@ export const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

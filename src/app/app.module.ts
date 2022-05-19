@@ -6,6 +6,8 @@ import {
   DatePipe,
 } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+import { CommonModule } from '@angular/common';
 import '@popperjs/core';
 
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
@@ -78,6 +80,8 @@ import { ChartsModule } from 'ng2-charts';
     Ng2SmartTableModule,
     Ng2CompleterModule,
     ModalModule,
+    ToastrModule.forRoot(),
+    CommonModule
   ],
   declarations: [
     AppComponent,
@@ -98,4 +102,4 @@ import { ChartsModule } from 'ng2-charts';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

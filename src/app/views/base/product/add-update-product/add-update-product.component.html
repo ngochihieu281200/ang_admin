@@ -207,7 +207,9 @@
                 </div>
               </div>
             </div>
-            <button class="btn btn-outline-success active ml-1" type="submit">Thêm Sản
+            <button *ngIf="updateProduct" class="btn btn-outline-success active ml-1" type="submit">Cập Nhật Sản
+              Phẩm</button>
+            <button *ngIf="!updateProduct" class="btn btn-outline-success active ml-1" type="submit">Thêm Sản
               Phẩm</button>
           </div>
         </div>
