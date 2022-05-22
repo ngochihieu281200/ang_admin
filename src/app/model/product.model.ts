@@ -1,4 +1,4 @@
-import { ClassifyProduct } from './classifyProduct.model';
+import { ClassifyProductCreate, ClassifyProductUpdate } from './classifyProduct.model';
 export interface ProductInfo {
   Id: string;
   CategoryID: string;
@@ -21,13 +21,13 @@ export interface ProductInfo {
 }
 
 export interface ProductCreate {
-  CategoryID: string;
-  BrandID: string;
+  CategoryId: string;
+  BrandId: string;
   Crytal: string;
   Name: string;
   Feature: string[];
   Ablert: string;
-  ClassifyProducts: ClassifyProduct[];
+  ClassifyProducts: ClassifyProductCreate[];
   Description: string;
   Machine: string;
   MadeIn: string;
@@ -37,14 +37,32 @@ export interface ProductCreate {
   IsShow: Number;
 }
 
+
+export interface ProductUpdate {
+  Id: string;
+  CategoryId: string;
+  BrandId: string;
+  Crytal: string;
+  Name: string;
+  Feature: string[];
+  Ablert: string;
+  ClassifyProducts: ClassifyProductUpdate[];
+  Description: string;
+  Machine: string;
+  MadeIn: string;
+  Thumbnail: string;
+  Guarantee: Number;
+  WaterProof: string;
+  IsShow: Number;
+}
 export interface ProductDetail {
   Id: string;
-  CategoryID: string;
+  CategoryId: string;
   CategoryName: string;
-  BrandID: string;
+  BrandId: string;
   BrandName: string;
   Ablert: string;
-  ClassifyProducts: ClassifyProduct[];
+  ClassifyProducts: ClassifyProductUpdate[];
   Name: string;
   FromPrice: number;
   ToPrice: number;

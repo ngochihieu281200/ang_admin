@@ -5,7 +5,7 @@
       <strong class="float-right">Thêm Sản Phẩm</strong>
     </div>
 
-    <form class="row card-body" [formGroup]="formProduct" (ngSubmit)="addProduct()">
+    <form class="row card-body" [formGroup]="formProduct" (ngSubmit)="onSubmit()">
       <div class="col-12 form-horizontal">
         <div class="row">
           <div class="col-6">
@@ -20,7 +20,8 @@
               <label class="col-md-3 col-form-label" for="select2">Danh Mục Sản Phẩm <span
                   class="text-danger">*</span></label>
               <div class="col-md-9">
-                <select id="select1" name="CategoryID" formControlName="CategoryID" (change)="categoryChange($event)"
+                <select id="select1" name="CategoryId" formControlName="CategoryId" (change)="categoryChange($event)"
+                  [ngClass]="{'is-invalid': formProduct.get('CategoryId').errors &&  formProduct.get('CategoryId').touched, 'is-valid':formProduct.controls.CategoryId.valid}"
                   class="form-control form-select">
                   <option value="" disabled selected>
                     ---Chọn Danh Mục---
@@ -35,8 +36,9 @@
               <label class="col-md-3 col-form-label" for="select2">Nhãn Hiệu Sản Phẩm <span
                   class="text-danger">*</span></label>
               <div class="col-md-9">
-                <select id="select2" name="BrandID" [attr.disabled]="brandProduct ? '' : null" formControlName="BrandID"
-                  class="form-control form-select">
+                <select id="select2" name="BrandId" [attr.disabled]="brandProduct ? '' : null" formControlName="BrandId"
+                  class="form-control form-select"
+                  [ngClass]="{'is-invalid': formProduct.get('BrandId').errors &&  formProduct.get('BrandId').touched, 'is-valid':formProduct.controls.BrandId.valid}">
                   <option value="" disabled selected>
                     --- Chọn Nhãn Hiệu ---
                   </option>
@@ -46,20 +48,22 @@
                 </select>
               </div>
             </div>
-
             <div class="form-group row">
               <label class="col-md-3 col-form-label" for="text-input">Tên Sản Phẩm <span
                   class="text-danger">*</span></label>
+
               <div class="col-md-9">
                 <input type="text" id="text-input" name="Name" formControlName="Name" class="form-control"
-                  placeholder="Tên sản phẩm" />
+                  placeholder="Tên sản phẩm"
+                  [ngClass]="{'is-invalid': formProduct.get('Name').errors &&  formProduct.get('Name').touched, 'is-valid':formProduct.controls.Name.valid}" />
               </div>
             </div>
             <div class="form-group row">
               <label class="col-md-3 col-form-label" for="select2">Mặt Kính<span class="text-danger">*</span></label>
               <div class="col-md-9">
                 <select id="select2" name="Crytal" formControlName="Crytal" class="form-control form-select"
-                  placeholder="Chọn Mặt Kính">
+                  placeholder="Chọn Mặt Kính"
+                  [ngClass]="{'is-invalid': formProduct.get('Crytal').errors &&  formProduct.get('Crytal').touched, 'is-valid':formProduct.controls.Crytal.valid}">
                   <option value="" disabled selected>
                     --- Chọn Mặt Kính ---
                   </option>
@@ -71,7 +75,8 @@
             <div class="form-group row">
               <label class="col-md-3 col-form-label" for="select2">Dây Đeo <span class="text-danger">*</span></label>
               <div class="col-md-9">
-                <select id="select2" name="Ablert" formControlName="Ablert" class="form-control form-select">
+                <select id="select2" name="Ablert" formControlName="Ablert" class="form-control form-select"
+                  [ngClass]="{'is-invalid': formProduct.get('Ablert').errors &&  formProduct.get('Ablert').touched, 'is-valid':formProduct.controls.Ablert.valid}">
                   <option value="" disabled selected>
                     --- Chọn Loại Dây Đeo ---
                   </option>
@@ -84,7 +89,8 @@
               <label class="col-md-3 col-form-label" for="select2">Độ Chống Nước <span
                   class="text-danger">*</span></label>
               <div class="col-md-9">
-                <select id="select2" name="WaterProof" formControlName="WaterProof" class="form-control form-select">
+                <select id="select2" name="WaterProof" formControlName="WaterProof" class="form-control form-select"
+                  [ngClass]="{'is-invalid': formProduct.get('WaterProof').errors &&  formProduct.get('WaterProof').touched, 'is-valid':formProduct.controls.WaterProof.valid}">
                   <option value="" disabled selected>
                     --- Chọn Độ Chống Nước ---
                   </option>
@@ -98,14 +104,16 @@
             <div class="form-group row">
               <label class="col-md-3 col-form-label" for="date-input">Thời Gian Bảo Hành</label>
               <div class="col-md-9">
-                <input class="form-control" id="date-input" formControlName="Guarantee" type="number" name="Guarantee"
-                  placeholder="Số Năm Bảo Hành" />
+                <input class="form-control" formControlName="Guarantee" type="number" name="Guarantee"
+                  placeholder="Số Năm Bảo Hành"
+                  [ngClass]="{'is-invalid': formProduct.get('Guarantee').errors &&  formProduct.get('Guarantee').touched, 'is-valid':formProduct.controls.Guarantee.valid}" />
               </div>
             </div>
             <div class="form-group row">
               <label class="col-md-3 col-form-label" for="select2">Loại Máy <span class="text-danger">*</span></label>
               <div class="col-md-9">
-                <select id="select2" name="Machine" formControlName="Machine" class="form-control form-select">
+                <select id="select2" name="Machine" formControlName="Machine" class="form-control form-select"
+                  [ngClass]="{'is-invalid': formProduct.get('Machine').errors &&  formProduct.get('Machine').touched, 'is-valid':formProduct.controls.Machine.valid}">
                   <option value="" disabled selected>
                     --- Chọn Loại Máy ---
                   </option>
@@ -119,7 +127,8 @@
             <div class="form-group row">
               <label class="col-md-3 col-form-label" for="select2">Xuất Sứ <span class="text-danger">*</span></label>
               <div class="col-md-9">
-                <select id="select2" name="MadeIn" formControlName="MadeIn" class="form-control form-select">
+                <select id="select2" name="MadeIn" formControlName="MadeIn" class="form-control form-select"
+                  [ngClass]="{'is-invalid': formProduct.get('MadeIn').errors &&  formProduct.get('MadeIn').touched, 'is-valid':formProduct.controls.MadeIn.valid}">
                   <option value="" disabled selected>
                     --- Chọn Xuất Xứ ---
                   </option>
@@ -133,7 +142,8 @@
               <label class="col-md-3 col-form-label" for="textarea-input">Mô Tả Sản Phẩm</label>
               <div class="col-md-9">
                 <textarea id="textarea-input" formControlName="Description" name="Description" rows="9"
-                  class="form-control" placeholder="Mô tả chi tiết sản phẩm"></textarea>
+                  class="form-control" placeholder="Mô tả chi tiết sản phẩm"
+                  [ngClass]="{'is-invalid': formProduct.get('Description').errors &&  formProduct.get('Description').touched, 'is-valid':formProduct.controls.Description.valid}"></textarea>
               </div>
             </div>
             <div class="form-group row">
@@ -174,7 +184,7 @@
           <div class="col-6 form-group">
             <div class="col-5">
               <div class="card" style="width: 18rem">
-                <img class="card-img-top img-thumbnail" [src]="Thumbnail ? Thumbnail : ''" alt="Card image cap" />
+                <img class="card-img-top img-thumbnail" [src]="Thumbnail ? Thumbnail : ''" alt="Hình ảnh sản phẩm" />
                 <div class="card-body">
                   <h5 class="card-title">Thêm Ảnh Sản Phẩm</h5>
                   <div class="col-lg-12 row">
@@ -186,17 +196,8 @@
                             margin: 10px;
                           ">
                           <span>Upload</span>
-                          <input id="uploadBtn" type="file" class="upload" style="
-                              position: absolute;
-                              top: 0;
-                              right: 0;
-                              margin: 0;
-                              padding: 0;
-                              font-size: 20px;
-                              cursor: pointer;
-                              opacity: 0;
-                              filter: alpha(opacity=0);
-                            " (change)="handleUploadProduct($event)" />
+                          <input id="uploadBtn" type="file" class="upload-thumbnail"
+                            (change)="handleUploadProduct($event)" />
                         </div>
                       </div>
                     </div>
@@ -204,13 +205,13 @@
                 </div>
               </div>
               <div>
-                <button class="btn btn-lg btn-outline-primary" (click)="largeModal.show()">
+                <button class="btn btn-lg btn-outline-primary" (click)="OnShowTypeProduct()" type="button">
                   Thêm Loại Sản Phẩm
                 </button>
               </div>
             </div>
             <div class="my-4">
-              <div *ngFor="let ClassifyProduct of ClassifyProducts"
+              <div *ngFor="let ClassifyProduct of ClassifyProducts;let i = index"
                 class="product flex pad-10 d-flex p-2 border border-secondary my-2 justify-content-between align-items-sm-center">
                 <div class="d-flex" style="width: 400px">
                   <img [src]="
@@ -235,24 +236,22 @@
                   </div>
                 </div>
                 <div>
-                  <button class="btn btn-warning m-2">Sửa</button>
-                  <button class="btn btn-danger m-2" (click)="removeTypeProduct()">
+                  <button class="btn btn-warning m-2" type="button"
+                    (click)="updateTypeProduct(ClassifyProduct,i)">Sửa</button>
+                  <button class="btn btn-danger m-2" (click)="removeTypeProduct(i)" type="button">
                     Xóa
                   </button>
                 </div>
               </div>
             </div>
-            <button *ngIf="updateProduct" class="btn btn-outline-success active ml-1" type="submit">Cập Nhật Sản
-              Phẩm</button>
-            <button *ngIf="!updateProduct" class="btn btn-outline-success active ml-1" type="submit">Thêm Sản
-              Phẩm</button>
           </div>
         </div>
       </div>
       <div class="col-12">
-        <button class="btn btn-outline-success active ml-1 float-right" type="submit">
-          Thêm Sản Phẩm
-        </button>
+        <button *ngIf="editMode" class="btn btn-outline-success active ml-1 float-right" type="submit">Cập Nhật Sản
+          Phẩm</button>
+        <button *ngIf="!editMode" class="btn btn-outline-success active ml-1 float-right" type="submit">Thêm Sản
+          Phẩm</button>
       </div>
     </form>
   </div>
@@ -276,22 +275,26 @@
                 <div class="form-group col-lg-12">
                   <label for="">Tên Sản Phẩm <span class="text-danger">*</span></label>
                   <input type="text" id="nf-email" name="Name" formControlName="Name" class="form-control"
-                    placeholder="Tên Sản Phẩm" autocomplete="email" />
+                    placeholder="Tên Sản Phẩm" autocomplete="email"
+                    [ngClass]="{'is-invalid': formClassifyProduct.get('Name').errors &&  formClassifyProduct.get('Name').touched, 'is-valid':formClassifyProduct.controls.Name.valid}" />
                 </div>
                 <div class="form-group col-lg-12">
                   <label for="">Giá Bán <span class="text-danger">*</span></label>
                   <input type="number" id="nf-password" name="OriginalPrice" formControlName="OriginalPrice"
-                    class="form-control" placeholder="Giá Bán" autocomplete="current-password" />
+                    class="form-control" placeholder="Giá Bán" autocomplete="current-password"
+                    [ngClass]="{'is-invalid': formClassifyProduct.get('OriginalPrice').errors &&  formClassifyProduct.get('OriginalPrice').touched, 'is-valid':formClassifyProduct.controls.OriginalPrice.valid}" />
                 </div>
                 <div class="form-group col-lg-12">
                   <label for="">Giá Khuyến Mãi </label>
                   <input type="number" id="nf-password" name="PromotionPrice" formControlName="PromotionPrice"
-                    class="form-control" placeholder="Giá Khuyến Mãi" autocomplete="current-password" />
+                    class="form-control" placeholder="Giá Khuyến Mãi" autocomplete="current-password"
+                    [ngClass]="{'is-invalid': formClassifyProduct.get('PromotionPrice').errors &&  formClassifyProduct.get('PromotionPrice').touched, 'is-valid':formClassifyProduct.controls.PromotionPrice.valid}" />
                 </div>
                 <div class="form-group col-lg-12">
                   <label for="">Số Lượng Tồn<span class="text-danger">*</span></label>
                   <input type="number" id="nf-password" name="Stock" formControlName="Stock" class="form-control"
-                    placeholder="Số Lượng Tồn" autocomplete="current-password" />
+                    placeholder="Số Lượng Tồn" autocomplete="current-password"
+                    [ngClass]="{'is-invalid': formClassifyProduct.get('Stock').errors &&  formClassifyProduct.get('Stock').touched, 'is-valid':formClassifyProduct.controls.Stock.valid}" />
                 </div>
                 <div class="form-group col-lg-12">
                   <label class="switch switch-label switch-pill switch-success">
@@ -315,7 +318,7 @@
                             margin: 10px;
                           ">
                           <span>Upload</span>
-                          <input id="uploadBtn" formControlName="Image" type="file" class="upload" style="
+                          <input id="uploadBtn" type="file" class="upload" style="
                               position: absolute;
                               top: 0;
                               right: 0;
@@ -325,7 +328,7 @@
                               cursor: pointer;
                               opacity: 0;
                               filter: alpha(opacity=0);
-                            " (change)="handleUpload($event)" />
+                            " (change)="handleUpload($event)" onclick="this.value = null" />
                         </div>
                       </div>
                     </div>
@@ -338,10 +341,13 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="largeModal.hide()">
-          Close
+          Thoát
         </button>
-        <button type="submit" class="btn btn-primary" (click)="largeModal.hide()">
+        <button *ngIf="!editModeTypeProduct" type="submit" class="btn btn-primary">
           Thêm Loại Sản Phẩm
+        </button>
+        <button *ngIf="editModeTypeProduct" type="submit" class="btn btn-primary">
+          Cập Nhật Loại Sản Phẩm
         </button>
       </div>
     </form>

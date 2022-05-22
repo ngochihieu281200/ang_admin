@@ -10,7 +10,7 @@ import {
 import {
   ProductCreate,
   ProductDetail,
-  ProductInfo,
+  ProductUpdate,
 } from 'src/app/model/product.model';
 
 const httpOptions = {
@@ -22,7 +22,7 @@ const httpOptions = {
 export class ProductService {
   data: ResultProductDetail;
   apiEndpoint: string;
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
   RetrieveAll(): Observable<ResultProduct> {
     const tokenStorage = JSON.parse(localStorage.getItem('token'));
     return this.httpClient.get<ResultProduct>(`${apiEndpoint}product/all`, {
@@ -42,15 +42,7 @@ export class ProductService {
   // }
   getDetailProductById(id): Observable<ProductDetail> {
     const tokenStorage = JSON.parse(localStorage.getItem('token'));
-<<<<<<< HEAD
     return this.httpClient.get<ProductDetail>(`${apiEndpoint}product/details/${id}`, {
-=======
-
-    // const body=JSON.stringify(person);
-    // let token = JSON.parse(localStorage.getItem('token'));
-    // console.log('this.accessToken', this.accessTokeSn)
-    return this.httpClient.get(`${apiEndpoint}product/details/${id}`, {
->>>>>>> 2c42464b935c18f87a00a9fe5954318ac937f976
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${tokenStorage.AccessToken}`,
@@ -72,9 +64,9 @@ export class ProductService {
     );
   }
 
-  update(product): Observable<ProductInfo> {
+  update(product): Observable<ProductUpdate> {
     const tokenStorage = JSON.parse(localStorage.getItem('token'));
-    return this.httpClient.post<ProductInfo>(
+    return this.httpClient.put<ProductUpdate>(
       `${apiEndpoint}product/update`,
       JSON.stringify(product),
       {
