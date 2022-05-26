@@ -1,1 +1,1 @@
-export const apiEndpoint = 'https://localhost:5001/api/';
+export const apiEndpoint = 'http://htcwatch-api.herokuapp.com/api/';
