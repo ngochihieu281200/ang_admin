@@ -11,11 +11,30 @@ export interface CategoryInfo {
   UpdatedByID: string;
 }
 export interface CategoryCreate {
+  ImageCategory: string;
+  IsShow: Number;
+  Name: string;
+}
+export interface BrandCreate {
+  ImageBrand: string;
+  IsShow: Number;
+  Name: string;
+  CategoryId: string;
+}
+
+export interface CategoryUpdate {
   Id: string;
   ImageCategory: string;
   IsShow: Number;
   Name: string;
 }
+export interface BrandUpdate {
+  Id: string;
+  ImageBrand: string;
+  IsShow: Number;
+  Name: string;
+}
+
 
 export interface BrandInfo {
   Id: string;

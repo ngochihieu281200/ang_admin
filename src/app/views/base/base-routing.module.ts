@@ -151,7 +151,7 @@ const routes: Routes = [
         },
       },
       {
-        path: 'brand/id',
+        path: 'brand/:id',
         component: AddUpdateBrandComponent,
         data: {
           title: 'id',
@@ -172,7 +172,7 @@ const routes: Routes = [
         },
       },
       {
-        path: 'category/id',
+        path: 'category/:id',
         component: AddUpdateCategoryComponent,
         data: {
           title: 'id',

@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { apiEndpoint } from '../config/api';
 import {
+  BrandCreate,
   BrandInfo,
+  BrandUpdate,
   CategoryCreate,
   CategoryInfo,
-  CategoryUpdate,
 } from '../model/category.model';
 import { Observable } from 'rxjs';
 import { Result } from '../model/result.model';
@@ -13,31 +14,28 @@ import { Result } from '../model/result.model';
 @Injectable({
   providedIn: 'root',
 })
-export class CategoryService {
+export class BrandService {
   constructor(private httpClient: HttpClient) { }
 
-  getAll(): Observable<CategoryInfo> {
-    return this.httpClient.get<CategoryInfo>(`${apiEndpoint}category/all`, {
+  getAll(): Observable<BrandInfo> {
+    return this.httpClient.get<BrandInfo>(`${apiEndpoint}brand/all`, {
       headers: {
         'Content-Type': 'application/json',
       },
     });
   }
-
-  getAllBrandByIdCategory(CategoryId): Observable<BrandInfo> {
-    const tokenStorage = JSON.parse(localStorage.getItem('token'));
+  getAllByCategoryId(CategoryId): Observable<BrandInfo> {
     return this.httpClient.get<BrandInfo>(`${apiEndpoint}brand/all/${CategoryId}`, {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${tokenStorage.AccessToken}`,
       },
     });
   }
-  create(category): Observable<CategoryCreate> {
+  create(brand): Observable<CategoryCreate> {
     const tokenStorage = JSON.parse(localStorage.getItem('token'));
     return this.httpClient.post<CategoryCreate>(
-      `${apiEndpoint}category/create`,
-      JSON.stringify(category),
+      `${apiEndpoint}brand/create`,
+      JSON.stringify(brand),
       {
         headers: {
           'Content-Type': 'application/json',
@@ -46,11 +44,11 @@ export class CategoryService {
       }
     );
   }
-  update(category): Observable<CategoryUpdate> {
+  update(brand): Observable<BrandUpdate> {
     const tokenStorage = JSON.parse(localStorage.getItem('token'));
-    return this.httpClient.post<CategoryUpdate>(
-      `${apiEndpoint}category/update`,
-      JSON.stringify(category),
+    return this.httpClient.put<BrandUpdate>(
+      `${apiEndpoint}brand/update`,
+      JSON.stringify(brand),
       {
         headers: {
           'Content-Type': 'application/json',
@@ -61,26 +59,8 @@ export class CategoryService {
   }
   async delete(CategoryId) {
     const tokenStorage = JSON.parse(localStorage.getItem('token'));
-
-    // const body=JSON.stringify(person);
-    // let token = JSON.parse(localStorage.getItem('token'));
-    // console.log('this.accessToken', this.accessToken)
     return this.httpClient.delete(
       `${apiEndpoint}category/delete/${CategoryId}`,
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${tokenStorage.AccessToken}`,
-        },
-      }
-    );
-  }
-
-  details(CategoryId) {
-    const tokenStorage = JSON.parse(localStorage.getItem('token'));
-
-    return this.httpClient.get(
-      `${apiEndpoint}category/details/${CategoryId}`,
       {
         headers: {
           'Content-Type': 'application/json',

@@ -1,9 +1,7 @@
 <div class="col-lg-12">
   <div class="activities flex justify-between margin-bottom-20">
     <div class="addProduct">
-      <a class="btn btn-success" [routerLink]="['/base/product/id']"
-        >Thêm mới sản phẩm</a
-      >
+      <a class="btn btn-success" [routerLink]="['/base/product/id']">Thêm mới sản phẩm</a>
     </div>
   </div>
   <div class="card">
@@ -11,47 +9,7 @@
       <i class="fa fa-align-justify"></i>Quản Lý Sản Phẩm
     </div>
     <div id="demoModal">hi</div>
-    <!-- <div class="col-md-6">
-      <div id="dataTableeee_filter" class="dataTables_filter">
-        <label
-          >Search:<input
-            type="search"
-            class="form-control form-control-sm"
-            placeholder=""
-            aria-controls="dataTableeee"
-          />
-        </label>
-      </div>
-    </div> -->
 
-    <!-- Search form -->
-    <!-- <form class="form-inline waves-light" mdbWavesEffect>
-      <div class="md-form mt-0">
-        <input class="form-control mr-sm-2" type="text" placeholder="Search" />
-      </div>
-    </form> -->
-
-    <!-- <form (submit)="onSubmit(player.value)">
-      <input #player placeholder="player name" />
-    </form> -->
-
-    <!-- <form>
-      <div class="mb-3 row">
-        <label for="table-filtering-search" class="col-xs-3 col-sm-auto col-form-label">Full text search:</label>
-        <div class="col-xs-3 col-sm-auto">
-          <input id="table-filtering-search" class="form-control" type="text" [formControl]="filter">
-        </div>
-      </div>
-    </form> -->
-
-    <!-- <div class="card-body">
-      <input
-        type="text"
-        name="search"
-        [(ngModel)]="searchText"
-        placeholder="Seach by"
-        class="float-right"
-      /> -->
     <div class="col-md-4">
       <input type="text" [(ngModel)]="keyword" name="keyword" id="" />
       <button (click)="Search()">Search</button>
@@ -59,103 +17,6 @@
     <div class="col-md-12">
       <ng2-smart-table [settings]="settings" [source]="source"></ng2-smart-table>
     </div>
-
-    <!-- <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Mã Sản Phẩm</th>
-          <th>Tên Sản Phẩm</th>
-          <th>Danh Mục</th>
-          <th>Nhãn Hiệu</th>
-          <th>Hình Ảnh</th>
-          <th>Danh Mục</th> 
-
-          <th>Giá</th>
-          <th>Thao Tác</th>
-          <th>Hệ thống</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of datas">
-          <td class="text-center" style="vertical-align: center !important">
-            {{ item.Id }}
-          </td>
-          <td>{{ item.Name }}</td>
-          <td>{{ item.CategoryName }}</td>
-          <td>{{ item.BrandName }}</td>
-          <td style="width: 100px; height: 100px">
-            <img src="{{ item.Thumbnail }}" class="w-100" alt="" />
-          </td>
-          <td>{{ item.FromPrice }}</td>
-          <td>
-            <div class="flex justify-content-center align-items-center">
-              <a
-                class="btn btn-success rounded-circle m-0 ml-1"
-                data-toggle="modal"
-                (click)="viewDetail(item.Id)"
-              >
-                <i class="fa fa-eye"></i>
-              </a>
-
-              <a
-                class="btn btn-warning rounded-circle m-0 ml-1"
-                [routerLink]="['/base/product', item.Id]"
-              >
-                <i class="fa fa-edit text-white"></i>
-              </a>
-
-               <button class="btn btn-Warning rounded-circle m-0">
-                  <i class="fa fa-edit"></i>
-                </button> 
-
-              <button
-                class="btn btn-danger rounded-circle m-0 ml-1"
-                data-toggle="modal"
-                (click)="myModal.show()"
-              >
-                <i class="fa fa-trash"></i>
-              </button>
-            </div>
-          </td>
-          <td>
-            <span>Tạo bởi: {{ item.CreatedByName }}</span>
-            <br />
-            <span
-              >Lúc:
-              <span id="date">{{
-                item.CreatedByTime | date: "dd/MM/yyyy"
-              }}</span>
-            </span>
-            <br />
-            <span *ngIf="item.UpdatedByName != null">
-              Cập nhật bởi: {{ item.UpdatedByName }} </span
-            ><br />
-            <span *ngIf="item.UpdatedByTime != null">
-              Lúc: {{ item.UpdatedByTime | date: "dd/MM/yyyy" }}
-            </span>
-          </td>
-        </tr>
-      </tbody>
-    </table> -->
   </div>
-  <!-- <div class="modal-header">
-    <h4 class="modal-title">Hi there!</h4>
-    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
-  </div>
-  <div class="modal-body">
-    <p>Hello, {{name}}!</p>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
-  </div>
-  <button class="btn btn-lg btn-outline-primary" (click)="deleteProduct.show()">delete</button> -->
 
-  <!-- /.modal -->
-  <!-- pop up xem chi tiết -->
-
-  <!-- /.modal -->
-</div>
-
-<app-pop-up-detail #infoModal></app-pop-up-detail>
-<!-- /.modal-dialog -->
-<!-- /.modal
+  <app-pop-up-detail #infoModal></app-pop-up-detail>

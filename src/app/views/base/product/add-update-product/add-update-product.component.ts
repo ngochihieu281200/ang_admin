@@ -235,7 +235,7 @@ export class AddUpdateProductComponent implements OnInit {
 
     this.categoryService.getAllBrandByIdCategory(CategoryId).subscribe({
       next: (res: any) => {
-        (this.BrandList = res.Data), (this.brandProduct = false);
+        (this.BrandList = res.Data, console.log(this.BrandList)), (this.brandProduct = false);
       },
       error: async (err) => {
         (this.BrandList = null), (this.brandProduct = true);
