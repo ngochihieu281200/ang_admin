@@ -140,7 +140,7 @@ export class ProductComponent implements OnInit {
   deleteProduct(data) {
     this.idProduct = data.Id;
 
-    this.modalReference = this.modalService.open(this.content);
+    this.modelReference = this.modalService.open(this.content);
     this.modalReference.result.then(
       (result) => {
         this.closeResult = `Closed with: ${result}`;

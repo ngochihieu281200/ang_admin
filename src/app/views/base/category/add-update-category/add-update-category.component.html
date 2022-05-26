@@ -22,7 +22,8 @@
               </label>
               <div class="col-md-9">
                 <input type="text" id="text-input" name="Name" formControlName="Name" class="form-control"
-                  placeholder="Tên Danh Mục.." />
+                  placeholder="Tên Danh Mục"
+                  [ngClass]="{'is-invalid': formCategory.get('Name').errors &&  formCategory.get('Name').touched, 'is-valid':formCategory.controls.Name.valid}" />
               </div>
             </div>
             <div class="form-group d-flex justify-content-end">
@@ -60,7 +61,7 @@
                 </div>
                 <div>
                   <button class="btn btn-warning m-2" type="button" (click)="updateBrand(brand,i)">Sửa</button>
-                  <button class="btn btn-danger m-2" (click)="removeTypeProduct(i)" type="button">
+                  <button class="btn btn-danger m-2" (click)="deleteCategory(content,i)" type="button">
                     Xóa
                   </button>
                 </div>
@@ -103,8 +104,11 @@
             </div>
           </div>
         </div>
-        <button type="button" (click)="addBrand()" class="btn btn-outline-success  ml-1 float-right">
+        <button type="submit" *ngIf="!isEditMode" class="btn btn-outline-success  ml-1 float-right">
           <i class="fa fa-dot-circle-o"></i> Thêm
+        </button>
+        <button type="submit" *ngIf="isEditMode" class="btn btn-outline-success  ml-1 float-right">
+          <i class="fa fa-dot-circle-o"></i> Cập Nhật
         </button>
       </form>
     </div>
@@ -192,3 +196,25 @@
     </form>
   </div>
 </div>
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Xóa Nhãn Hiệu</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"> <span
+        aria-hidden="true">&times;</span></button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="mb-3">
+        <label for="dateOfBirth">Bạn có chắc muốn xóa Nhãn Hiệu ?</label>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-success" (click)="removeBrand()">
+      Xác Nhận
+    </button>
+    <button type="button" class="btn btn-outline-danger" (click)="modal.close('Không')">
+      Không Xác Nhận
+    </button>
+  </div>
+</ng-template>

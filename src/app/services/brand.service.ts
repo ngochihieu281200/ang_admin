@@ -57,10 +57,10 @@ export class BrandService {
       }
     );
   }
-  async delete(CategoryId) {
+  delete(BrandId) {
     const tokenStorage = JSON.parse(localStorage.getItem('token'));
     return this.httpClient.delete(
-      `${apiEndpoint}category/delete/${CategoryId}`,
+      `${apiEndpoint}brand/delete/${BrandId}`,
       {
         headers: {
           'Content-Type': 'application/json',
