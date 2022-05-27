@@ -60,6 +60,8 @@ import { AppRoutingModule } from './app.routing';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts';
+import { AddUpdateProductComponent } from './views/base/product/add-update-product/add-update-product.component';
+import { ProductComponent } from './views/base/product/product.component';
 
 @NgModule({
   imports: [
@@ -92,6 +94,8 @@ import { ChartsModule } from 'ng2-charts';
     AppComponent,
     ...APP_CONTAINERS,
     P404Component,
+    ProductComponent,
+    AddUpdateProductComponent,
     P500Component,
     LoginComponent,
     RegisterComponent,
@@ -99,7 +103,7 @@ import { ChartsModule } from 'ng2-charts';
   providers: [
     {
       provide: LocationStrategy,
-      useClass: PathLocationStrategy,
+      useClass: HashLocationStrategy,
     },
     IconSetService,
     BsModalService,

@@ -130,7 +130,7 @@ export class AddUpdateProductComponent implements OnInit {
       WaterProof: new FormControl('', Validators.required),
       Guarantee: new FormControl('', Validators.required),
       MadeIn: new FormControl('', Validators.required),
-      Machine: new FormControl(Validators.required),
+      Machine: new FormControl('', Validators.required),
       Description: new FormControl('', Validators.required),
       IsShow: new FormControl('', Validators.required),
     });

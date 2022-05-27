@@ -60,7 +60,7 @@ export class ProductComponent implements OnInit {
     mode: 'external',
     pager: {
       perPage: 5,
-
+      display: true,
     },
     actions: {
       custom: [

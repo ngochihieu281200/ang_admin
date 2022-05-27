@@ -68,14 +68,17 @@ export const routes: Routes = [
         data: {
           title: 'Product'
         },
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
+        children: [
+          {
+            path: 'product/:id',
+            component: AddUpdateProductComponent,
+          }
+        ]
       },
       {
         path: 'product/:id',
         component: AddUpdateProductComponent,
-        data: {
-          title: 'id',
-        },
       },
       {
         path: 'product-detail/:id',

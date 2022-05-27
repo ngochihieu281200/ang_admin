@@ -75,8 +75,6 @@ import { PopUpDetailComponent } from './product/pop-up-detail/pop-up-detail.comp
   ],
   declarations: [
     NavbarsComponent,
-    ProductComponent,
-    AddUpdateProductComponent,
     CustomerComponent,
     CategoryComponent,
     AddUpdateCategoryComponent,
