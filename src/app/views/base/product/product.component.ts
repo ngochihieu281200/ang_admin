@@ -112,12 +112,12 @@ export class ProductComponent implements OnInit {
           return `<p>Tạo bởi : ${cell.CreatedByName
             }<br>Lúc: ${this.datepipe.transform(
               cell.CreatedByTime,
-              'dd/mm/yyyy'
+              'dd/MM/yyyy'
             )}<br>
           Cập nhật bởi: ${cell.UpdatedByName
             }<br>Lúc:  ${this.datepipe.transform(
               cell.UpdatedByTime,
-              'dd/mm/yyyy'
+              'dd/MM/yyyy'
             )}</p>`;
         },
       },

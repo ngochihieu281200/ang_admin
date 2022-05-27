@@ -106,16 +106,16 @@ export class CategoryComponent implements OnInit {
     },
     columns: {
       Id: {
-        title: 'Mã Sản Phẩm',
+        title: 'Mã Danh Mục',
         type: 'string',
       },
       Name: {
-        title: 'Tên Sản Phẩm',
+        title: 'Tên Danh Mục',
         type: 'string',
       },
 
       ImageCategory: {
-        title: 'Hình Ảnh',
+        title: 'Hình Ảnh Danh Mục',
         type: 'html',
         valuePrepareFunction: (value) => {
           return `<img src =  "${value}" width="100px">`;
@@ -128,12 +128,12 @@ export class CategoryComponent implements OnInit {
           return `<p>Tạo bởi : ${cell.CreatedByName
             }<br>Lúc: ${this.datepipe.transform(
               cell.CreatedByTime,
-              'dd/mm/yyyy'
+              'dd/MM/yyyy'
             )}<br>
           Cập nhật bởi: ${cell.UpdatedByName
             }<br>Lúc:  ${this.datepipe.transform(
               cell.UpdatedByTime,
-              'dd/mm/yyyy'
+              'dd/MM/yyyy'
             )}</p>`;
         },
       },

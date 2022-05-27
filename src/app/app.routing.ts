@@ -73,12 +73,14 @@ export const routes: Routes = [
           {
             path: 'product/:id',
             component: AddUpdateProductComponent,
+            canActivate: [AuthGuard],
           }
         ]
       },
       {
         path: 'product/:id',
         component: AddUpdateProductComponent,
+        canActivate: [AuthGuard],
       },
       {
         path: 'product-detail/:id',
@@ -86,6 +88,7 @@ export const routes: Routes = [
         data: {
           title: 'Product-Detail',
         },
+        canActivate: [AuthGuard],
       },
       {
         path: 'customer',
@@ -93,6 +96,7 @@ export const routes: Routes = [
         data: {
           title: 'Customer',
         },
+        canActivate: [AuthGuard],
       },
       {
         path: 'category',
@@ -100,6 +104,7 @@ export const routes: Routes = [
         data: {
           title: 'Category',
         },
+        canActivate: [AuthGuard],
       },
       {
         path: 'category/:id',
@@ -107,6 +112,7 @@ export const routes: Routes = [
         data: {
           title: 'id',
         },
+        canActivate: [AuthGuard],
       },
       {
         path: 'staff',
@@ -114,6 +120,7 @@ export const routes: Routes = [
         data: {
           title: 'Staff',
         },
+        canActivate: [AuthGuard],
       },
       {
         path: 'staff/id',
@@ -121,6 +128,7 @@ export const routes: Routes = [
         data: {
           title: 'id',
         },
+        canActivate: [AuthGuard],
       },
     ]
   },
