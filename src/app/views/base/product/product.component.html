@@ -1,22 +1,25 @@
-<div class="col-lg-12">
-  <div class="activities flex justify-between margin-bottom-20">
-    <div class="addProduct">
-      <a class="btn btn-success" [routerLink]="['/base/product/id']">Thêm mới sản phẩm</a>
-    </div>
+<ng2-smart-table [settings]="settings" [source]="source" (create)="addProduct()" (custom)="onCuston($event)">
+</ng2-smart-table>
+<ng-template #content let-modal style="margin:0 auto; margin-top:30vh;">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Xóa Sản Phẩm</h4>
   </div>
-  <div class="card">
-    <div class="card-header">
-      <i class="fa fa-align-justify"></i>Quản Lý Sản Phẩm
-    </div>
-    <div id="demoModal">hi</div>
-
-    <div class="col-md-4">
-      <input type="text" [(ngModel)]="keyword" name="keyword" id="" />
-      <button (click)="Search()">Search</button>
-    </div>
-    <div class="col-md-12">
-      <ng2-smart-table [settings]="settings" [source]="source"></ng2-smart-table>
-    </div>
+  <div class="modal-body">
+    <form>
+      <div class="mb-3">
+        <label for="dateOfBirth">Bạn Có Chắc Muốn Xóa Sản Phẩm</label>
+      </div>
+    </form>
   </div>
-
-  <app-pop-up-detail #infoModal></app-pop-up-detail>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-success" (click)="onConfirm()">
+      Xác Nhận
+    </button>
+    <button type="button" class="btn btn-outline-danger" (click)="modal.close('Không')">
+      Không Xác Nhận
+    </button>
+  </div>
+</ng-template>
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-jelly-box" [fullScreen]="true">
+  <p style="color: white"> Đợi trong giây lát... </p>
+</ngx-spinner>

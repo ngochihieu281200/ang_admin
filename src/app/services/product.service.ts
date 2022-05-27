@@ -23,15 +23,17 @@ export class ProductService {
   data: ResultProductDetail;
   apiEndpoint: string;
   constructor(private httpClient: HttpClient) { }
-  RetrieveAll(): Observable<ResultProduct> {
+  RetrieveAll(PageIndex = 1, PageSize = 6): Observable<ResultProduct> {
     const tokenStorage = JSON.parse(localStorage.getItem('token'));
-    return this.httpClient.get<ResultProduct>(`${apiEndpoint}product/all`, {
+    return this.httpClient.get<ResultProduct>(`${apiEndpoint}product/all?PageIndex=${PageIndex}&PageSize=${PageSize}`, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${tokenStorage.AccessToken}`,
       },
     });
   }
+
+
   // Search(keyword:string):Observable<any[]>{
   //   return this.httpClient.get(this.apiEndpoint+"search"+keyword).map((response:Response)=>response.json)
   // }

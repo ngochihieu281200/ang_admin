@@ -8,6 +8,15 @@ import { P500Component } from './views/error/500.component';
 import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
 import { AuthGuard } from './shared/auth.guard';
+import { ProductComponent } from './views/base/product/product.component';
+import { AddUpdateProductComponent } from './views/base/product/add-update-product/add-update-product.component';
+import { ProductDetailComponent } from './views/base/product/product-detail/product-detail.component';
+import { StaffComponent } from './views/base/staff/staff.component';
+import { AddUpdateCategoryComponent } from './views/base/category/add-update-category/add-update-category.component';
+import { CategoryComponent } from './views/base/category/category.component';
+import { CustomerComponent } from './views/base/customer/customer.component';
+import { AddUpdateStaffComponent } from './views/base/staff/add-update-staff/add-update-staff.component';
+
 
 export const routes: Routes = [
   {
@@ -37,13 +46,6 @@ export const routes: Routes = [
     }
   },
   {
-    path: 'register',
-    component: RegisterComponent,
-    data: {
-      title: 'Register Page'
-    }
-  },
-  {
     path: '',
     component: DefaultLayoutComponent,
     data: {
@@ -56,34 +58,67 @@ export const routes: Routes = [
         canActivate: [AuthGuard]
       },
       {
-        path: 'buttons',
-        loadChildren: () => import('./views/buttons/buttons.module').then(m => m.ButtonsModule)
-      },
-      {
-        path: 'charts',
-        loadChildren: () => import('./views/chartjs/chartjs.module').then(m => m.ChartJSModule)
-      },
-      {
         path: 'dashboard',
         loadChildren: () => import('./views/dashboard/dashboard.module').then(m => m.DashboardModule),
         canActivate: [AuthGuard]
       },
       {
-        path: 'icons',
-        loadChildren: () => import('./views/icons/icons.module').then(m => m.IconsModule)
+        path: 'product',
+        component: ProductComponent,
+        data: {
+          title: 'Product'
+        },
+        canActivate: [AuthGuard]
       },
       {
-        path: 'notifications',
-        loadChildren: () => import('./views/notifications/notifications.module').then(m => m.NotificationsModule)
+        path: 'product/:id',
+        component: AddUpdateProductComponent,
+        data: {
+          title: 'id',
+        },
       },
       {
-        path: 'theme',
-        loadChildren: () => import('./views/theme/theme.module').then(m => m.ThemeModule)
+        path: 'product-detail/:id',
+        component: ProductDetailComponent,
+        data: {
+          title: 'Product-Detail',
+        },
       },
       {
-        path: 'widgets',
-        loadChildren: () => import('./views/widgets/widgets.module').then(m => m.WidgetsModule)
-      }
+        path: 'customer',
+        component: CustomerComponent,
+        data: {
+          title: 'Customer',
+        },
+      },
+      {
+        path: 'category',
+        component: CategoryComponent,
+        data: {
+          title: 'Category',
+        },
+      },
+      {
+        path: 'category/:id',
+        component: AddUpdateCategoryComponent,
+        data: {
+          title: 'id',
+        },
+      },
+      {
+        path: 'staff',
+        component: StaffComponent,
+        data: {
+          title: 'Staff',
+        },
+      },
+      {
+        path: 'staff/id',
+        component: AddUpdateStaffComponent,
+        data: {
+          title: 'id',
+        },
+      },
     ]
   },
   { path: '**', component: P404Component }

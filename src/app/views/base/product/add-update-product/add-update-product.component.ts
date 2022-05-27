@@ -2,27 +2,23 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from './../../../../services/product.service';
 import { CategoryService } from './../../../../services/category.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { apiEndpoint } from './../../../../config/api';
+import { HttpHeaders } from '@angular/common/http';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ClassifyProductCreate, ClassifyProductUpdate } from './../../../../model/classifyProduct.model';
 import { ToastrService } from 'ngx-toastr';
 import {
-  FormBuilder,
   FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { ResultProductDetail } from 'src/app/model/result.model';
 import { BrandInfo, CategoryInfo } from 'src/app/model/category.model';
 import {
   ProductCreate,
   ProductDetail,
-  ProductInfo,
   ProductUpdate,
 } from 'src/app/model/product.model';
 import { RefreshTokenService } from 'src/app/services/refresh-token.service';
-import { async } from 'rxjs';
+import { NgxSpinnerService } from "ngx-spinner";
 
 const httpOptions = {
   herders: new HttpHeaders({ 'Content-Type': 'Application/json' }),
@@ -62,15 +58,20 @@ export class AddUpdateProductComponent implements OnInit {
     private refreshTokenService: RefreshTokenService,
     private categoryService: CategoryService,
     private route: ActivatedRoute,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private spinner: NgxSpinnerService
   ) { }
 
   async ngOnInit(): Promise<void> {
     const tokenStorage = JSON.parse(localStorage.getItem('token'));
 
     this.id = this.route.snapshot.params.id;
-    this.isAddMode = !this.id;
-    if (!this.isAddMode) {
+    if (this.id == "id") {
+      this.isAddMode = false;
+    } else this.isAddMode = true;
+    if (this.isAddMode) {
+      console.log("hi");
+      this.spinner.show();
       (await this.productService.getDetailProductById(this.id)).subscribe(
         (res: any) => (
           this.formProduct.patchValue(res.Data),
@@ -78,7 +79,8 @@ export class AddUpdateProductComponent implements OnInit {
           this.GetBrands(res.Data.CategoryId),
           this.Thumbnail = res.Data.Thumbnail,
           this.Features = res.Data.Feature,
-          this.editMode = true),
+          this.editMode = true,
+          this.spinner.hide()),
         async (err) => {
           if (err.status === 401) {
             this.refreshTokenService.refreshToken()
@@ -91,7 +93,8 @@ export class AddUpdateProductComponent implements OnInit {
                       this.ClassifyProducts = res.Data.ClassifyProducts,
                       this.GetBrands(res.Data.CategoryId),
                       this.Thumbnail = res.Data.Thumbnail,
-                      this.Features = res.Data.Feature
+                      this.Features = res.Data.Feature,
+                      this.spinner.hide()
                   }
                 )
               });
@@ -99,9 +102,9 @@ export class AddUpdateProductComponent implements OnInit {
         }
       );
     }
-
+    this.spinner.show();
     (await this.categoryService.getAll()).subscribe(
-      (res: any) => (this.CategoryList = res.Data),
+      (res: any) => (this.CategoryList = res.Data, this.spinner.hide()),
       async (err) => {
         if (err.status === 401) {
           this.refreshTokenService.refreshToken()
@@ -110,6 +113,7 @@ export class AddUpdateProductComponent implements OnInit {
               localStorage.setItem('token', JSON.stringify(tokenStorage));
               this.categoryService.getAll().subscribe((res: any) => {
                 this.CategoryList = res.Data
+                this.spinner.hide()
               })
             });
         }
@@ -232,10 +236,10 @@ export class AddUpdateProductComponent implements OnInit {
   categoryChange(event) {
     var CategoryId = event.target.value;
     const tokenStorage = JSON.parse(localStorage.getItem('token'));
-
+    this.spinner.show();
     this.categoryService.getAllBrandByIdCategory(CategoryId).subscribe({
       next: (res: any) => {
-        (this.BrandList = res.Data, console.log(this.BrandList)), (this.brandProduct = false);
+        (this.BrandList = res.Data, this.spinner.hide()), (this.brandProduct = false);
       },
       error: async (err) => {
         (this.BrandList = null), (this.brandProduct = true);
@@ -248,6 +252,7 @@ export class AddUpdateProductComponent implements OnInit {
                 (res: any) => {
                   this.BrandList = res.Data
                   this.brandProduct = false
+                  this.spinner.hide();
                 }
               )
             });
@@ -259,10 +264,10 @@ export class AddUpdateProductComponent implements OnInit {
   GetBrands(CategoryId) {
     var CategoryId = CategoryId;
     const tokenStorage = JSON.parse(localStorage.getItem('token'));
-
+    this.spinner.show();
     this.categoryService.getAllBrandByIdCategory(CategoryId).subscribe({
       next: (res: any) => {
-        (this.BrandList = res.Data), (this.brandProduct = false);
+        (this.BrandList = res.Data, this.spinner.hide()), (this.brandProduct = false);
       },
       error: async (err) => {
         (this.BrandList = null), (this.brandProduct = true);
@@ -275,6 +280,7 @@ export class AddUpdateProductComponent implements OnInit {
                 (res: any) => {
                   this.BrandList = res.Data,
                     this.brandProduct = false
+                  this.spinner.hide()
                 }
               )
             });
@@ -331,11 +337,12 @@ export class AddUpdateProductComponent implements OnInit {
     else {
       this.productCreate.IsShow = 0;
     }
-
+    this.spinner.show();
     const tokenStorage = JSON.parse(localStorage.getItem('token'));
     this.productService.update(this.productUpdate).subscribe({
       next: (res: any) => {
         this.toastr.success(res.Message, "Thông báo");
+        this.spinner.hide();
       },
       error: async (err) => {
         (this.BrandList = null), (this.brandProduct = true);
@@ -344,15 +351,19 @@ export class AddUpdateProductComponent implements OnInit {
             .subscribe((res) => {
               tokenStorage.AccessToken = res['Data'].AccessToken;
               localStorage.setItem('token', JSON.stringify(tokenStorage));
-              this.productService.create(this.productUpdate).subscribe((res: any) => {
-                if (res.IsSuccess) {
+              this.productService.create(this.productUpdate).subscribe({
+                next: (res: any) => {
                   this.toastr.success(res.Message, 'Thông báo');
+                  this.spinner.hide();
+                },
+                error: (error) => {
+                  this.toastr.error(error.error.Message, 'Thông báo lỗi');
+                  this.spinner.hide();
                 }
-                else { this.toastr.success(res.Message, 'Thông báo lỗi'); }
               })
             });
         }
-        else { console.log(err), this.toastr.error(err.error.Message, 'Thông báo lỗi'); }
+        else { this.toastr.error(err.error.Message, 'Thông báo lỗi'); this.spinner.hide(); }
       }
     })
   }
@@ -376,11 +387,12 @@ export class AddUpdateProductComponent implements OnInit {
     else {
       this.productCreate.IsShow = 0;
     }
-
+    this.spinner.show();
     const tokenStorage = JSON.parse(localStorage.getItem('token'));
     this.productService.create(this.productCreate).subscribe({
       next: (res: any) => {
         this.toastr.success(res.Message, 'Thông báo');
+        this.spinner.hide();
       },
       error: async (error) => {
         (this.BrandList = null), (this.brandProduct = true);
@@ -389,15 +401,19 @@ export class AddUpdateProductComponent implements OnInit {
             .subscribe((res) => {
               tokenStorage.AccessToken = res['Data'].AccessToken;
               localStorage.setItem('token', JSON.stringify(tokenStorage));
-              this.productService.create(this.productCreate).subscribe((res: any) => {
-                if (res.IsSuccess) {
+              this.productService.create(this.productCreate).subscribe({
+                next: (res: any) => {
                   this.toastr.success(res.Message, 'Thông báo');
+                  this.spinner.hide();
+                },
+                error: (error) => {
+                  this.toastr.error(error.error.Message, 'Thông báo lỗi');
+                  this.spinner.hide();
                 }
-                else { this.toastr.success(res.Message, 'Thông báo lỗi'); }
               })
             });
         }
-        else { this.toastr.error(error.error.Message, 'Thông báo lỗi'); }
+        else { this.toastr.error(error.error.Message, 'Thông báo lỗi'); this.spinner.hide(); }
       },
     });
   }

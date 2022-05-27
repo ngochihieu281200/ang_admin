@@ -1,67 +1,28 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ProductService } from '../../../services/product.service';
 import { RefreshTokenService } from '../../../services/refresh-token.service';
-import { apiEndpoint } from 'src/app/config/api';
-import { HttpClient } from '@angular/common/http';
-
 import { LocalDataSource } from 'ng2-smart-table';
 import { ToastrService } from 'ngx-toastr';
-import { Router, RouterModule, Routes } from '@angular/router';
-
+import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import {
-  ModalDismissReasons,
-  NgbActiveModal,
   NgbModal,
 } from '@ng-bootstrap/ng-bootstrap';
-import { PopUpDetailComponent } from './pop-up-detail/pop-up-detail.component';
 import { ModalDirective } from 'ngx-bootstrap/modal';
-import { data } from './../../../model/user.model';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-product',
-  // templateUrl: './product.component.html',
-  template: `<ng2-smart-table
-      [settings]="settings"
-      [source]="source"
-      (create)="addProduct()"
-      (custom)="onCuston($event)"
-    ></ng2-smart-table>
-    <ng-template #content let-modal style="margin:0 auto; margin-top:30vh;">
-      <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Xóa Sản Phẩm</h4>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="mb-3">
-            <label for="dateOfBirth">Bạn Có Chắc Muốn Xóa Sản Phẩm</label>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-outline-success"
-          (click)="onConfirm()"
-        >
-          Xác Nhận
-        </button>
-        <button
-          type="button"
-          class="btn btn-outline-danger"
-          (click)="modal.close('Không')"
-        >
-          Không Xác Nhận
-        </button>
-      </div>
-    </ng-template>`,
+  templateUrl: './product.component.html',
   styleUrls: ['./product.component.scss'],
 })
 export class ProductComponent implements OnInit {
   [x: string]: any;
   datas;
   detail;
-
+  Count: any[];
+  pageIndex;
+  pageSize;
   keyword;
   hide;
   idProduct;
@@ -77,7 +38,8 @@ export class ProductComponent implements OnInit {
     private router: Router,
     public datepipe: DatePipe,
     private modalService: NgbModal,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private spinner: NgxSpinnerService
   ) { }
 
   onCuston(event) {
@@ -93,72 +55,13 @@ export class ProductComponent implements OnInit {
         break;
     }
   }
-  //   refresh(): void {
-  //     window.location.reload();_
-  // }
-
-  async onConfirm() {
-    this.modalReference.close();
-    const tokenStorage = JSON.parse(localStorage.getItem('token'));
-    (await this.productService.delete(this.idProduct)).subscribe(
-      (res: any) => {
-        this.productService.RetrieveAll().subscribe((res: any) => {
-          this.source.load(res?.Data.ListProduct);
-        });
-        this.toastr.success(res.Message, 'Thông báo');
-
-      },
-      async (err) => {
-        if (err.status === 401) {
-          this.refreshTokenService.refreshToken()
-            .subscribe((res) => {
-              tokenStorage.AccessToken = res['Data'].AccessToken;
-              localStorage.setItem('token', JSON.stringify(tokenStorage));
-              window.location.reload();
-              this.productService.RetrieveAll().subscribe((res: any) => {
-                this.source.load(res?.Data.ListProduct);
-              });
-            });
-
-        }
-        else {
-          this.toastr.error(err.error.Message, "Thông báo lỗi");
-        }
-      }
-    );
-  }
-
-  selectProduct(data) {
-    (<any>this.router).navigate([`/base/product-detail/${data.Id}`]);
-  }
-  addProduct() {
-    (<any>this.router).navigate([`/base/product/id`]);
-  }
-  editProduct(data) {
-    (<any>this.router).navigate([`/base/product/${data.Id}`]);
-  }
-  deleteProduct(data) {
-    this.idProduct = data.Id;
-
-    this.modelReference = this.modalService.open(this.content);
-    this.modalReference.result.then(
-      (result) => {
-        this.closeResult = `Closed with: ${result}`;
-      },
-      (reason) => {
-        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      }
-    );
-  }
-
-  // open() {
-  //   const modalRef = this.modalService.open(NgbdModalContent);
-  //   modalRef.componentInstance.name = 'World';
-  //   console.log(open);
-  // }
 
   settings = {
     mode: 'external',
+    pager: {
+      perPage: 5,
+
+    },
     actions: {
       custom: [
         {
@@ -224,11 +127,12 @@ export class ProductComponent implements OnInit {
   source: LocalDataSource = new LocalDataSource();
 
   ngOnInit() {
+    this.spinner.show();
     const tokenStorage = JSON.parse(localStorage.getItem('token'));
     this.productService.RetrieveAll().subscribe(
       (res: any) => {
         this.source.load(res?.Data.ListProduct);
-
+        this.spinner.hide();
       },
       async (err) => {
         if (err.status === 401) {
@@ -236,14 +140,72 @@ export class ProductComponent implements OnInit {
             .subscribe((res) => {
               tokenStorage.AccessToken = res.Data.AccessToken;
               localStorage.setItem('token', JSON.stringify(tokenStorage));
-              this.productService.RetrieveAll().subscribe((res: any) => { this.source.load(res.Data.ListProduct) })
+              this.productService.RetrieveAll().subscribe(
+                (res: any) => {
+                  this.source.load(res.Data.ListProduct),
+                    this.spinner.hide();
+                })
             });
         }
       }
     );
 
   }
-}
-function NgbdModalContent(NgbdModalContent: any) {
-  throw new Error('Function not implemented.');
+
+  async onConfirm() {
+    this.modalReference.close();
+    const tokenStorage = JSON.parse(localStorage.getItem('token'));
+    (await this.productService.delete(this.idProduct)).subscribe(
+      (res: any) => {
+        this.productService.RetrieveAll().subscribe((res: any) => {
+          this.source.load(res?.Data.ListProduct);
+        });
+        this.toastr.success(res.Message, 'Thông báo');
+
+      },
+      async (err) => {
+        if (err.status === 401) {
+          this.refreshTokenService.refreshToken()
+            .subscribe((res) => {
+              tokenStorage.AccessToken = res['Data'].AccessToken;
+              localStorage.setItem('token', JSON.stringify(tokenStorage));
+              window.location.reload();
+              this.productService.RetrieveAll().subscribe((res: any) => {
+                this.source.load(res?.Data.ListProduct);
+              });
+            });
+
+        }
+        else {
+          this.toastr.error(err.error.Message, "Thông báo lỗi");
+        }
+      }
+    );
+  }
+
+
+
+  selectProduct(data) {
+    (<any>this.router).navigate([`/product-detail/${data.Id}`]);
+  }
+  addProduct() {
+    (<any>this.router).navigate([`/product/id`]);
+  }
+  editProduct(data) {
+    (<any>this.router).navigate([`/product/${data.Id}`]);
+  }
+  deleteProduct(data) {
+    this.idProduct = data.Id;
+
+    this.modelReference = this.modalService.open(this.content);
+    this.modalReference.result.then(
+      (result) => {
+        this.closeResult = `Closed with: ${result}`;
+      },
+      (reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      }
+    );
+  }
+
 }

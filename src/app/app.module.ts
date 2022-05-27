@@ -4,6 +4,7 @@ import {
   LocationStrategy,
   HashLocationStrategy,
   DatePipe,
+  PathLocationStrategy,
 } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
@@ -11,6 +12,7 @@ import { CommonModule } from '@angular/common';
 import '@popperjs/core';
 
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -38,6 +40,8 @@ import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { Ng2CompleterModule } from 'ng2-completer';
+import { NgxSpinnerModule } from "ngx-spinner";
+
 
 const APP_CONTAINERS = [DefaultLayoutComponent];
 
@@ -81,7 +85,8 @@ import { ChartsModule } from 'ng2-charts';
     Ng2CompleterModule,
     ModalModule,
     ToastrModule.forRoot(),
-    CommonModule
+    CommonModule,
+    NgxSpinnerModule,
   ],
   declarations: [
     AppComponent,
@@ -94,7 +99,7 @@ import { ChartsModule } from 'ng2-charts';
   providers: [
     {
       provide: LocationStrategy,
-      useClass: HashLocationStrategy,
+      useClass: PathLocationStrategy,
     },
     IconSetService,
     BsModalService,

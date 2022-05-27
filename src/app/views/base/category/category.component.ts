@@ -9,7 +9,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { data } from './../../../model/user.model';
 import { CategoryService } from './../../../services/category.service';
 import { ModalDirective } from 'ngx-bootstrap/modal';
-
+import { NgxSpinnerService } from "ngx-spinner";
 @Component({
   selector: 'app-category',
   template: `<ng2-smart-table
@@ -51,7 +51,8 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
           Không Xác Nhận
         </button>
       </div>
-    </ng-template>`,
+    </ng-template>
+    <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-jelly-box" [fullScreen] ="true"><p style="color: white" > Đợi trong giây lát... </p></ngx-spinner>`,
   styleUrls: ['./category.component.scss'],
 })
 export class CategoryComponent implements OnInit {
@@ -62,9 +63,10 @@ export class CategoryComponent implements OnInit {
 
   ngOnInit() {
     const tokenStorage = JSON.parse(localStorage.getItem('token'));
-
+    this.spinner.show();
     this.categoryService.getAll().subscribe(
       (res: any) => {
+        this.spinner.hide();
         this.source.load(res?.Data);
       },
       async (err) => {
@@ -84,7 +86,6 @@ export class CategoryComponent implements OnInit {
         }
       }
     );
-    console.log(this.ngOnInit);
   }
   settings = {
     mode: 'external',
@@ -124,18 +125,16 @@ export class CategoryComponent implements OnInit {
         title: 'Hệ Thống',
         type: 'html',
         valuePrepareFunction: (value, cell, row) => {
-          return `<p>Tạo bởi : ${
-            cell.CreatedByName
-          }<br>Lúc: ${this.datepipe.transform(
-            cell.CreatedByTime,
-            'dd/mm/yyyy'
-          )}<br>
-          Cập nhật bởi: ${
-            cell.UpdatedByName
-          }<br>Lúc:  ${this.datepipe.transform(
-            cell.UpdatedByTime,
-            'dd/mm/yyyy'
-          )}</p>`;
+          return `<p>Tạo bởi : ${cell.CreatedByName
+            }<br>Lúc: ${this.datepipe.transform(
+              cell.CreatedByTime,
+              'dd/mm/yyyy'
+            )}<br>
+          Cập nhật bởi: ${cell.UpdatedByName
+            }<br>Lúc:  ${this.datepipe.transform(
+              cell.UpdatedByTime,
+              'dd/mm/yyyy'
+            )}</p>`;
         },
       },
     },
@@ -145,8 +144,9 @@ export class CategoryComponent implements OnInit {
     private datepipe: DatePipe,
     private categoryService: CategoryService,
     private httpClient: HttpClient,
-    private modalService: NgbModal
-  ) {}
+    private modalService: NgbModal,
+    private spinner: NgxSpinnerService
+  ) { }
   onCuston(event) {
     switch (event.action) {
       case 'editCategory':
@@ -162,10 +162,12 @@ export class CategoryComponent implements OnInit {
   }
   async onPopUp() {
     this.modalReference.close();
+    this.spinner.show();
     const tokenStorage = JSON.parse(localStorage.getItem('token'));
     (await this.categoryService.delete(this.idCategory)).subscribe(
       (res: any) => {
         this.categoryService.getAll().subscribe((res: any) => {
+          this.spinner.hide();
           this.source.load(res?.Data);
         });
       },
@@ -181,7 +183,10 @@ export class CategoryComponent implements OnInit {
             .subscribe((res) => {
               tokenStorage.AccessToken = res['Data'].AccessToken;
               localStorage.setItem('token', JSON.stringify(tokenStorage));
-              window.location.reload();
+              this.categoryService.getAll().subscribe((res: any) => {
+                this.spinner.hide();
+                this.source.load(res?.Data);
+              });
             });
         }
       }
@@ -189,11 +194,11 @@ export class CategoryComponent implements OnInit {
   }
   source: LocalDataSource = new LocalDataSource();
   addCategory() {
-    (<any>this.router).navigate([`/base/category/id`]);
+    (<any>this.router).navigate([`/category/id`]);
     // console.log(this.addStaff);
   }
   editCategory(data) {
-    (<any>this.router).navigate([`/base/category/${data.Id}`]);
+    (<any>this.router).navigate([`/category/${data.Id}`]);
     console.log(this.editCategory);
   }
   deleteCategory(data) {

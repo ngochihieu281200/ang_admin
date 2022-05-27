@@ -58,6 +58,7 @@
     "ng2-smart-table": "^1.7.2",
     "ngx-bootstrap": "^6.2.0",
     "ngx-perfect-scrollbar": "^10.1.1",
+    "ngx-spinner": "^13.1.1",
     "ngx-toastr": "^14.3.0",
     "rxjs": "^6.6.7",
     "simple-line-icons": "^2.5.5",

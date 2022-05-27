@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { apiEndpoint } from 'src/app/config/api';
 import { ProductService } from './../../../../services/product.service';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { RefreshTokenService } from 'src/app/services/refresh-token.service';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-product-detail',
@@ -18,7 +18,7 @@ export class ProductDetailComponent implements OnInit {
     private productService: ProductService,
     private refreshTokenService: RefreshTokenService,
     private route: ActivatedRoute,
-    private httpClient: HttpClient
+    private spinner: NgxSpinnerService
   ) { }
 
   async ngOnInit(): Promise<void> {

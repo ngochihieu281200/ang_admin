@@ -49,3 +49,21 @@ ng2-st-tbody-custom a i.icon-detail {
 .modal-backdrop {
   z-index: 0 !important;
 }
+
+.ng2-smart-page-link .page-link .page-link-prev {
+  font-size: 12px !important;
+}
+
+.activePage {
+  background-color: #3399ff;
+  color: white;
+}
+
+ng2-smart-table-pager {
+  justify-content: flex-end !important;
+}
+
+ng2-smart-table-pager nav li a {
+  font-size: 0.875rem !important;
+  margin: 0px 4px;
+}
