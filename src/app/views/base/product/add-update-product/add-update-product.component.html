@@ -21,8 +21,12 @@
                   class="text-danger">*</span></label>
               <div class="col-md-9">
                 <select id="select1" name="CategoryId" formControlName="CategoryId" (change)="categoryChange($event)"
-                  [ngClass]="{'is-invalid': formProduct.get('CategoryId').errors &&  formProduct.get('CategoryId').touched, 'is-valid':formProduct.controls.CategoryId.valid}"
-                  class="form-control form-select">
+                  [ngClass]="{
+                    'is-invalid':
+                      formProduct.get('CategoryId').errors &&
+                      formProduct.get('CategoryId').touched,
+                    'is-valid': formProduct.controls.CategoryId.valid
+                  }" class="form-control form-select">
                   <option value="" disabled selected>
                     ---Chọn Danh Mục---
                   </option>
@@ -37,8 +41,12 @@
                   class="text-danger">*</span></label>
               <div class="col-md-9">
                 <select id="select2" name="BrandId" [attr.disabled]="brandProduct ? '' : null" formControlName="BrandId"
-                  class="form-control form-select"
-                  [ngClass]="{'is-invalid': formProduct.get('BrandId').errors &&  formProduct.get('BrandId').touched, 'is-valid':formProduct.controls.BrandId.valid}">
+                  class="form-control form-select" [ngClass]="{
+                    'is-invalid':
+                      formProduct.get('BrandId').errors &&
+                      formProduct.get('BrandId').touched,
+                    'is-valid': formProduct.controls.BrandId.valid
+                  }">
                   <option value="" disabled selected>
                     --- Chọn Nhãn Hiệu ---
                   </option>
@@ -54,35 +62,57 @@
 
               <div class="col-md-9">
                 <input type="text" id="text-input" name="Name" formControlName="Name" class="form-control"
-                  placeholder="Tên sản phẩm"
-                  [ngClass]="{'is-invalid': formProduct.get('Name').errors &&  formProduct.get('Name').touched, 'is-valid':formProduct.controls.Name.valid}" />
+                  placeholder="Tên sản phẩm" [ngClass]="{
+                    'is-invalid':
+                      formProduct.get('Name').errors &&
+                      formProduct.get('Name').touched,
+                    'is-valid': formProduct.controls.Name.valid
+                  }" />
               </div>
             </div>
             <div class="form-group row">
               <label class="col-md-3 col-form-label" for="select2">Mặt Kính<span class="text-danger">*</span></label>
               <div class="col-md-9">
                 <select id="select2" name="Crytal" formControlName="Crytal" class="form-control form-select"
-                  placeholder="Chọn Mặt Kính"
-                  [ngClass]="{'is-invalid': formProduct.get('Crytal').errors &&  formProduct.get('Crytal').touched, 'is-valid':formProduct.controls.Crytal.valid}">
+                  placeholder="Chọn Mặt Kính" [ngClass]="{
+                    'is-invalid':
+                      formProduct.get('Crytal').errors &&
+                      formProduct.get('Crytal').touched,
+                    'is-valid': formProduct.controls.Crytal.valid
+                  }">
                   <option value="" disabled selected>
                     --- Chọn Mặt Kính ---
                   </option>
                   <option value="Kính khoáng (Mineral)">Kính Khoáng</option>
                   <option value="PMMA">PMMA</option>
+                  <option value="Sapphire">Sapphire</option>
+                  <option value="Nhựa Resin">Nhựa Resin</option>
+                  <option value="Kính K1">Kính K1</option>
                 </select>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-md-3 col-form-label" for="select2">Dây Đeo <span class="text-danger">*</span></label>
               <div class="col-md-9">
-                <select id="select2" name="Ablert" formControlName="Ablert" class="form-control form-select"
-                  [ngClass]="{'is-invalid': formProduct.get('Ablert').errors &&  formProduct.get('Ablert').touched, 'is-valid':formProduct.controls.Ablert.valid}">
+                <select id="select2" name="Ablert" formControlName="Ablert" class="form-control form-select" [ngClass]="{
+                    'is-invalid':
+                      formProduct.get('Ablert').errors &&
+                      formProduct.get('Ablert').touched,
+                    'is-valid': formProduct.controls.Ablert.valid
+                  }">
                   <option value="" disabled selected>
                     --- Chọn Loại Dây Đeo ---
                   </option>
                   <option value="Thép không gỉ">Thép không gỉ</option>
                   <option value="Nhựa">Nhựa</option>
-
+                  <option value="Da tổng hợp">Da tổng hợp</option>
+                  <option value="Cao Su">Cao Su</option>
+                  <option value="Kim Loại">Kim Loại</option>
+                  <option value="Da Dê">Da Dê</option>
+                  <option value="
+                  Da Cá sấu">
+                    Da Cá sấu
+                  </option>
                 </select>
               </div>
             </div>
@@ -91,13 +121,26 @@
                   class="text-danger">*</span></label>
               <div class="col-md-9">
                 <select id="select2" name="WaterProof" formControlName="WaterProof" class="form-control form-select"
-                  [ngClass]="{'is-invalid': formProduct.get('WaterProof').errors &&  formProduct.get('WaterProof').touched, 'is-valid':formProduct.controls.WaterProof.valid}">
+                  [ngClass]="{
+                    'is-invalid':
+                      formProduct.get('WaterProof').errors &&
+                      formProduct.get('WaterProof').touched,
+                    'is-valid': formProduct.controls.WaterProof.valid
+                  }">
                   <option value="" disabled selected>
                     --- Chọn Độ Chống Nước ---
                   </option>
                   <option value="20 Atm">20 Atm</option>
-                  <option value="2">Option #2</option>
-                  <option value="3">Option #3</option>
+                  <option value="3 ATM - Rửa tay, đi mưa">
+                    3 ATM - Rửa tay, đi mưa
+                  </option>
+                  <option value="3 ATM - Rửa tay, đi mưa">
+                    5 ATM - Rửa tay, đi mưa
+                  </option>
+                  <option value="3 ATM - Rửa tay, đi mưa">
+                    10 ATM - Rửa tay, đi mưa
+                  </option>
+                  <option value="30 ATM">30 ATM</option>
                 </select>
               </div>
             </div>
@@ -106,15 +149,24 @@
               <label class="col-md-3 col-form-label" for="date-input">Thời Gian Bảo Hành</label>
               <div class="col-md-9">
                 <input class="form-control" formControlName="Guarantee" type="number" name="Guarantee"
-                  placeholder="Số Năm Bảo Hành"
-                  [ngClass]="{'is-invalid': formProduct.get('Guarantee').errors &&  formProduct.get('Guarantee').touched, 'is-valid':formProduct.controls.Guarantee.valid}" />
+                  placeholder="Số Năm Bảo Hành" [ngClass]="{
+                    'is-invalid':
+                      formProduct.get('Guarantee').errors &&
+                      formProduct.get('Guarantee').touched,
+                    'is-valid': formProduct.controls.Guarantee.valid
+                  }" />
               </div>
             </div>
             <div class="form-group row">
               <label class="col-md-3 col-form-label" for="select2">Loại Máy <span class="text-danger">*</span></label>
               <div class="col-md-9">
                 <select id="select2" name="Machine" formControlName="Machine" class="form-control form-select"
-                  [ngClass]="{'is-invalid': formProduct.get('Machine').errors &&  formProduct.get('Machine').touched, 'is-valid':formProduct.controls.Machine.valid}">
+                  [ngClass]="{
+                    'is-invalid':
+                      formProduct.get('Machine').errors &&
+                      formProduct.get('Machine').touched,
+                    'is-valid': formProduct.controls.Machine.valid
+                  }">
                   <option value="" disabled selected>
                     --- Chọn Loại Máy ---
                   </option>
@@ -122,20 +174,28 @@
                   <option value="Điện Tử">Điện Tử</option>
                   <option value="Pin">Pin</option>
                   <option value="Cơ tự động">Cơ tự động</option>
+                  <option value="P-Light ">P-Light</option>
                 </select>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-md-3 col-form-label" for="select2">Xuất Sứ <span class="text-danger">*</span></label>
               <div class="col-md-9">
-                <select id="select2" name="MadeIn" formControlName="MadeIn" class="form-control form-select"
-                  [ngClass]="{'is-invalid': formProduct.get('MadeIn').errors &&  formProduct.get('MadeIn').touched, 'is-valid':formProduct.controls.MadeIn.valid}">
+                <select id="select2" name="MadeIn" formControlName="MadeIn" class="form-control form-select" [ngClass]="{
+                    'is-invalid':
+                      formProduct.get('MadeIn').errors &&
+                      formProduct.get('MadeIn').touched,
+                    'is-valid': formProduct.controls.MadeIn.valid
+                  }">
                   <option value="" disabled selected>
                     --- Chọn Xuất Xứ ---
                   </option>
                   <option value="Trung Quốc">Trung Quốc</option>
                   <option value="Nhật Bản">Nhật Bản</option>
                   <option value="Việt Nam">Việt Nam</option>
+                  <option value="Thụy Sỹ">Thụy Sỹ</option>
+                  <option value="Ấn Độ">Ấn Độ</option>
+                  <option value="Ý">Ý</option>
                 </select>
               </div>
             </div>
@@ -143,8 +203,12 @@
               <label class="col-md-3 col-form-label" for="textarea-input">Mô Tả Sản Phẩm</label>
               <div class="col-md-9">
                 <textarea id="textarea-input" formControlName="Description" name="Description" rows="9"
-                  class="form-control" placeholder="Mô tả chi tiết sản phẩm"
-                  [ngClass]="{'is-invalid': formProduct.get('Description').errors &&  formProduct.get('Description').touched, 'is-valid':formProduct.controls.Description.valid}"></textarea>
+                  class="form-control" placeholder="Mô tả chi tiết sản phẩm" [ngClass]="{
+                    'is-invalid':
+                      formProduct.get('Description').errors &&
+                      formProduct.get('Description').touched,
+                    'is-valid': formProduct.controls.Description.valid
+                  }"></textarea>
               </div>
             </div>
             <div class="form-group row">
@@ -212,7 +276,7 @@
               </div>
             </div>
             <div class="my-4">
-              <div *ngFor="let ClassifyProduct of ClassifyProducts;let i = index"
+              <div *ngFor="let ClassifyProduct of ClassifyProducts; let i = index"
                 class="product flex pad-10 d-flex p-2 border border-secondary my-2 justify-content-between align-items-sm-center">
                 <div class="d-flex" style="width: 400px">
                   <img [src]="
@@ -237,8 +301,9 @@
                   </div>
                 </div>
                 <div>
-                  <button class="btn btn-warning m-2" type="button"
-                    (click)="updateTypeProduct(ClassifyProduct,i)">Sửa</button>
+                  <button class="btn btn-warning m-2" type="button" (click)="updateTypeProduct(ClassifyProduct, i)">
+                    Sửa
+                  </button>
                   <button class="btn btn-danger m-2" (click)="removeTypeProduct(i)" type="button">
                     Xóa
                   </button>
@@ -249,10 +314,12 @@
         </div>
       </div>
       <div class="col-12">
-        <button *ngIf="editMode" class="btn btn-outline-success  ml-1 float-right" type="submit">Cập Nhật Sản
-          Phẩm</button>
-        <button *ngIf="!editMode" class="btn btn-outline-success  ml-1 float-right" type="submit">Thêm Sản
-          Phẩm</button>
+        <button *ngIf="editMode" class="btn btn-outline-success ml-1 float-right" type="submit">
+          Cập Nhật Sản Phẩm
+        </button>
+        <button *ngIf="!editMode" class="btn btn-outline-success ml-1 float-right" type="submit">
+          Thêm Sản Phẩm
+        </button>
       </div>
     </form>
   </div>
@@ -276,26 +343,44 @@
                 <div class="form-group col-lg-12">
                   <label for="">Tên Sản Phẩm <span class="text-danger">*</span></label>
                   <input type="text" id="nf-email" name="Name" formControlName="Name" class="form-control"
-                    placeholder="Tên Sản Phẩm" autocomplete="email"
-                    [ngClass]="{'is-invalid': formClassifyProduct.get('Name').errors &&  formClassifyProduct.get('Name').touched, 'is-valid':formClassifyProduct.controls.Name.valid}" />
+                    placeholder="Tên Sản Phẩm" autocomplete="email" [ngClass]="{
+                      'is-invalid':
+                        formClassifyProduct.get('Name').errors &&
+                        formClassifyProduct.get('Name').touched,
+                      'is-valid': formClassifyProduct.controls.Name.valid
+                    }" />
                 </div>
                 <div class="form-group col-lg-12">
                   <label for="">Giá Bán <span class="text-danger">*</span></label>
                   <input type="number" id="nf-password" name="OriginalPrice" formControlName="OriginalPrice"
-                    class="form-control" placeholder="Giá Bán" autocomplete="current-password"
-                    [ngClass]="{'is-invalid': formClassifyProduct.get('OriginalPrice').errors &&  formClassifyProduct.get('OriginalPrice').touched, 'is-valid':formClassifyProduct.controls.OriginalPrice.valid}" />
+                    class="form-control" placeholder="Giá Bán" autocomplete="current-password" [ngClass]="{
+                      'is-invalid':
+                        formClassifyProduct.get('OriginalPrice').errors &&
+                        formClassifyProduct.get('OriginalPrice').touched,
+                      'is-valid':
+                        formClassifyProduct.controls.OriginalPrice.valid
+                    }" />
                 </div>
                 <div class="form-group col-lg-12">
                   <label for="">Giá Khuyến Mãi </label>
                   <input type="number" id="nf-password" name="PromotionPrice" formControlName="PromotionPrice"
-                    class="form-control" placeholder="Giá Khuyến Mãi" autocomplete="current-password"
-                    [ngClass]="{'is-invalid': formClassifyProduct.get('PromotionPrice').errors &&  formClassifyProduct.get('PromotionPrice').touched, 'is-valid':formClassifyProduct.controls.PromotionPrice.valid}" />
+                    class="form-control" placeholder="Giá Khuyến Mãi" autocomplete="current-password" [ngClass]="{
+                      'is-invalid':
+                        formClassifyProduct.get('PromotionPrice').errors &&
+                        formClassifyProduct.get('PromotionPrice').touched,
+                      'is-valid':
+                        formClassifyProduct.controls.PromotionPrice.valid
+                    }" />
                 </div>
                 <div class="form-group col-lg-12">
                   <label for="">Số Lượng Tồn<span class="text-danger">*</span></label>
                   <input type="number" id="nf-password" name="Stock" formControlName="Stock" class="form-control"
-                    placeholder="Số Lượng Tồn" autocomplete="current-password"
-                    [ngClass]="{'is-invalid': formClassifyProduct.get('Stock').errors &&  formClassifyProduct.get('Stock').touched, 'is-valid':formClassifyProduct.controls.Stock.valid}" />
+                    placeholder="Số Lượng Tồn" autocomplete="current-password" [ngClass]="{
+                      'is-invalid':
+                        formClassifyProduct.get('Stock').errors &&
+                        formClassifyProduct.get('Stock').touched,
+                      'is-valid': formClassifyProduct.controls.Stock.valid
+                    }" />
                 </div>
                 <div class="form-group col-lg-12">
                   <label class="switch switch-label switch-pill switch-success">
