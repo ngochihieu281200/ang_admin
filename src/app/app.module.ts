@@ -9,6 +9,8 @@ import {
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
+import { BaseRoutingModule } from './views/base/base-routing.module';
+import { BaseModule } from './views/base/base.module';
 import '@popperjs/core';
 
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
@@ -60,8 +62,8 @@ import { AppRoutingModule } from './app.routing';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts';
-import { AddUpdateProductComponent } from './views/product/add-update-product/add-update-product.component';
-import { ProductComponent } from './views/product/product.component';
+import { AddUpdateProductComponent } from './views/base/product/add-update-product/add-update-product.component';
+import { ProductComponent } from './views/base/product/product.component';
 
 @NgModule({
   imports: [
@@ -81,7 +83,9 @@ import { ProductComponent } from './views/product/product.component';
     IconSetModule.forRoot(),
     HttpClientModule,
     FormsModule,
+    BaseModule,
     ReactiveFormsModule,
+    BaseRoutingModule,
     Ng2SearchPipeModule,
     Ng2SmartTableModule,
     Ng2CompleterModule,
