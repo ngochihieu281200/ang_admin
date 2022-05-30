@@ -8,21 +8,17 @@ import { NgModule } from '@angular/core';
 // Tabs Component
 import { TabsModule } from 'ngx-bootstrap/tabs';
 
-
 // Carousel Component
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 
-
 // Collapse Component
 import { CollapseModule } from 'ngx-bootstrap/collapse';
-
 
 // Dropdowns Component
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 // Pagination Component
 import { PaginationModule } from 'ngx-bootstrap/pagination';
-
 
 // Popover Component
 import { PopoverModule } from 'ngx-bootstrap/popover';

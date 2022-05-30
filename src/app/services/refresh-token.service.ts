@@ -12,7 +12,9 @@ export class RefreshTokenService {
   constructor(private httpClient: HttpClient) { }
 
   refreshToken(): Observable<ResultRefreshToken> {
+
     const tokenStorage = JSON.parse(localStorage.getItem('token'));
+    console.log(tokenStorage.RefreshToken);
     return this.httpClient.post<ResultRefreshToken>(`${apiEndpoint}authenticate/refresh-token`, JSON.stringify({ RefreshToken: tokenStorage.RefreshToken }), {
       headers: {
         'Content-Type': 'application/json',

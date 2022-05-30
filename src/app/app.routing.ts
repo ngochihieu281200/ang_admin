@@ -8,13 +8,12 @@ import { P500Component } from './views/error/500.component';
 import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
 import { AuthGuard } from './shared/auth.guard';
-import { ProductComponent } from './views/base/product/product.component';
-import { AddUpdateProductComponent } from './views/base/product/add-update-product/add-update-product.component';
-import { ProductDetailComponent } from './views/base/product/product-detail/product-detail.component';
+import { ProductComponent } from './views/product/product.component';
+import { AddUpdateProductComponent } from './views/product/add-update-product/add-update-product.component';
+import { ProductDetailComponent } from './views/product/product-detail/product-detail.component';
 import { StaffComponent } from './views/base/staff/staff.component';
-import { AddUpdateCategoryComponent } from './views/base/category/add-update-category/add-update-category.component';
-import { CategoryComponent } from './views/base/category/category.component';
-import { CustomerComponent } from './views/base/customer/customer.component';
+import { AddUpdateCategoryComponent } from './views/category/add-update-category/add-update-category.component';
+import { CategoryComponent } from './views/category/category.component';
 import { AddUpdateStaffComponent } from './views/base/staff/add-update-staff/add-update-staff.component';
 
 
@@ -53,11 +52,6 @@ export const routes: Routes = [
     },
     children: [
       {
-        path: 'base',
-        loadChildren: () => import('./views/base/base.module').then(m => m.BaseModule),
-        canActivate: [AuthGuard]
-      },
-      {
         path: 'dashboard',
         loadChildren: () => import('./views/dashboard/dashboard.module').then(m => m.DashboardModule),
         canActivate: [AuthGuard]
@@ -87,14 +81,6 @@ export const routes: Routes = [
         component: ProductDetailComponent,
         data: {
           title: 'Product-Detail',
-        },
-        canActivate: [AuthGuard],
-      },
-      {
-        path: 'customer',
-        component: CustomerComponent,
-        data: {
-          title: 'Customer',
         },
         canActivate: [AuthGuard],
       },
