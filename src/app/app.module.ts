@@ -44,7 +44,6 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { Ng2CompleterModule } from 'ng2-completer';
 import { NgxSpinnerModule } from "ngx-spinner";
 
-
 const APP_CONTAINERS = [DefaultLayoutComponent];
 
 import {
@@ -64,6 +63,10 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts';
 import { AddUpdateProductComponent } from './views/base/product/add-update-product/add-update-product.component';
 import { ProductComponent } from './views/base/product/product.component';
+import { OrdersPendingComponent } from './views/base/orders-pending/orders-pending.component';
+import { OrdersSuccessComponent } from './views/base/orders-success/orders-success.component';
+import { OrdersWaitingCancleComponent } from './views/base/orders-waiting-cancle/orders-waiting-cancle.component';
+import { OrdersWaitingDeliveryComponent } from './views/base/orders-waiting-delivery/orders-waiting-delivery.component';
 
 @NgModule({
   imports: [

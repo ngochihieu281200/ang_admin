@@ -128,7 +128,7 @@ export class ProductComponent implements OnInit {
 
   ngOnInit() {
     this.spinner.show();
-    const tokenStorage = JSON.parse(localStorage.getItem('token'));
+    var tokenStorage = JSON.parse(localStorage.getItem('token'));
     this.productService.RetrieveAll().subscribe(
       (res: any) => {
         this.source.load(res?.Data.ListProduct);

@@ -202,13 +202,12 @@
             <div class="form-group row">
               <label class="col-md-3 col-form-label" for="textarea-input">Mô Tả Sản Phẩm</label>
               <div class="col-md-9">
-                <textarea id="textarea-input" formControlName="Description" name="Description" rows="9"
-                  class="form-control" placeholder="Mô tả chi tiết sản phẩm" [ngClass]="{
-                    'is-invalid':
-                      formProduct.get('Description').errors &&
-                      formProduct.get('Description').touched,
-                    'is-valid': formProduct.controls.Description.valid
-                  }"></textarea>
+                <textarea formControlName="Description" [ngClass]="{
+                  'is-invalid':
+                    formProduct.get('Description').errors &&
+                    formProduct.get('Description').touched,
+                  'is-valid': formProduct.controls.Description.valid
+                }"></textarea>
               </div>
             </div>
             <div class="form-group row">

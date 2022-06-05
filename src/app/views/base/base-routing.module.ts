@@ -13,10 +13,6 @@ const routes: Routes = [
     },
     children: [
       {
-        path: '',
-        redirectTo: 'cards',
-      },
-      {
         path: 'navbars',
         component: NavbarsComponent,
         data: {

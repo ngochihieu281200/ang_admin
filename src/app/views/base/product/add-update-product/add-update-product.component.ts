@@ -20,9 +20,12 @@ import {
 import { RefreshTokenService } from 'src/app/services/refresh-token.service';
 import { NgxSpinnerService } from "ngx-spinner";
 
+
+
 const httpOptions = {
   herders: new HttpHeaders({ 'Content-Type': 'Application/json' }),
 };
+
 @Component({
   selector: 'app-add-update-product',
   templateUrl: './add-update-product.component.html',
@@ -420,6 +423,7 @@ export class AddUpdateProductComponent implements OnInit {
   addTypeProduct(typeForm) {
     console.log(typeForm);
   }
+
 
 
 }

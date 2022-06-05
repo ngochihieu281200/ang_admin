@@ -34,7 +34,6 @@ import { NavbarsComponent } from './navbars/navbars.component';
 
 // Components Routing
 import { BaseRoutingModule } from './base-routing.module';
-import { ProductComponent } from './product/product.component';
 
 import { AddUpdateProductComponent } from './product/add-update-product/add-update-product.component';
 import { CustomerComponent } from './customer/customer.component';
@@ -48,6 +47,12 @@ import { Ng2CompleterModule } from 'ng2-completer';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { ProductDetailComponent } from './product/product-detail/product-detail.component';
 import { PopUpDetailComponent } from './product/pop-up-detail/pop-up-detail.component';
+import { OrdersPendingComponent } from './orders-pending/orders-pending.component';
+import { OrdersSuccessComponent } from './orders-success/orders-success.component';
+import { OrdersWaitingCancleComponent } from './orders-waiting-cancle/orders-waiting-cancle.component';
+import { OrdersWaitingDeliveryComponent } from './orders-waiting-delivery/orders-waiting-delivery.component';
+import { OrdersPendingDetailsComponent } from './orders-pending/orders-pending-details/orders-pending-details.component';
+import { OrdersWaitingDetailsComponent } from './orders-waiting-cancle/orders-waiting-details/orders-waiting-details.component';
 
 @NgModule({
   imports: [
@@ -63,11 +68,9 @@ import { PopUpDetailComponent } from './product/pop-up-detail/pop-up-detail.comp
     ProgressbarModule.forRoot(),
     TooltipModule.forRoot(),
     ModalModule.forRoot(),
-    // FormsModule,
     ReactiveFormsModule,
     Ng2SmartTableModule,
-    NgxSpinnerModule
-    // Ng2CompleterModule,
+    NgxSpinnerModule,
   ],
   declarations: [
     NavbarsComponent,
@@ -79,6 +82,12 @@ import { PopUpDetailComponent } from './product/pop-up-detail/pop-up-detail.comp
     ProductDetailComponent,
     ProductDetailComponent,
     PopUpDetailComponent,
+    OrdersPendingComponent,
+    OrdersSuccessComponent,
+    OrdersWaitingCancleComponent,
+    OrdersWaitingDeliveryComponent,
+    OrdersPendingDetailsComponent,
+    OrdersWaitingDetailsComponent,
   ],
 })
 export class BaseModule { }

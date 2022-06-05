@@ -27,19 +27,19 @@ export const navItems: INavData[] = [
     children: [
       {
         name: 'Chờ Xác Nhận',
-        url: '/order/accordion',
+        url: '/order/pending',
       },
       {
         name: 'Đang Giao',
-        url: '/order/accordion'
+        url: '/order/delivery'
       },
       {
         name: 'Yêu Cầu Hủy',
-        url: '/order/accordion'
+        url: '/order/cancle'
       },
       {
         name: 'Đã Giao',
-        url: '/order/accordion'
+        url: '/order/success'
       },
     ]
   },

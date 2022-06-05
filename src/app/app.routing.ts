@@ -15,6 +15,12 @@ import { StaffComponent } from './views/base/staff/staff.component';
 import { AddUpdateCategoryComponent } from './views/base/category/add-update-category/add-update-category.component';
 import { CategoryComponent } from './views/base/category/category.component';
 import { AddUpdateStaffComponent } from './views/base/staff/add-update-staff/add-update-staff.component';
+import { OrdersPendingComponent } from './views/base/orders-pending/orders-pending.component';
+import { OrdersWaitingDeliveryComponent } from './views/base/orders-waiting-delivery/orders-waiting-delivery.component';
+import { OrdersWaitingCancleComponent } from './views/base/orders-waiting-cancle/orders-waiting-cancle.component';
+import { OrdersSuccessComponent } from './views/base/orders-success/orders-success.component';
+import { OrdersPendingDetailsComponent } from './views/base/orders-pending/orders-pending-details/orders-pending-details.component';
+import { OrdersWaitingDetailsComponent } from './views/base/orders-waiting-cancle/orders-waiting-details/orders-waiting-details.component';
 
 
 export const routes: Routes = [
@@ -54,6 +60,11 @@ export const routes: Routes = [
       {
         path: 'dashboard',
         loadChildren: () => import('./views/dashboard/dashboard.module').then(m => m.DashboardModule),
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'base',
+        loadChildren: () => import('./views/base/base-routing.module').then(m => m.BaseRoutingModule),
         canActivate: [AuthGuard]
       },
       {
@@ -114,6 +125,36 @@ export const routes: Routes = [
         data: {
           title: 'id',
         },
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'order/pending',
+        component: OrdersPendingComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'order/pending/:id',
+        component: OrdersPendingDetailsComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'order/delivery',
+        component: OrdersWaitingDeliveryComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'order/cancle',
+        component: OrdersWaitingCancleComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'order/cancle/:id',
+        component: OrdersWaitingDetailsComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'order/success',
+        component: OrdersSuccessComponent,
         canActivate: [AuthGuard],
       },
     ]
