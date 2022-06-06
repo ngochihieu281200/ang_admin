@@ -38,9 +38,7 @@
               "node_modules/simple-line-icons/dist/styles/simple-line-icons.css",
               "src/scss/style.scss",
               "node_modules/ngx-toastr/toastr.css",
-              "node_modules/ngx-spinner/animations/square-jelly-box.css",
-              "./node_modules/froala-editor/css/froala_editor.pkgd.min.css",
-              "./node_modules/froala-editor/css/froala_style.min.css"
+              "node_modules/ngx-spinner/animations/square-jelly-box.css"
             ],
             "stylePreprocessorOptions": {
               "includePaths": [
