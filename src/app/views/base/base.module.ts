@@ -53,6 +53,7 @@ import { OrdersWaitingCancleComponent } from './orders-waiting-cancle/orders-wai
 import { OrdersWaitingDeliveryComponent } from './orders-waiting-delivery/orders-waiting-delivery.component';
 import { OrdersPendingDetailsComponent } from './orders-pending/orders-pending-details/orders-pending-details.component';
 import { OrdersWaitingDetailsComponent } from './orders-waiting-cancle/orders-waiting-details/orders-waiting-details.component';
+import { VouchersComponent } from './vouchers/vouchers.component';
 
 @NgModule({
   imports: [
@@ -88,6 +89,7 @@ import { OrdersWaitingDetailsComponent } from './orders-waiting-cancle/orders-wa
     OrdersWaitingDeliveryComponent,
     OrdersPendingDetailsComponent,
     OrdersWaitingDetailsComponent,
+    VouchersComponent,
   ],
 })
 export class BaseModule { }
