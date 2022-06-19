@@ -72,10 +72,6 @@ export class ProductComponent implements OnInit {
           name: 'deleteProduct',
           title: '<i class="fa fa-trash icon-delete" title="Delete"></i>',
         },
-        {
-          name: 'detailProduct',
-          title: '<i class="fa fa-eye icon-detail" title="Detail"></i>',
-        },
       ],
       edit: false,
       delete: false,
@@ -197,7 +193,7 @@ export class ProductComponent implements OnInit {
   deleteProduct(data) {
     this.idProduct = data.Id;
 
-    this.modelReference = this.modalService.open(this.content);
+    this.modalReference = this.modalService.open(this.content);
     this.modalReference.result.then(
       (result) => {
         this.closeResult = `Closed with: ${result}`;

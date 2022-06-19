@@ -1,0 +1,204 @@
+<div class="col-lg-12">
+    <div class="card">
+        <div class="card-header">
+            <a class="ml-1 btn btn-primary" [routerLink]="['/voucher']"><strong>Quay lại</strong></a>
+            <strong class="float-right">Thêm Voucher</strong>
+        </div>
+
+        <form class="row card-body" [formGroup]="formVoucher" (ngSubmit)="onSubmit()">
+            <div class="col-12 form-horizontal">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group row" *ngIf="editMode">
+                            <label class="col-md-3 col-form-label" for="select2">Mã voucher <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-9">
+                                <input type="text" id="text-input" name="Id" formControlName="Id" class="form-control"
+                                    disabled />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label" for="text-input">Tên Voucher <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-9">
+                                <input type="text" id="text-input" name="Title" formControlName="Title"
+                                    class="form-control" placeholder="Tên Voucher" [ngClass]="{
+                                        'is-invalid':
+                                        formVoucher.get('Title').errors &&
+                                          formVoucher.get('Title').touched,
+                                        'is-valid': formVoucher.controls.Title.valid
+                                      }" />
+                            </div>
+                        </div>
+                        <div class="form-group row" *ngIf="!editMode">
+                            <label class="col-md-3 col-form-label" for="select2"> Loại Voucher <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-9">
+                                <select id="select2" name="Type" formControlName="Type" class="form-control form-select"
+                                    [ngClass]="{
+                                  'is-invalid':
+                                  formVoucher.get('Type').errors &&
+                                  formVoucher.get('Type').touched,
+                                  'is-valid': formVoucher.controls.Type.valid
+                                }">
+                                    <option value="" disabled selected>
+                                        --- Chọn Loại Voucher ---
+                                    </option>
+                                    <option value="DELIVERY">Vận chuyển</option>
+                                    <option value="ORDER">Hóa Đơn</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-12">Ngày Áp Dụng</div>
+                            <div class="row col-12 col-sm-6 mt-2 pr-sm-2">
+                                <label class="col-md-3 col-form-label" for="text-input">Từ <span
+                                        class="text-danger">*</span></label>
+                                <input type="date" id="text-input" name="FromDate" formControlName="FromDate"
+                                    class="form-control col-9" [ngClass]="{
+                                            'is-invalid':
+                                            formVoucher.get('FromDate').errors &&
+                                              formVoucher.get('FromDate').touched,
+                                            'is-valid': formVoucher.controls.FromDate.valid
+                                          }" value="{{fromDate | date:'yyyy-MM-dd' }}" />
+                            </div>
+                            <div class="row col-12 col-sm-6 mt-2 pr-sm-2">
+                                <label class="col-3 col-form-label" for="text-input">Đến <span
+                                        class="text-danger">*</span></label>
+                                <input type="date" id="text-input" name="ToDate" formControlName="ToDate"
+                                    class="form-control col-9" [ngClass]="{
+                                            'is-invalid':
+                                            formVoucher.get('ToDate').errors &&
+                                              formVoucher.get('ToDate').touched,
+                                            'is-valid': formVoucher.controls.ToDate.valid
+                                          }" value="{{ toDate | date:'yyyy-MM-dd' }}" />
+                            </div>
+                        </div>
+
+                        <div class="form-group row" *ngIf="!editMode">
+                            <label class="col-md-3 col-form-label" for="select2">Giá trị giảm<span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-9">
+                                <select id="select2" *ngIf="!isDicount" class="form-control form-select"
+                                    (change)="onChange($event.target.value)">
+                                    <option value="false">Phần trăm</option>
+                                    <option value="true">Tiền</option>
+                                </select>
+
+                                <select id="select2" *ngIf="isDicount" class="form-control form-select"
+                                    (change)="onChange($event.target.value)">
+                                    <option value="true">Tiền</option>
+                                    <option value="false">Phần trăm</option>
+                                </select>
+
+                                <div class="col-md-12" *ngIf="!isDicount" style="padding: 0;
+                                margin-top: 9px;">
+                                    <input type="number" id="text-input" name="DisCountPercent"
+                                        formControlName="DisCountPercent" class="form-control" placeholder="Giảm theo %"
+                                        [ngClass]="{
+                                            'is-invalid':
+                                            formVoucher.get('DisCountPercent').errors &&
+                                              formVoucher.get('DisCountPercent').touched,
+                                            'is-valid': formVoucher.controls.DisCountPercent.valid
+                                          }" min="0" max="100" />
+                                </div>
+                                <div class="col-md-12" *ngIf="isDicount" style="padding: 0;
+                                margin-top: 9px;">
+                                    <input type="number" id="text-input" name="DisCountAmount"
+                                        formControlName="DisCountAmount" class="form-control"
+                                        placeholder="Giảm theo giá trị thực" [ngClass]="{
+                                            'is-invalid':
+                                            formVoucher.get('DisCountAmount').errors &&
+                                              formVoucher.get('DisCountAmount').touched,
+                                            'is-valid': formVoucher.controls.DisCountAmount.valid
+                                          }" />
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form-group row" *ngIf="!editMode">
+                            <label class="col-md-3 col-form-label" for="text-input">Giảm Tối Đa <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-9">
+                                <input type="number" id="text-input" name="LimitDisCountAmout"
+                                    formControlName="LimitDisCountAmout" class="form-control" placeholder="Giảm Tối Đa"
+                                    [ngClass]="{
+                                        'is-invalid':
+                                        formVoucher.get('LimitDisCountAmout').errors &&
+                                          formVoucher.get('LimitDisCountAmout').touched,
+                                        'is-valid': formVoucher.controls.LimitDisCountAmout.valid
+                                      }" />
+                            </div>
+                        </div>
+                        <div class="form-group row" *ngIf="!editMode">
+                            <label class="col-md-3 col-form-label" for="text-input">Điều kiện tối thiểu <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-9">
+                                <input type="number" id="text-input" name="Name" formControlName="FromCondition"
+                                    class="form-control" placeholder="Điều kiện tối thiểu" [ngClass]="{
+                                        'is-invalid':
+                                        formVoucher.get('FromCondition').errors &&
+                                          formVoucher.get('FromCondition').touched,
+                                        'is-valid': formVoucher.controls.FromCondition.valid
+                                      }" />
+                            </div>
+                        </div>
+                        <div class="form-group row" *ngIf="!editMode">
+                            <label class="col-md-3 col-form-label" for="text-input">Điều kiện tối đa <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-9">
+                                <input type="number" id="text-input" name="ToCondition" formControlName="ToCondition"
+                                    class="form-control" placeholder="Điều kiện tối đa" [ngClass]="{
+                                        'is-invalid':
+                                        formVoucher.get('ToCondition').errors &&
+                                          formVoucher.get('ToCondition').touched,
+                                        'is-valid': formVoucher.controls.ToCondition.valid
+                                      }" />
+                            </div>
+                        </div>
+                        <div class="form-group" style="float: right">
+                            <label class="switch switch-label switch-pill switch-success">
+                                <input type="checkbox" class="switch-input" formControlName="IsShow" checked />
+                                <span name="IsShow" class="switch-slider" data-checked="On" data-unchecked="Off"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="col-5 form-group" *ngIf="editMode">
+                            <div class="card" style="width: 18rem">
+                                <img *ngIf="type" class="card-img-top img-thumbnail bg-warning"
+                                    [src]="ImageVoucher ? ImageVoucher : ''" alt="Hình ảnh sản phẩm" />
+                                <img *ngIf="!type" class="card-img-top img-thumbnail bg-success"
+                                    [src]="ImageVoucher ? ImageVoucher : ''" alt="Hình ảnh sản phẩm" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 col-form-label" for="textarea-input">Mô Tả chi tiết</label>
+                            <div class="col-md-12">
+                                <ckeditor [config]="ckeConfig" formControlName="Description" [ngClass]="{
+                                    'is-invalid':
+                                    formVoucher.get('Description').errors &&
+                                      formVoucher.get('Description').touched,
+                                    'is-valid': formVoucher.controls.Description.valid
+                                  }"></ckeditor>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <button *ngIf="editMode" class="btn btn-outline-success ml-1 float-right" type="submit">
+                    Cập Nhật Voucher
+                </button>
+                <button *ngIf="!editMode" class="btn btn-outline-success ml-1 float-right" type="submit">
+                    Thêm Voucher
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-jelly-box" [fullScreen]="true">
+    <p style="color: white"> Đợi trong giây lát... </p>
+</ngx-spinner>

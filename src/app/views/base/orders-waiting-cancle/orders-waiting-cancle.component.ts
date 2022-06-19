@@ -98,7 +98,10 @@ export class OrdersWaitingCancleComponent implements OnInit {
         title: 'Status',
         type: 'html',
         valuePrepareFunction: (value, cell, row) => {
-          return `<p class ="text-danger text-center m-0" >Chờ xác nhận hủy</p>`
+          return `
+          <div class="d-flex justify-content-center">
+          <p class ="w-50 rounded text-light bg-danger text-center" >Chờ xác nhận hủy</p>
+          </div>`
         }
       },
       Audit: {

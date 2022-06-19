@@ -67,6 +67,7 @@ import { OrdersPendingComponent } from './views/base/orders-pending/orders-pendi
 import { OrdersSuccessComponent } from './views/base/orders-success/orders-success.component';
 import { OrdersWaitingCancleComponent } from './views/base/orders-waiting-cancle/orders-waiting-cancle.component';
 import { OrdersWaitingDeliveryComponent } from './views/base/orders-waiting-delivery/orders-waiting-delivery.component';
+import { CKEditorModule } from 'ckeditor4-angular';
 
 @NgModule({
   imports: [
@@ -96,6 +97,7 @@ import { OrdersWaitingDeliveryComponent } from './views/base/orders-waiting-deli
     ToastrModule.forRoot(),
     CommonModule,
     NgxSpinnerModule,
+    CKEditorModule
   ],
   declarations: [
     AppComponent,

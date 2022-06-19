@@ -1,16 +1,17 @@
-<ng2-smart-table [settings]="settings" [source]="source" (create)="addVoucher()" (custom)="onCuston($event)">
+<ng2-smart-table [settings]="settings" [source]="source" (create)="addBanner()" (custom)="onCuston($event)">
 </ng2-smart-table>
 <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-jelly-box" [fullScreen]="true">
     <p style="color: white"> Đợi trong giây lát... </p>
 </ngx-spinner>
+
 <ng-template #content let-modal style="margin:0 auto; margin-top:30vh;">
     <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Xóa Voucher</h4>
+        <h4 class="modal-title" id="modal-basic-title">Xóa Banner</h4>
     </div>
     <div class="modal-body">
         <form>
             <div class="mb-3">
-                <label for="dateOfBirth">Bạn Có Chắc Muốn Xóa Voucher?</label>
+                <label for="dateOfBirth">Bạn Có Chắc Muốn Xóa Banner?</label>
             </div>
         </form>
     </div>
@@ -23,3 +24,6 @@
         </button>
     </div>
 </ng-template>
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-jelly-box" [fullScreen]="true">
+    <p style="color: white"> Đợi trong giây lát... </p>
+</ngx-spinner>

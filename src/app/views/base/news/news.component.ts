@@ -1,80 +1,68 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { RefreshTokenService } from '../../../services/refresh-token.service';
-import { VoucherService } from '../../../services/voucher.service';
+import { NewsService } from '../../../services/news.service';
 import { LocalDataSource } from 'ng2-smart-table';
 import { NgxSpinnerService } from "ngx-spinner";
 import { ToastrService } from 'ngx-toastr';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
-import { ReturnStatement } from '@angular/compiler';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalDirective } from 'ngx-bootstrap/modal';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
-  selector: 'app-vouchers',
-  templateUrl: './vouchers.component.html',
-  styleUrls: ['./vouchers.component.scss']
+  selector: 'app-news',
+  templateUrl: './news.component.html',
+  styleUrls: ['./news.component.scss']
 })
-export class VouchersComponent implements OnInit {
+export class NewsComponent implements OnInit {
 
-  constructor(
-    private refreshTokenService: RefreshTokenService,
+  constructor(private refreshTokenService: RefreshTokenService,
     private router: Router,
     public datepipe: DatePipe,
     private spinner: NgxSpinnerService,
-    private voucherService: VoucherService,
+    private newsService: NewsService,
     private toastr: ToastrService,
     private modalService: NgbModal) { }
-  source: LocalDataSource = new LocalDataSource();
+
   @ViewChild('content') public content: ModalDirective;
+  source: LocalDataSource = new LocalDataSource();
   [x: string]: any;
-  idVoucher;
+  idNews;
   ngOnInit(): void {
     this.spinner.show();
     var tokenStorage = JSON.parse(localStorage.getItem('token'));
-    this.voucherService.GetAllVoucher().subscribe(
-      (res: any) => {
-        this.source.load(res?.Data);
-        this.spinner.hide();
-      },
-      async (err) => {
-        if (err.status === 401) {
-          this.refreshTokenService.refreshToken()
-            .subscribe((res) => {
-              tokenStorage.AccessToken = res.Data.AccessToken;
-              localStorage.setItem('token', JSON.stringify(tokenStorage));
-              this.voucherService.GetAllVoucher().subscribe(
-                (res: any) => {
-                  this.source.load(res.Data),
-                    this.spinner.hide();
-                })
-            });
+    this.newsService.GetAllNews().subscribe(
+      {
+        next: (res: any) => {
+          this.source.load(res.Data);
+          this.spinner.hide();
+        },
+        error: async (err) => {
+          if (err.status === 401) {
+            this.refreshTokenService.refreshToken()
+              .subscribe((res) => {
+                tokenStorage.AccessToken = res.Data.AccessToken;
+                localStorage.setItem('token', JSON.stringify(tokenStorage));
+                this.newsService.GetAllNews().subscribe(
+                  (res: any) => {
+                    this.source.load(res.Data),
+                      this.spinner.hide();
+                  })
+              });
+          }
         }
       }
-    );
-  }
-
-
-  onCuston(event) {
-    switch (event.action) {
-      case 'editVoucher':
-        (<any>this.router).navigate([`voucher/${event.data.Id}`]);
-        break;
-      case 'deleteVoucher':
-        this.deleteVoucher(event.data);
-        break;
-    }
-
+    )
   }
 
   onConfirm() {
     this.modalReference.close();
     const tokenStorage = JSON.parse(localStorage.getItem('token'));
     this.spinner.show();
-    this.voucherService.DeleteVoucher(this.idVoucher).subscribe(
+    this.newsService.DeleteNews(this.idNews).subscribe(
       (res: any) => {
-        this.voucherService.GetAllVoucher().subscribe((res: any) => {
+        this.newsService.GetAllNews().subscribe((res: any) => {
           this.source.load(res.Data);
           this.spinner.hide();
         });
@@ -87,7 +75,7 @@ export class VouchersComponent implements OnInit {
             .subscribe((res) => {
               tokenStorage.AccessToken = res['Data'].AccessToken;
               localStorage.setItem('token', JSON.stringify(tokenStorage));
-              this.voucherService.GetAllVoucher().subscribe((res: any) => {
+              this.newsService.GetAllNews().subscribe((res: any) => {
                 this.source.load(res.Data);
                 this.spinner.hide();
               });
@@ -95,15 +83,35 @@ export class VouchersComponent implements OnInit {
 
         }
         else {
-          console.log(err.error.Message);
           this.toastr.error(err.error.Message, "Thông báo lỗi");
           this.spinner.hide();
         }
       }
     )
   }
-  deleteVoucher(data) {
-    this.idVoucher = data.Id;
+
+
+  onCuston(event) {
+    switch (event.action) {
+      case 'editNews':
+        (<any>this.router).navigate([`news/${event.data.Id}`]);
+        break;
+      case 'deleteNews':
+        this.deleteNews(event.data);
+        break;
+    }
+
+  }
+
+  addNews() {
+    (<any>this.router).navigate([`news/id`]);
+  }
+
+
+  deleteNews(data) {
+
+    this.idNews = data.Id;
+
     this.modalReference = this.modalService.open(this.content);
     this.modalReference.result.then(
       (result) => {
@@ -114,9 +122,7 @@ export class VouchersComponent implements OnInit {
       }
     );
   }
-  addVoucher() {
-    (<any>this.router).navigate([`voucher/id`]);
-  }
+
 
   settings = {
     mode: 'external',
@@ -127,11 +133,11 @@ export class VouchersComponent implements OnInit {
     actions: {
       custom: [
         {
-          name: 'editVoucher',
+          name: 'editNews',
           title: '<i class="fa fa-edit icon-edit" title="Edit"></i>',
         },
         {
-          name: 'deleteVoucher',
+          name: 'deleteNews',
           title: '<i class="fa fa-trash icon-delete" title="Delete"></i>',
         },
       ],
@@ -141,43 +147,25 @@ export class VouchersComponent implements OnInit {
     },
     columns: {
       Id: {
-        title: 'Mã Voucher',
+        title: 'Mã Tin Tức',
         type: 'string',
       },
-      Title: {
-        title: 'Tiêu đề',
-        type: 'string',
-      },
-      Type: {
-        title: 'Loại',
-        type: 'string',
-      },
-      TimeAplly: {
-        title: 'Thời Gian Áp Dụng',
-        type: 'html',
-        valuePrepareFunction: (value, cell, row) => {
-          return `<br><p>Ngày Bắt Đầu : ${this.datepipe.transform(cell.FromDate, 'dd/MM/yyyy')
-            }<br>Ngày Kết Thúc: ${this.datepipe.transform(cell.ToDate, 'dd/MM/yyyy')}`;
-        },
-      },
-      ImageVoucher: {
+      Thumbnail: {
         title: 'Hình Ảnh',
         type: 'html',
         valuePrepareFunction: (value, cell, row) => {
-          if (cell.Type == "DELIVERY") {
-            return `<div class ="bg-warning text-center p-1">
-            <img src="${value}" width="100px">
-            <p class="m-1">${cell.Title}</p>
-          </div>`
-          }
-          return `<div class ="bg-success text-center p-1">
+          return `<div class =" text-center p-1">
           <img src="${value}" width="100px">
-          <p class="m-1">${cell.Title}</p>
         </div>`
         }
       },
+      Author: {
+        title: 'Tác Giả',
+        type: 'string'
+      }
+      ,
       IsShow: {
-        title: 'Trạng Thái',
+        title: 'Trạng thái',
         type: 'html',
         valuePrepareFunction: (value, cell, row) => {
           if (cell.IsShow == 0) {
@@ -193,6 +181,18 @@ export class VouchersComponent implements OnInit {
 
         },
       },
+      Audit: {
+        title: 'Thông Tin Hệ Thống',
+        type: 'html',
+        valuePrepareFunction: (value, cell, row) => {
+          return `<br><p>Tạo bởi : ${cell.CreatedByName
+            }<br>Lúc: ${this.datepipe.transform(
+              cell.CreatedByTime,
+              'dd/MM/yyyy'
+            )}`;
+        },
+      },
     },
   };
+
 }

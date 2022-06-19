@@ -1,74 +1,67 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { apiEndpoint } from '../config/api';
-import { Result } from '../model/result.model';
+import {
+  Result
+} from '../model/result.model';
+
 
 @Injectable({
   providedIn: 'root'
 })
-export class OrderService {
+export class BannerService {
 
   constructor(private httpClient: HttpClient) { }
 
-
-  GetAllOrderPending(): Observable<Result> {
+  GetAllBanner(): Observable<Result> {
     const tokenStorage = JSON.parse(localStorage.getItem('token'));
-    return this.httpClient.get<Result>(`${apiEndpoint}order/all-pending-portal`, {
+    return this.httpClient.get<Result>(`${apiEndpoint}banner/all`, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${tokenStorage.AccessToken}`,
       },
-    })
+    });
   }
 
-  GetAllOrderCancle(): Observable<Result> {
+  AddBanner(banner): Observable<Result> {
     const tokenStorage = JSON.parse(localStorage.getItem('token'));
-    return this.httpClient.get<Result>(`${apiEndpoint}order/all-cancle-portal`, {
+    return this.httpClient.post<Result>(`${apiEndpoint}banner/create`, JSON.stringify(banner), {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${tokenStorage.AccessToken}`,
       },
-    })
+    });
   }
 
-  GetAllOrderSucces(): Observable<Result> {
+  UpdateBanner(banner): Observable<Result> {
     const tokenStorage = JSON.parse(localStorage.getItem('token'));
-    return this.httpClient.get<Result>(`${apiEndpoint}order/all-success-portal`, {
+    return this.httpClient.put<Result>(`${apiEndpoint}banner/update`, JSON.stringify(banner), {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${tokenStorage.AccessToken}`,
       },
-    })
+    });
   }
 
-  GetAllOrderDelivery(): Observable<Result> {
+  DeleteBanner(bannerId): Observable<Result> {
     const tokenStorage = JSON.parse(localStorage.getItem('token'));
-    return this.httpClient.get<Result>(`${apiEndpoint}order/all-delivery-portal`, {
+    return this.httpClient.delete<Result>(`${apiEndpoint}banner/delete/${bannerId}`, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${tokenStorage.AccessToken}`,
       },
-    })
+    });
   }
 
-  GetDetailOrder(OrderId): Observable<Result> {
+  GetDetailBanner(bannerId): Observable<Result> {
     const tokenStorage = JSON.parse(localStorage.getItem('token'));
-    return this.httpClient.get<Result>(`${apiEndpoint}order/get-detail-portal/${OrderId}`, {
+    return this.httpClient.get<Result>(`${apiEndpoint}banner/details/${bannerId}`, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${tokenStorage.AccessToken}`,
       },
-    })
+    });
   }
 
-  ConfirmOrder(OrderId): Observable<Result> {
-    const tokenStorage = JSON.parse(localStorage.getItem('token'));
-    return this.httpClient.post<Result>(`${apiEndpoint}order/confirm-by-staff/${OrderId}`, "", {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${tokenStorage.AccessToken}`,
-      },
-    })
-  }
 }

@@ -100,7 +100,10 @@ export class OrdersPendingComponent implements OnInit {
         title: 'Status',
         type: 'html',
         valuePrepareFunction: (value, cell, row) => {
-          return `<p class ="text-info text-center m-0" >Chờ xác nhận</p>`
+          return `
+          <div class="d-flex justify-content-center">
+          <p class ="w-50 rounded text-light bg-warning text-center" >Chờ xác nhận</p>
+          </div>`
         }
       },
       Audit: {

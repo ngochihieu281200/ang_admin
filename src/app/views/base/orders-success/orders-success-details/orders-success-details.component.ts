@@ -1,30 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastrService } from 'ngx-toastr';
 import { DatePipe } from '@angular/common';
 import { OrderService } from 'src/app/services/order.service';
 import { RefreshTokenService } from 'src/app/services/refresh-token.service';
-
 @Component({
-  selector: 'app-orders-pending-details',
-  templateUrl: './orders-pending-details.component.html',
-  styleUrls: ['./orders-pending-details.component.scss']
+  selector: 'app-orders-success-details',
+  templateUrl: './orders-success-details.component.html',
+  styleUrls: ['./orders-success-details.component.scss']
 })
-export class OrdersPendingDetailsComponent implements OnInit {
-
+export class OrdersSuccessDetailsComponent implements OnInit {
   id;
   orderDetail;
-  formOrder: FormGroup;
   totalPrice = 0;
   dateOrder;
-  isConfirm = false;
-
   constructor(private orderService: OrderService,
     private refreshTokenService: RefreshTokenService,
     private route: ActivatedRoute,
-    private toastr: ToastrService,
     private datepipe: DatePipe,
     private spinner: NgxSpinnerService) { }
 
@@ -60,39 +52,6 @@ export class OrdersPendingDetailsComponent implements OnInit {
 
     )
 
-
-    this.formOrder = new FormGroup({
-      Id: new FormControl(''),
-    })
-  }
-
-  onSubmit() {
-    const tokenStorage = JSON.parse(localStorage.getItem('token'));
-    this.spinner.show();
-    this.orderService.ConfirmOrder(this.id).subscribe({
-      next: (res: any) => {
-        this.isConfirm = true;
-        this.spinner.hide();
-        this.toastr.success(res.Message, "Thông báo");
-      },
-      error: async (err) => {
-        if (err.status === 401) {
-          this.refreshTokenService.refreshToken()
-            .subscribe((res) => {
-              tokenStorage.AccessToken = res['Data'].AccessToken;
-              localStorage.setItem('token', JSON.stringify(tokenStorage));
-              this.orderService.ConfirmOrder(this.id).subscribe(
-                (res: any) => {
-                  this.isConfirm = true;
-                  this.spinner.hide();
-                  this.toastr.success(res.Message, "Thông báo");
-                }
-              )
-            });
-        }
-      },
-    }
-    )
   }
 
 }

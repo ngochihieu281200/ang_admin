@@ -51,8 +51,9 @@ export class OrdersWaitingDeliveryComponent implements OnInit {
   }
 
   onCuston(event) {
-
+    (<any>this.router).navigate([`order/waiting-delivery/${event.data.Id}`]);
   }
+
 
   settings = {
     mode: 'external',
@@ -69,6 +70,7 @@ export class OrdersWaitingDeliveryComponent implements OnInit {
       ],
       edit: false,
       delete: false,
+      add: false,
       position: 'right',
     },
     columns: {
@@ -96,7 +98,9 @@ export class OrdersWaitingDeliveryComponent implements OnInit {
         title: 'Status',
         type: 'html',
         valuePrepareFunction: (value, cell, row) => {
-          return
+          return `<div class="d-flex justify-content-center">
+          <p class="w-50 rounded text-light bg-info text-center">Đang Giao</p>
+          </div>`;
         }
       },
       Audit: {

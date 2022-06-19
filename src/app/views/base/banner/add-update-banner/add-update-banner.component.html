@@ -1,0 +1,101 @@
+<div class="col-lg-12">
+    <div class="card">
+        <div class="card-header">
+            <a class="ml-1 btn btn-primary" [routerLink]="['/banner']"><strong>Quay lại</strong></a>
+            <strong class="float-right">Thêm Banner</strong>
+        </div>
+
+        <form class="row card-body" [formGroup]="formBanner" (ngSubmit)="onSubmit()">
+            <div class="col-12 form-horizontal">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group row" *ngIf="editMode">
+                            <label class="col-md-3 col-form-label" for="select2">Mã Banner <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-9">
+                                <input type="text" id="text-input" name="Id" formControlName="Id" class="form-control"
+                                    disabled />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label" for="select2">Danh Sách Sản Phẩm <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-9">
+                                <select id="select1" name="IdProduct" formControlName="IdProduct" [ngClass]="{
+                                  'is-invalid':
+                                  formBanner.get('IdProduct').errors &&
+                                  formBanner.get('IdProduct').touched,
+                                  'is-valid': formBanner.controls.IdProduct.valid
+                                }" class="form-control form-select">
+                                    <option value="" disabled selected>
+                                        ---Chọn Sản Phẩm---
+                                    </option>
+                                    <option value="{{ product.Id }}" *ngFor="let product of ListProduct">
+                                        {{ product.Name }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label" for="textarea-input">Mô Tả chi tiết</label>
+                            <div class="col-md-9">
+                                <ckeditor [config]="ckeConfig" formControlName="Content" [ngClass]="{
+                                    'is-invalid':
+                                    formBanner.get('Content').errors &&
+                                    formBanner.get('Content').touched,
+                                    'is-valid': formBanner.controls.Content.valid
+                                  }"></ckeditor>
+                            </div>
+                        </div>
+                        <div class="form-group" style="float: right">
+                            <label class="switch switch-label switch-pill switch-success">
+                                <input type="checkbox" class="switch-input" formControlName="IsShowOnMobile" checked />
+                                <span name="IsShowOnMobile" class="switch-slider" data-checked="On"
+                                    data-unchecked="Off"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="col-5 form-group">
+                            <div class="card" style="width: 18rem">
+                                <img class="card-img-top img-thumbnail" [src]="ImageBanner ? ImageBanner : ''"
+                                    alt="Hình ảnh sản phẩm" />
+                                <div class="card-body">
+                                    <h5 class="card-title">Thêm Ảnh Banner</h5>
+                                    <div class="col-lg-12 row">
+                                        <div class="col-sm-12 col-sm-12 mb-xl-0">
+                                            <div class="btn btn-mdb-color btn-rounded">
+                                                <div class="fileUpload btn btn-primary" style="
+                                            position: relative;
+                                            overflow: hidden;
+                                            margin: 10px;
+                                          ">
+                                                    <span>Upload</span>
+                                                    <input id="uploadBtn" type="file" class="upload-thumbnail"
+                                                        (change)="handleUpload($event)" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <button *ngIf="editMode" class="btn btn-outline-success ml-1 float-right" type="submit">
+                    Cập Nhật Banner
+                </button>
+                <button *ngIf="!editMode" class="btn btn-outline-success ml-1 float-right" type="submit">
+                    Thêm Banner
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-jelly-box" [fullScreen]="true">
+    <p style="color: white"> Đợi trong giây lát... </p>
+</ngx-spinner>

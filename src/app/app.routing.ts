@@ -21,6 +21,14 @@ import { OrdersWaitingCancleComponent } from './views/base/orders-waiting-cancle
 import { OrdersSuccessComponent } from './views/base/orders-success/orders-success.component';
 import { OrdersPendingDetailsComponent } from './views/base/orders-pending/orders-pending-details/orders-pending-details.component';
 import { OrdersWaitingDetailsComponent } from './views/base/orders-waiting-cancle/orders-waiting-details/orders-waiting-details.component';
+import { VouchersComponent } from './views/base/vouchers/vouchers.component';
+import { AddUpdateVoucherComponent } from './views/base/vouchers/add-update-voucher/add-update-voucher.component';
+import { BannerComponent } from './views/base/banner/banner.component';
+import { AddUpdateBannerComponent } from './views/base/banner/add-update-banner/add-update-banner.component';
+import { NewsComponent } from './views/base/news/news.component';
+import { AddUpdateNewsComponent } from './views/base/news/add-update-news/add-update-news.component';
+import { OrdersWaitingDeleveryDetailsComponent } from './views/base/orders-waiting-delivery/orders-waiting-delevery-details/orders-waiting-delevery-details.component';
+import { OrdersSuccessDetailsComponent } from './views/base/orders-success/orders-success-details/orders-success-details.component';
 
 
 export const routes: Routes = [
@@ -96,6 +104,36 @@ export const routes: Routes = [
         canActivate: [AuthGuard],
       },
       {
+        path: 'voucher',
+        component: VouchersComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'voucher/:id',
+        component: AddUpdateVoucherComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'banner',
+        component: BannerComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'banner/:id',
+        component: AddUpdateBannerComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'news',
+        component: NewsComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'news/:id',
+        component: AddUpdateNewsComponent,
+        canActivate: [AuthGuard],
+      },
+      {
         path: 'category',
         component: CategoryComponent,
         data: {
@@ -143,6 +181,11 @@ export const routes: Routes = [
         canActivate: [AuthGuard],
       },
       {
+        path: 'order/delivery/id',
+        component: OrdersWaitingDeleveryDetailsComponent,
+        canActivate: [AuthGuard],
+      },
+      {
         path: 'order/cancle',
         component: OrdersWaitingCancleComponent,
         canActivate: [AuthGuard],
@@ -155,6 +198,11 @@ export const routes: Routes = [
       {
         path: 'order/success',
         component: OrdersSuccessComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'order/success/id',
+        component: OrdersSuccessDetailsComponent,
         canActivate: [AuthGuard],
       },
     ]

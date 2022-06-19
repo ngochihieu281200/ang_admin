@@ -54,6 +54,14 @@ import { OrdersWaitingDeliveryComponent } from './orders-waiting-delivery/orders
 import { OrdersPendingDetailsComponent } from './orders-pending/orders-pending-details/orders-pending-details.component';
 import { OrdersWaitingDetailsComponent } from './orders-waiting-cancle/orders-waiting-details/orders-waiting-details.component';
 import { VouchersComponent } from './vouchers/vouchers.component';
+import { AddUpdateVoucherComponent } from './vouchers/add-update-voucher/add-update-voucher.component';
+import { CKEditorModule } from 'ckeditor4-angular';
+import { BannerComponent } from './banner/banner.component';
+import { AddUpdateBannerComponent } from './banner/add-update-banner/add-update-banner.component';
+import { NewsComponent } from './news/news.component';
+import { AddUpdateNewsComponent } from './news/add-update-news/add-update-news.component';
+import { OrdersSuccessDetailsComponent } from './orders-success/orders-success-details/orders-success-details.component';
+import { OrdersWaitingDeleveryDetailsComponent } from './orders-waiting-delivery/orders-waiting-delevery-details/orders-waiting-delevery-details.component';
 
 @NgModule({
   imports: [
@@ -72,6 +80,7 @@ import { VouchersComponent } from './vouchers/vouchers.component';
     ReactiveFormsModule,
     Ng2SmartTableModule,
     NgxSpinnerModule,
+    CKEditorModule
   ],
   declarations: [
     NavbarsComponent,
@@ -90,6 +99,13 @@ import { VouchersComponent } from './vouchers/vouchers.component';
     OrdersPendingDetailsComponent,
     OrdersWaitingDetailsComponent,
     VouchersComponent,
+    AddUpdateVoucherComponent,
+    BannerComponent,
+    AddUpdateBannerComponent,
+    NewsComponent,
+    AddUpdateNewsComponent,
+    OrdersSuccessDetailsComponent,
+    OrdersWaitingDeleveryDetailsComponent,
   ],
 })
 export class BaseModule { }

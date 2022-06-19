@@ -55,6 +55,7 @@ export class AddUpdateProductComponent implements OnInit {
   Thumbnail;
   TypeProduct;
   Classify: any;
+  ckeConfig: any;
 
   constructor(
     private productService: ProductService,
@@ -73,7 +74,6 @@ export class AddUpdateProductComponent implements OnInit {
       this.isAddMode = false;
     } else this.isAddMode = true;
     if (this.isAddMode) {
-      console.log("hi");
       this.spinner.show();
       (await this.productService.getDetailProductById(this.id)).subscribe(
         (res: any) => (
@@ -147,6 +147,23 @@ export class AddUpdateProductComponent implements OnInit {
       IsShow: new FormControl(),
     });
 
+
+    this.ckeConfig = {
+      extraPlugins: 'uploadimage,justify',
+      uploadUrl:
+        'https://ckeditor.com/apps/ckfinder/3.4.5/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json',
+
+      // Configure your file manager integration. This example uses CKFinder 3 for PHP.
+      filebrowserBrowseUrl:
+        'https://ckeditor.com/apps/ckfinder/3.4.5/ckfinder.html',
+      filebrowserImageBrowseUrl:
+        'https://ckeditor.com/apps/ckfinder/3.4.5/ckfinder.html?type=Images',
+      filebrowserUploadUrl:
+        'https://ckeditor.com/apps/ckfinder/3.4.5/core/connector/php/connector.php?command=QuickUpload&type=Files',
+      filebrowserImageUploadUrl:
+        'https://ckeditor.com/apps/ckfinder/3.4.5/core/connector/php/connector.php?command=QuickUpload&type=Images',
+      image2_alignClasses: ['align-left', 'align-center', 'align-right'],
+    };
   }
   get f() {
     return this.formProduct.controls;

@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { getStyle, hexToRgba } from '@coreui/coreui/dist/js/coreui-utilities';
-import { Router} from '@angular/router';
+import { Router } from '@angular/router';
 import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
+import { RefreshTokenService } from 'src/app/services/refresh-token.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   templateUrl: 'dashboard.component.html'
@@ -379,6 +382,12 @@ export class DashboardComponent implements OnInit {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
 
+
+  constructor(private refreshTokenService: RefreshTokenService,
+    private router: Router,
+    private spinner: NgxSpinnerService,
+    private productService: ProductService) { }
+  statistical;
   ngOnInit(): void {
 
     // generate random values for mainChart
@@ -387,5 +396,27 @@ export class DashboardComponent implements OnInit {
       this.mainChartData2.push(this.random(80, 100));
       this.mainChartData3.push(65);
     }
+    var tokenStorage = JSON.parse(localStorage.getItem('token'));
+    this.spinner.show();
+    this.productService.statistical().subscribe({
+      next: (res: any) => {
+        this.statistical = res.Data;
+        this.spinner.hide();
+      },
+      error: async (err) => {
+        if (err.status === 401) {
+          this.refreshTokenService.refreshToken()
+            .subscribe((res) => {
+              tokenStorage.AccessToken = res.Data.AccessToken;
+              localStorage.setItem('token', JSON.stringify(tokenStorage));
+              this.productService.statistical().subscribe(
+                (res: any) => {
+                  this.statistical = res.Data;
+                  this.spinner.hide();
+                })
+            });
+        }
+      }
+    })
   }
 }
