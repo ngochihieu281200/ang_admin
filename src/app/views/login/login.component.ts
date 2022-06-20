@@ -15,32 +15,33 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder, private dataService: AccountService, private router: Router
   ) {
-    this.loginForm =this.fb.group({
-      Username : ['',[Validators.required,Validators.minLength(1)]],
-      Password : ['',Validators.required]
+    this.loginForm = this.fb.group({
+      Username: ['', [Validators.required, Validators.minLength(1)]],
+      Password: ['', Validators.required]
     })
-   }
+  }
 
   ngOnInit(): void {
 
   }
-  login(loginForm:any){
+  login(loginForm: any) {
     // console.log(loginForm)
-    this.dataService.userLogin(loginForm.value.Username,loginForm.value.Password)
-    .pipe(first())
-    .subscribe(
-      data=>{
-        // const redirect = this.dataService.redirectUrl ?this.dataService.redirectUrl : '/dashboard'
-        // this.router.navigate([redirect])
-        // this.router.navigate(['/dashboard']);
-        console.log('data', data)
-        localStorage.setItem("token",JSON.stringify(data.Data))
-        this.router.navigate(['/dashboard']);
-        // localStorage.setItem('currentUser',JSON.stringify(data.Data))
-      },
-      err =>{
-        alert('Username or password is incorrect')
-      }
-    )
+    this.dataService.userLogin(loginForm.value.Username, loginForm.value.Password)
+      .pipe(first())
+      .subscribe(
+        data => {
+          // const redirect = this.dataService.redirectUrl ?this.dataService.redirectUrl : '/dashboard'
+          // this.router.navigate([redirect])
+          // this.router.navigate(['/dashboard']);
+          console.log('data', data)
+          localStorage.setItem("token", JSON.stringify(data.Data))
+          localStorage.setItem("role", JSON.stringify(data.Data.RoleName))
+          this.router.navigate(['/dashboard']);
+          // localStorage.setItem('currentUser',JSON.stringify(data.Data))
+        },
+        err => {
+          alert('Username or password is incorrect')
+        }
+      )
   }
 }

@@ -3,20 +3,31 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-  auth:any;
-  constructor(private router:Router){}
+  auth: any;
+  currentUser: any;
+  constructor(private router: Router, private toastr: ToastrService) { }
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      this.auth = localStorage.getItem('token');
-      if(!this.auth){
-        return this.router.navigate(["/login"]);
-      }else return true;
+    this.auth = localStorage.getItem('token');
+    this.currentUser = localStorage.getItem('role');
+    if (!this.auth) {
+      return this.router.navigate(["/login"]);
+    } else {
+      if (route.data.roles && route.data.roles.indexOf(this.currentUser) === -1) {
+        this.toastr.error("Bạn không có quyền truy cập vào trang này", 'Thông báo lỗi');
+        return false;
+      }
+      else {
+        return true;
+      }
+    }
 
   }
 

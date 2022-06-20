@@ -29,7 +29,7 @@ import { NewsComponent } from './views/base/news/news.component';
 import { AddUpdateNewsComponent } from './views/base/news/add-update-news/add-update-news.component';
 import { OrdersWaitingDeleveryDetailsComponent } from './views/base/orders-waiting-delivery/orders-waiting-delevery-details/orders-waiting-delevery-details.component';
 import { OrdersSuccessDetailsComponent } from './views/base/orders-success/orders-success-details/orders-success-details.component';
-
+import { Role } from './model/role.model';
 
 export const routes: Routes = [
   {
@@ -78,9 +78,7 @@ export const routes: Routes = [
       {
         path: 'product',
         component: ProductComponent,
-        data: {
-          title: 'Product'
-        },
+        data: { roles: [Role.Staff] },
         canActivate: [AuthGuard],
         children: [
           {
@@ -89,6 +87,7 @@ export const routes: Routes = [
             canActivate: [AuthGuard],
           }
         ]
+
       },
       {
         path: 'product/:id',
