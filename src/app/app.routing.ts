@@ -68,7 +68,8 @@ export const routes: Routes = [
       {
         path: 'dashboard',
         loadChildren: () => import('./views/dashboard/dashboard.module').then(m => m.DashboardModule),
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
+        data: { roles: [Role.Admin, Role.Staff] }
       },
       {
         path: 'base',
@@ -78,7 +79,7 @@ export const routes: Routes = [
       {
         path: 'product',
         component: ProductComponent,
-        data: { roles: [Role.Staff] },
+        data: { roles: [Role.Admin] },
         canActivate: [AuthGuard],
         children: [
           {
@@ -91,116 +92,121 @@ export const routes: Routes = [
       },
       {
         path: 'product/:id',
+        data: { roles: [Role.Admin] },
         component: AddUpdateProductComponent,
         canActivate: [AuthGuard],
       },
       {
         path: 'product-detail/:id',
         component: ProductDetailComponent,
-        data: {
-          title: 'Product-Detail',
-        },
+        data: { roles: [Role.Admin] },
         canActivate: [AuthGuard],
       },
       {
         path: 'voucher',
+        data: { roles: [Role.Admin] },
         component: VouchersComponent,
         canActivate: [AuthGuard],
       },
       {
         path: 'voucher/:id',
+        data: { roles: [Role.Admin] },
         component: AddUpdateVoucherComponent,
         canActivate: [AuthGuard],
       },
       {
         path: 'banner',
+        data: { roles: [Role.Admin, Role.Staff] },
         component: BannerComponent,
         canActivate: [AuthGuard],
       },
       {
         path: 'banner/:id',
+        data: { roles: [Role.Admin, Role.Staff] },
         component: AddUpdateBannerComponent,
         canActivate: [AuthGuard],
       },
       {
         path: 'news',
+        data: { roles: [Role.Admin, Role.Staff] },
         component: NewsComponent,
         canActivate: [AuthGuard],
       },
       {
         path: 'news/:id',
+        data: { roles: [Role.Admin, Role.Staff] },
         component: AddUpdateNewsComponent,
         canActivate: [AuthGuard],
       },
       {
         path: 'category',
         component: CategoryComponent,
-        data: {
-          title: 'Category',
-        },
+        data: { roles: [Role.Admin] },
         canActivate: [AuthGuard],
       },
       {
         path: 'category/:id',
         component: AddUpdateCategoryComponent,
-        data: {
-          title: 'id',
-        },
+        data: { roles: [Role.Admin] },
         canActivate: [AuthGuard],
       },
       {
         path: 'staff',
         component: StaffComponent,
-        data: {
-          title: 'Staff',
-        },
+        data: { roles: [Role.Admin] },
         canActivate: [AuthGuard],
       },
       {
         path: 'staff/id',
         component: AddUpdateStaffComponent,
-        data: {
-          title: 'id',
-        },
+        data: { roles: [Role.Admin] },
         canActivate: [AuthGuard],
       },
       {
         path: 'order/pending',
+        data: { roles: [Role.Admin, Role.Staff] },
         component: OrdersPendingComponent,
         canActivate: [AuthGuard],
       },
       {
         path: 'order/pending/:id',
+        data: { roles: [Role.Admin, Role.Staff] },
         component: OrdersPendingDetailsComponent,
         canActivate: [AuthGuard],
       },
       {
         path: 'order/delivery',
+        data: { roles: [Role.Admin, Role.Staff] },
         component: OrdersWaitingDeliveryComponent,
         canActivate: [AuthGuard],
       },
       {
         path: 'order/delivery/id',
+        data: { roles: [Role.Admin, Role.Staff] },
         component: OrdersWaitingDeleveryDetailsComponent,
         canActivate: [AuthGuard],
       },
       {
         path: 'order/cancle',
+        data: { roles: [Role.Admin, Role.Staff] },
         component: OrdersWaitingCancleComponent,
         canActivate: [AuthGuard],
       },
       {
         path: 'order/cancle/:id',
+        data: { roles: [Role.Admin, Role.Staff] },
         component: OrdersWaitingDetailsComponent,
         canActivate: [AuthGuard],
       },
       {
         path: 'order/success',
+        data: { roles: [Role.Admin, Role.Staff] },
         component: OrdersSuccessComponent,
         canActivate: [AuthGuard],
       },
       {
         path: 'order/success/id',
+        data: { roles: [Role.Admin, Role.Staff] },
         component: OrdersSuccessDetailsComponent,
         canActivate: [AuthGuard],
       },
