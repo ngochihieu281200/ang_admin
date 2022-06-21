@@ -27,7 +27,7 @@ export class OrdersWaitingDeliveryComponent implements OnInit {
   ngOnInit(): void {
     this.spinner.show();
     var tokenStorage = JSON.parse(localStorage.getItem('token'));
-    this.orderService.GetAllOrderPending().subscribe(
+    this.orderService.GetAllOrderDelivery().subscribe(
       (res: any) => {
         this.source.load(res.Data);
         this.spinner.hide();
@@ -38,7 +38,7 @@ export class OrdersWaitingDeliveryComponent implements OnInit {
             .subscribe((res) => {
               tokenStorage.AccessToken = res.Data.AccessToken;
               localStorage.setItem('token', JSON.stringify(tokenStorage));
-              this.orderService.GetAllOrderPending().subscribe(
+              this.orderService.GetAllOrderDelivery().subscribe(
                 (res: any) => {
                   this.source.load(res.Data.ListProduct),
                     this.spinner.hide();
@@ -51,7 +51,7 @@ export class OrdersWaitingDeliveryComponent implements OnInit {
   }
 
   onCuston(event) {
-    (<any>this.router).navigate([`order/waiting-delivery/${event.data.Id}`]);
+    (<any>this.router).navigate([`order/delivery/${event.data.Id}`]);
   }
 
 
@@ -78,13 +78,19 @@ export class OrdersWaitingDeliveryComponent implements OnInit {
         title: 'Mã Đơn Hàng',
         type: 'string',
       },
-      Name: {
+      UserOrder: {
         title: 'Tên Người Dùng',
         type: 'string',
       },
       AddressReceive: {
         title: 'Địa Chỉ',
-        type: 'string',
+        type: 'html',
+        valuePrepareFunction: (value, cell, row) => {
+          return `<p class ="m-0" >
+          ${cell.AddressReceive.Address} ${cell.AddressReceive.Ward} <br>
+          ${cell.AddressReceive.District} ${cell.AddressReceive.Province}
+          </p>`
+        }
       },
       PhoneReceive: {
         title: 'Số Điện Thoại',

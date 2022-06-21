@@ -181,7 +181,7 @@ export const routes: Routes = [
         canActivate: [AuthGuard],
       },
       {
-        path: 'order/delivery/id',
+        path: 'order/delivery/:id',
         data: { roles: [Role.Admin, Role.Staff] },
         component: OrdersWaitingDeleveryDetailsComponent,
         canActivate: [AuthGuard],
@@ -205,7 +205,7 @@ export const routes: Routes = [
         canActivate: [AuthGuard],
       },
       {
-        path: 'order/success/id',
+        path: 'order/success/:id',
         data: { roles: [Role.Admin, Role.Staff] },
         component: OrdersSuccessDetailsComponent,
         canActivate: [AuthGuard],
